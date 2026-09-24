@@ -1,0 +1,22 @@
+\begin{tabular}{lccccc}
+\toprule
+& \multicolumn{2}{c}{Harvest} & \multicolumn{2}{c}{Thinning} & \multicolumn{1}{c}{Joint IV} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-6}
+& (1) & (2) & (3) & (4) & (5) \\
+& \multicolumn{1}{c}{Wildfire event} & \multicolumn{1}{c}{Wildfire event} & \multicolumn{1}{c}{Wildfire event} & \multicolumn{1}{c}{Wildfire event} & \multicolumn{1}{c}{Wildfire event} \\
+& FE & IV & FE & IV & IV \\
+\midrule
+Harvest             &     -0.0000         &     -0.4453\sym{***}&                     &                     &     -0.3883\sym{***}\\
+                    &    (0.0014)         &    (0.0830)         &                     &                     &    (0.0824)         \\
+\addlinespace
+Thinning            &                     &                     &     -0.0014         &     -0.1872\sym{***}&     -0.1663\sym{***}\\
+                    &                     &                     &    (0.0018)         &    (0.0435)         &    (0.0471)         \\
+\midrule
+Kleibergen-Paap Wald F statistic&                     &      214.64         &                     &      488.11         &      107.14         \\
+Observations        &     761,236         &     761,236         &     761,236         &     761,236         &     761,236         \\
+Plot FE             &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Year FE             &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Species group FE    &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Ecoregion FE        &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+\bottomrule
+\end{tabular}

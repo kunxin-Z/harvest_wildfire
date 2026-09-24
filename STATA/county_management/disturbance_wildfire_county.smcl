@@ -1,0 +1,2427 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\zhuku\OneDrive - Auburn University\python_project\wildfire_milling\STATA\county_management\v27\disturbance_wildfire_county.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}27 Aug 2026, 00:19:15
+{txt}
+{com}. 
+. duplicates report fips year
+
+{p 0 4}{txt}Duplicates in terms of {res} fips year{p_end}
+
+{txt}{hline 10}{c TT}{hline 27}
+   copies {c |} observations       surplus
+{hline 10}{c +}{hline 27}
+        1 {c |}        {res}91176             0
+{txt}{hline 10}{c BT}{hline 27}
+
+{com}. 
+. 
+. 
+. 
+. drop state
+{txt}
+{com}. gen state = floor(fips/1000)
+{txt}
+{com}. gen bio_grow_ac_num = real(bio_grow_ac)
+{txt}(47,558 missing values generated)
+
+{com}. 
+. * generate states with information
+. gen south_state=0
+{txt}
+{com}. replace south_state=1 if inlist(state, 1, 5, 37, 40, 12, 13, 45, 47, 48, 51, 21, 22, 28)
+{txt}(38,831 real changes made)
+
+{com}. * only include southern statates
+. drop if south_state==0
+{txt}(52,345 observations deleted)
+
+{com}. 
+. 
+. * data cleaning
+. * limited counties have milling facilities
+. sum 
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}fips {c |}{res}     38,831    31381.07    16765.87       1001      51840
+{txt}{space 8}area {c |}{res}     38,831    405854.9    281393.4   1108.068    3902163
+{txt}{space 8}year {c |}{res}     38,831        2009    8.366708       1995       2023
+{txt}{space 5}vdp_max {c |}{res}     32,016    31.54531    9.128174     14.311     78.167
+{txt}{space 7}month {c |}{res}     32,016     7.27277     1.10194          3         10
+{txt}{hline 13}{c +}{hline 57}
+{space 3}mtbs_acre {c |}{res}      3,296    3.20e+07    8.38e+07   28.76912   1.41e+09
+{txt}{space 2}mtbs_count {c |}{res}      3,296    2.104066    2.537447          1         41
+{txt}{space 3}nifc_acre {c |}{res}        309     8568344    2.85e+07   359.1402   3.72e+08
+{txt}{space 2}nifc_count {c |}{res}        309     1.71521    1.277857          1         10
+{txt}{space 3}statecd_x {c |}{res}     23,642    29.96667    16.90512          1         51
+{txt}{hline 13}{c +}{hline 57}
+{space 2}countycd_x {c |}{res}     23,642    127.2695    110.9146          1        810
+{txt}area_total~l {c |}{res}     23,581    203969.5    143103.9   549.1388    1637981
+{txt}area_total~e {c |}{res}     23,535    177586.8    130927.8   549.1388    1512620
+{txt}{space 9}tpa {c |}{res}     23,548     569.136    220.7058    1.21518    2147.62
+{txt}{space 9}baa {c |}{res}     23,548    87.99059    29.29371   .4342407   317.1732
+{txt}{hline 13}{c +}{hline 57}
+bole_cf_acre {c |}{res}     23,548    1735.916    941.1201          0   12918.54
+{txt}{space 1}saw_cf_acre {c |}{res}     23,548    987.8775     676.313          0   11163.57
+{txt}saw_mbf_acre {c |}{res}     23,548    5.465164    3.850966          0   71.68228
+{txt}{space 4}dia_grow {c |}{res}     19,491    .2007421    .1402302  -.7525784   1.490969
+{txt}{space 5}ba_grow {c |}{res}     19,491    .0128186    .0070482  -.0541262    .084791
+{txt}{hline 13}{c +}{hline 57}
+{space 1}netvol_grow {c |}{res}     19,491    .3600486    .2031362  -1.457928   2.120179
+{txt}{space 1}sawvol_grow {c |}{res}     19,491    .0013245    .0010701  -.0117673   .0142937
+{txt}{space 4}bio_grow {c |}{res}     19,491    .0085158    .0044752  -.0399015   .0506023
+{txt}{space 2}ba_grow_ac {c |}{res}          0
+{txt}netvol_gro~c {c |}{res}          0
+{txt}{hline 13}{c +}{hline 57}
+sawvol_gro~c {c |}{res}     19,499    .2430861    .1909868  -1.427267   2.553394
+{txt}{space 1}bio_grow_ac {c |}{res}          0
+{txt}{space 4}bio_acre {c |}{res}     23,562    50.47253    23.49719   .0434437   259.3483
+{txt}{space 3}carb_acre {c |}{res}     23,562    24.00404    11.15756   .0199407   119.7587
+{txt}{space 9}h_a {c |}{res}     23,581     1.02353    .4060865          0   1.851672
+{txt}{hline 13}{c +}{hline 57}
+{space 8}eh_a {c |}{res}     23,581    .1732696    .0431041          0   .3465736
+{txt}{space 9}s_a {c |}{res}     23,581    5.418782     2.23376          0   12.64724
+{txt}{space 9}h_b {c |}{res}     23,548    1.441974    .4051418  -.0579775   2.453319
+{txt}{space 8}eh_b {c |}{res}     23,548   -.0904937     .063526  -.1815331   .3463316
+{txt}{space 9}s_b {c |}{res}     23,548    29.05778    13.19868  -1.78e-15   69.05198
+{txt}{hline 13}{c +}{hline 57}
+{space 9}h_g {c |}{res}     23,548    2.466938    .6752031          0   3.540043
+{txt}{space 8}eh_g {c |}{res}     23,548    .0830187    .0409718          0   .3564429
+{txt}{space 9}s_g {c |}{res}     23,548    34.48416    14.62311          1         76
+{txt}{space 4}recr_tpa {c |}{res}     19,491    5.332948    3.218543          0   32.37779
+{txt}{space 4}mort_tpa {c |}{res}     19,491    2.044818    1.223614          0   19.89072
+{txt}{hline 13}{c +}{hline 57}
+{space 4}remv_tpa {c |}{res}     19,491    3.082538    3.466367          0   64.53171
+{txt}{space 4}grow_tpa {c |}{res}     19,491           0           0          0          0
+{txt}{space 4}chng_tpa {c |}{res}     19,491    .2055912    3.663245  -61.47549   31.43506
+{txt}{space 3}recr_perc {c |}{res}          0
+{txt}{space 3}mort_perc {c |}{res}          0
+{txt}{hline 13}{c +}{hline 57}
+{space 3}remv_perc {c |}{res}     19,482    2.009566    2.084359          0   33.33792
+{txt}{space 3}grow_perc {c |}{res}     19,482           0           0          0          0
+{txt}{space 3}chng_perc {c |}{res}          0
+{txt}late_perce~e {c |}{res}     23,584    12.82753    11.09691          0        100
+{txt}mature_per~e {c |}{res}     23,584    41.65853     16.4086          0        100
+{txt}{hline 13}{c +}{hline 57}
+mosaic_per~e {c |}{res}     23,584    9.279857    10.57879          0        100
+{txt}pole_perce~e {c |}{res}     23,584    36.22136    16.81715          0        100
+{txt}bio_ac~000hr {c |}{res}     10,872    2.177774    6.694673          0   196.8622
+{txt}bio_ac~100hr {c |}{res}     10,872    1.202859    1.298726          0   50.48906
+{txt}bio_acr~10hr {c |}{res}     10,872    .3704929    .4027515          0   13.00149
+{txt}{hline 13}{c +}{hline 57}
+bio_acre_1hr {c |}{res}     10,872    .0387704    .0318476          0   1.287681
+{txt}bio_acre_d~f {c |}{res}     10,872    14.79652    58.22517          0   4616.666
+{txt}bio_acre_l~r {c |}{res}     10,872    11.21489    20.83228          0   564.6683
+{txt}bio_acre_p~e {c |}{res}     10,872    4.214554    37.93035          0   1312.918
+{txt}vol_ac~000hr {c |}{res}     10,872    236.4357     680.425          0   19232.33
+{txt}{hline 13}{c +}{hline 57}
+vol_ac~100hr {c |}{res}     10,872    87.78943    95.43284          0   4028.764
+{txt}vol_acr~10hr {c |}{res}     10,872    27.06084    28.75728          0   875.5963
+{txt}vol_acre_1hr {c |}{res}     10,872    2.825272    2.349799          0   87.25848
+{txt}vol_acre_d~f {c |}{res}     10,872           0           0          0          0
+{txt}vol_acre_l~r {c |}{res}     10,872           0           0          0          0
+{txt}{hline 13}{c +}{hline 57}
+vol_acre_p~e {c |}{res}     10,872    389.9223    3325.288          0   102635.8
+{txt}{space 3}na_l3code {c |}{res}          0
+{txt}{space 2}fema_count {c |}{res}      1,452    1.190083    .5286663          1          7
+{txt}vdp_max_sp_1 {c |}{res}     30,797    33.86687    9.297379     16.741     78.167
+{txt}{space 2}month_sp_1 {c |}{res}     30,797    7.588369     1.02642          4         10
+{txt}{hline 13}{c +}{hline 57}
+{space 4}tpa_sp_1 {c |}{res}     24,170    705.7246    230.5887   10.01776    2147.62
+{txt}{space 4}baa_sp_1 {c |}{res}     24,170    103.6146      29.686   2.529287   317.1732
+{txt}bole_cf_ac~1 {c |}{res}     24,170    2179.945    1104.902          0   12918.54
+{txt}saw_cf_acr~1 {c |}{res}     24,170    1348.329    849.4876          0   11163.57
+{txt}saw_mbf_ac~1 {c |}{res}     24,170    7.537202    4.905263          0   71.68228
+{txt}{hline 13}{c +}{hline 57}
+dia_grow_s~1 {c |}{res}     20,494    .2986162    .1481093  -1.799774   1.490969
+{txt}ba_grow_sp_1 {c |}{res}     20,494    .0174768    .0068805  -.1122679    .084791
+{txt}netvo~w_sp_1 {c |}{res}     20,494    .4773581     .223731  -1.488538   2.120179
+{txt}sawvo~w_sp_1 {c |}{res}     20,494    .0020556    .0013174  -.0057461   .0142937
+{txt}bio_grow_s~1 {c |}{res}     20,494    .0113754    .0047028  -.0467307   .0506023
+{txt}{hline 13}{c +}{hline 57}
+ba_grow_ac~1 {c |}{res}          0
+{txt}netvo~c_sp_1 {c |}{res}     20,494    88.54809    42.80966    -203.05   397.5147
+{txt}sawvo~c_sp_1 {c |}{res}     20,494    .3635872    .2136655  -.7838158   2.553394
+{txt}bio_grow_a~1 {c |}{res}     20,494    2.054473    .8845895  -6.374488   7.320917
+{txt}bio_acre_s~1 {c |}{res}     24,170    61.82158    26.21578   .3022427   259.3483
+{txt}{hline 13}{c +}{hline 57}
+carb_acre_~1 {c |}{res}     24,170    29.38593    12.43637   .1387294   119.7587
+{txt}{space 4}h_a_sp_1 {c |}{res}     24,170    1.189649    .3864174          0   1.851672
+{txt}{space 3}eh_a_sp_1 {c |}{res}     24,170    .1985988    .0340209          0   .3465736
+{txt}{space 4}s_a_sp_1 {c |}{res}     24,170    6.341388     2.29814   .3865202   12.64724
+{txt}{space 4}h_b_sp_1 {c |}{res}     24,170    1.713353    .3288299          0   2.453319
+{txt}{hline 13}{c +}{hline 57}
+{space 3}eh_b_sp_1 {c |}{res}     24,170   -.0535792    .0861596  -.1565938   .3463316
+{txt}{space 4}s_b_sp_1 {c |}{res}     24,170    36.90314    13.46157  -8.88e-16   69.05198
+{txt}{space 4}h_g_sp_1 {c |}{res}     24,170    2.763554    .5701745          0   3.540043
+{txt}{space 3}eh_g_sp_1 {c |}{res}     24,170    .1101071    .0575597          0   .3564429
+{txt}{space 4}s_g_sp_1 {c |}{res}     24,170    42.54274    14.84018          1         76
+{txt}{hline 13}{c +}{hline 57}
+recr_tpa_s~1 {c |}{res}     20,524    7.664185    4.082939          0   32.37779
+{txt}mort_tpa_s~1 {c |}{res}     20,524    3.192003     1.73542          0   24.68943
+{txt}remv_tpa_s~1 {c |}{res}     20,524    5.642775    4.742442          0   64.53171
+{txt}grow_tpa_s~1 {c |}{res}     20,524           0           0          0          0
+{txt}chng_tpa_s~1 {c |}{res}     20,524    3.535816    3.370575  -24.68943   31.43506
+{txt}{hline 13}{c +}{hline 57}
+recr_perc_~1 {c |}{res}          0
+{txt}mort_perc_~1 {c |}{res}          0
+{txt}remv_perc_~1 {c |}{res}     20,494    3.567583    2.656178          0   33.33792
+{txt}grow_perc_~1 {c |}{res}     20,494           0           0          0          0
+{txt}chng_perc_~1 {c |}{res}          0
+{txt}{hline 13}{c +}{hline 57}
+late_perce~1 {c |}{res}     24,170    23.18329    14.29175          0        100
+{txt}mature_per~1 {c |}{res}     24,170    55.62997    15.40663          0        100
+{txt}mosaic_per~1 {c |}{res}     24,170    17.54769    14.57603          0        100
+{txt}pole_perce~1 {c |}{res}     24,170    49.90457    16.43125          0        100
+{txt}b~000hr_sp_1 {c |}{res}     12,643    5.923202     13.0772          0   196.8622
+{txt}{hline 13}{c +}{hline 57}
+b~100hr_sp_1 {c |}{res}     12,643    2.326298    2.061869          0   50.48906
+{txt}bi~10hr_sp_1 {c |}{res}     12,643    .6501397    .6968001          0   13.00149
+{txt}bio~1hr_sp_1 {c |}{res}     12,643    .0650287    .0484272          0   1.287681
+{txt}bio_acre_d~1 {c |}{res}     12,643    33.16216    104.2718          0   4616.666
+{txt}bio_acre_l~1 {c |}{res}     12,643    21.03919    38.41428          0   564.6683
+{txt}{hline 13}{c +}{hline 57}
+bio_acre_p~1 {c |}{res}     12,643    19.47197    82.94815          0   1312.918
+{txt}v~000hr_sp_1 {c |}{res}     12,643    629.8752    1330.001          0   19232.33
+{txt}v~100hr_sp_1 {c |}{res}     12,643    169.3336    150.5158          0   4028.764
+{txt}vo~10hr_sp_1 {c |}{res}     12,643    47.40944    48.95227          0   875.5963
+{txt}vol~1hr_sp_1 {c |}{res}     12,643    4.733898    3.583945          0   87.25848
+{txt}{hline 13}{c +}{hline 57}
+vol_acre_d~1 {c |}{res}     12,643           0           0          0          0
+{txt}vol_acre_l~1 {c |}{res}     12,643           0           0          0          0
+{txt}vol_acre_p~1 {c |}{res}     12,643    1757.717    7115.172          0   102635.8
+{txt}na_l3code_~1 {c |}{res}          0
+{txt}area_~x_sp_1 {c |}{res}     24,289    328396.4    204580.8   2702.994    1701183
+{txt}{hline 13}{c +}{hline 57}
+cond_statu~1 {c |}{res}     24,289           1           0          1          1
+{txt}{space 1}stdage_sp_1 {c |}{res}     24,289    52.72562    14.48194          0        193
+{txt}siteclcd_s~1 {c |}{res}     24,289    5.302629     .878324          2          7
+{txt}stdszcd_sp_1 {c |}{res}     24,289    2.035863    .5393693          1          5
+{txt}stdorgcd_s~1 {c |}{res}     24,289    .2341674    .2139434          0          1
+{txt}{hline 13}{c +}{hline 57}
+dstrbcd1_s~1 {c |}{res}     24,289    11.11398    8.741521          0         60
+{txt}dstrbcd2_s~1 {c |}{res}     24,289    2.079648    4.031924          0         60
+{txt}dstrbcd3_s~1 {c |}{res}     24,289    .2316912    1.595206          0         54
+{txt}dstrbyr1_s~1 {c |}{res}     24,289     1126.28    1429.317          0       9999
+{txt}dstrbyr2_s~1 {c |}{res}     24,289    221.6873    623.5232          0       9999
+{txt}{hline 13}{c +}{hline 57}
+dstrbyr3_s~1 {c |}{res}     24,289    22.58175    113.8358          0       2012
+{txt}{space 2}slope_sp_1 {c |}{res}     24,289    15.59207    13.83392          0         71
+{txt}fortypcd_s~1 {c |}{res}     24,289    560.4694    171.4251        142        999
+{txt}{space 1}sicond_sp_1 {c |}{res}     24,289    53.22894    25.51724          0        121
+{txt}{space 2}age20_sp_1 {c |}{res}     24,289    .8623458    .1325003          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 2}age30_sp_1 {c |}{res}     24,289    .7701461    .1879568          0          1
+{txt}{space 2}age40_sp_1 {c |}{res}     24,289    .6762838    .2175744          0          1
+{txt}mtbs_acre_~1 {c |}{res}     30,797    4.24e+08    2.44e+09          0   8.32e+10
+{txt}mtbs_count~1 {c |}{res}     30,797    20.10007    67.33094          0       1472
+{txt}nifc_acre_~1 {c |}{res}     30,797    1.85e+08    2.01e+09          0   7.19e+10
+{txt}{hline 13}{c +}{hline 57}
+nifc_count~1 {c |}{res}     30,797    9.516804    68.12894          0       2484
+{txt}area_~l_sp_1 {c |}{res}     30,797    2.14e+07    1.85e+07          0   1.40e+08
+{txt}area_~e_sp_1 {c |}{res}     30,797    1.86e+07    1.66e+07          0   1.29e+08
+{txt}{space 3}area_sp_1 {c |}{res}     30,797    5.75e+07    3.34e+07    2331060   3.79e+08
+{txt}forest_han~1 {c |}{res}     30,797    2.98e+07    1.85e+07   1759.588   1.17e+08
+{txt}{hline 13}{c +}{hline 57}
+vdp_max~3218 {c |}{res}     30,797    33.89972    9.297789     16.741     78.167
+{txt}month_s~3218 {c |}{res}     30,797    7.593564      1.0252          4         10
+{txt}{space 1}tpa_sp_3218 {c |}{res}     24,177    708.5486    230.7615   10.01776    2147.62
+{txt}{space 1}baa_sp_3218 {c |}{res}     24,177    103.8909    29.70277   2.529287   317.1732
+{txt}bole_cf~3218 {c |}{res}     24,177    2188.737    1107.926          0   12918.54
+{txt}{hline 13}{c +}{hline 57}
+saw_cf_~3218 {c |}{res}     24,177    1356.176    852.2162          0   11163.57
+{txt}saw_mbf~3218 {c |}{res}     24,177    7.585485    4.921443          0   71.68228
+{txt}dia_gro~3218 {c |}{res}     20,500    .3011195    .1485888  -1.799774   1.490969
+{txt}ba_grow_sp~8 {c |}{res}     20,500    .0175889    .0068795  -.1122679    .084791
+{txt}ne~w_sp_3218 {c |}{res}     20,500    .4799982    .2238376  -1.488538   2.120179
+{txt}{hline 13}{c +}{hline 57}
+sa~w_sp_3218 {c |}{res}     20,500    .0020716    .0013265  -.0057461   .0142937
+{txt}bio_grow_s~8 {c |}{res}     20,500    .0114403    .0047001  -.0467307   .0506023
+{txt}ba_grow_ac~8 {c |}{res}          0
+{txt}ne~c_sp_3218 {c |}{res}     20,500    89.11195    42.84832    -203.05   397.5147
+{txt}sa~c_sp_3218 {c |}{res}     20,500     .366213    .2143891  -.7838158   2.553394
+{txt}{hline 13}{c +}{hline 57}
+bio_grow_a~8 {c |}{res}     20,500    2.067116    .8850144  -6.374488   7.320917
+{txt}bio_acre_s~8 {c |}{res}     24,177    62.02442    26.30989   .3022427   259.3483
+{txt}carb_ac~3218 {c |}{res}     24,177    29.48199    12.48086   .1387294   119.7587
+{txt}{space 1}h_a_sp_3218 {c |}{res}     24,177    1.192691    .3866607          0   1.851672
+{txt}eh_a_sp_3218 {c |}{res}     24,177    .1989998     .034065          0   .3465736
+{txt}{hline 13}{c +}{hline 57}
+{space 1}s_a_sp_3218 {c |}{res}     24,177    6.359737    2.302036   .3865202   12.64724
+{txt}{space 1}h_b_sp_3218 {c |}{res}     24,177    1.717151    .3264156          0   2.453319
+{txt}eh_b_sp_3218 {c |}{res}     24,177   -.0526325    .0868076  -.1565938   .3463316
+{txt}{space 1}s_b_sp_3218 {c |}{res}     24,177    37.08157    13.46846  -8.88e-16   69.05198
+{txt}{space 1}h_g_sp_3218 {c |}{res}     24,177    2.767976    .5684441          0   3.540043
+{txt}{hline 13}{c +}{hline 57}
+eh_g_sp_3218 {c |}{res}     24,177    .1107798    .0578013          0   .3564429
+{txt}{space 1}s_g_sp_3218 {c |}{res}     24,177    42.71804    14.84978          1         76
+{txt}recr_tp~3218 {c |}{res}     20,537     7.72885     4.10461          0   32.37779
+{txt}mort_tp~3218 {c |}{res}     20,537    3.223487    1.758345          0   24.68943
+{txt}remv_tp~3218 {c |}{res}     20,537     5.70682     4.76099          0   64.53171
+{txt}{hline 13}{c +}{hline 57}
+grow_tp~3218 {c |}{res}     20,537           0           0          0          0
+{txt}chng_tp~3218 {c |}{res}     20,537    3.613287    3.384617  -24.68943   31.43506
+{txt}recr_pe~3218 {c |}{res}          0
+{txt}mort_pe~3218 {c |}{res}          0
+{txt}remv_pe~3218 {c |}{res}     20,500     3.61021    2.669435          0   33.33792
+{txt}{hline 13}{c +}{hline 57}
+grow_pe~3218 {c |}{res}     20,500           0           0          0          0
+{txt}chng_pe~3218 {c |}{res}          0
+{txt}late_pe~3218 {c |}{res}     24,177    23.44864    14.35952          0        100
+{txt}mature_~3218 {c |}{res}     24,177    55.87704    15.34771          0        100
+{txt}mosaic_~3218 {c |}{res}     24,177    17.70168    14.65505          0        100
+{txt}{hline 13}{c +}{hline 57}
+pole_pe~3218 {c |}{res}     24,177    50.18837    16.38176          0        100
+{txt}bio_acre_1.. {c |}{res}     12,654     6.10106    13.69391          0   196.8622
+{txt}bio_acre_1.. {c |}{res}     12,654    2.364029    2.126837          0   50.48906
+{txt}bio_acre_1.. {c |}{res}     12,654    .6578019    .7001962          0   13.00149
+{txt}bio_acre_1.. {c |}{res}     12,654    .0659109    .0490059          0   1.287681
+{txt}{hline 13}{c +}{hline 57}
+bio_acre_d~8 {c |}{res}     12,654    33.48671    104.2778          0   4616.666
+{txt}bio_acre_l~8 {c |}{res}     12,654     21.2802    38.51153          0   564.6683
+{txt}bio_acre_p~8 {c |}{res}     12,654    19.66197    83.02653          0   1312.918
+{txt}vol_acre_1.. {c |}{res}     12,654    645.8529    1386.181          0   19232.33
+{txt}vol_acre_1.. {c |}{res}     12,654    172.0345    155.8206          0   4028.764
+{txt}{hline 13}{c +}{hline 57}
+vol_acre_1.. {c |}{res}     12,654    47.99349    49.29569          0   875.5963
+{txt}vol_acre_1.. {c |}{res}     12,654    4.796379     3.62725          0   87.25848
+{txt}vol_acre_d~8 {c |}{res}     12,654           0           0          0          0
+{txt}vol_acre_l~8 {c |}{res}     12,654           0           0          0          0
+{txt}vol_acre_p~8 {c |}{res}     12,654    1776.649    7121.276          0   102635.8
+{txt}{hline 13}{c +}{hline 57}
+na_l3co~3218 {c |}{res}          0
+{txt}ar~x_sp_3218 {c |}{res}     24,297    330993.2    203914.3   2968.989    1701183
+{txt}cond_st~3218 {c |}{res}     24,297           1           0          1          1
+{txt}stdage_~3218 {c |}{res}     24,297    52.95046    14.54976          0        193
+{txt}siteclc~3218 {c |}{res}     24,297    5.310681    .8773189          2          7
+{txt}{hline 13}{c +}{hline 57}
+stdszcd~3218 {c |}{res}     24,297    2.041661      .53842          1          5
+{txt}stdorgc~3218 {c |}{res}     24,297    .2366629     .214565          0          1
+{txt}dstrbcd1_s~8 {c |}{res}     24,297    11.21478    8.743927          0         60
+{txt}dstrbcd2_s~8 {c |}{res}     24,297    2.110639    4.038787          0         60
+{txt}dstrbcd3_s~8 {c |}{res}     24,297    .2367833    1.601468          0         54
+{txt}{hline 13}{c +}{hline 57}
+dstrbyr1_s~8 {c |}{res}     24,297    1136.562     1432.82          0       9999
+{txt}dstrbyr2_s~8 {c |}{res}     24,297    224.7397     624.735          0       9999
+{txt}dstrbyr3_s~8 {c |}{res}     24,297    22.91819    114.1437          0       2012
+{txt}slope_s~3218 {c |}{res}     24,297    15.69002    13.90249          0         71
+{txt}fortypc~3218 {c |}{res}     24,297    561.5079    171.3962        142        999
+{txt}{hline 13}{c +}{hline 57}
+sicond_~3218 {c |}{res}     24,297      53.526     25.5566          0        121
+{txt}age20_s~3218 {c |}{res}     24,297    .8646524     .131316          0          1
+{txt}age30_s~3218 {c |}{res}     24,297    .7733995    .1864659          0          1
+{txt}age40_s~3218 {c |}{res}     24,297    .6797595    .2167906          0          1
+{txt}mtbs_ac~3218 {c |}{res}     30,797    4.36e+08    2.50e+09          0   8.32e+10
+{txt}{hline 13}{c +}{hline 57}
+mtbs_co~3218 {c |}{res}     30,797    20.63256    68.48872          0       1472
+{txt}nifc_ac~3218 {c |}{res}     30,797    1.91e+08    2.06e+09          0   7.19e+10
+{txt}nifc_co~3218 {c |}{res}     30,797    9.772965    69.29656          0       2484
+{txt}ar~l_sp_3218 {c |}{res}     30,797    2.20e+07    1.89e+07          0   1.40e+08
+{txt}ar~e_sp_3218 {c |}{res}     30,797    1.91e+07    1.70e+07          0   1.29e+08
+{txt}{hline 13}{c +}{hline 57}
+area_sp_3218 {c |}{res}     30,797    5.90e+07    3.38e+07    2331060   3.79e+08
+{txt}forest_~3218 {c |}{res}     30,797    3.07e+07    1.88e+07   1759.588   1.17e+08
+{txt}{space 6}estabs {c |}{res}     19,455    6.143562    6.681677          0         55
+{txt}{space 6}employ {c |}{res}     19,455    33.11498    53.51786          0        448
+{txt}{space 5}mill_id {c |}{res}          0
+{txt}{hline 13}{c +}{hline 57}
+{space 7}owner {c |}{res}          0
+{txt}{space 4}capacity {c |}{res}      7,098    284.3194    403.9291          0       3078
+{txt}stateprovi~e {c |}{res}          0
+{txt}{space 6}open_c {c |}{res}      7,098    .0450831    .2408165          0          3
+{txt}{space 5}close_c {c |}{res}      7,098    .0207101    .1472856          0          2
+{txt}{hline 13}{c +}{hline 57}
+{space 6}open_o {c |}{res}      7,098    .0436743    .2393162          0          3
+{txt}{space 5}close_o {c |}{res}      7,098    .0132432    .1167615          0          2
+{txt}milling_co~t {c |}{res}      7,098    2.039448    1.378438          1          9
+{txt}{space 8}open {c |}{res}      7,098    1.508171    1.208212          0          9
+{txt}{space 3}statecd_y {c |}{res}     23,581    29.98397    16.92113          1         51
+{txt}{hline 13}{c +}{hline 57}
+{space 2}countycd_y {c |}{res}     23,581    127.4275    110.9968          1        810
+{txt}{space 1}area_totalx {c |}{res}     23,581    203924.8    143080.2   549.1388    1637981
+{txt}cond_statu~d {c |}{res}     23,581           1           0          1          1
+{txt}{space 4}reservcd {c |}{res}     23,581    .0244859    .0814553          0          1
+{txt}{space 6}stdage {c |}{res}     23,581    43.04431    13.84316          0        135
+{txt}{hline 13}{c +}{hline 57}
+{space 4}siteclcd {c |}{res}     23,581    69.61119    30.37612        9.5        225
+{txt}{space 5}stdszcd {c |}{res}     23,581    1.748827    .4254093          1          5
+{txt}{space 2}stdorgcd_x {c |}{res}     23,581    .1470489    .1705371          0   .7357748
+{txt}{space 4}dstrbcd1 {c |}{res}     23,581    5.816256    6.456967          0         60
+{txt}{space 4}dstrbcd2 {c |}{res}     23,581    .6261408    2.015115          0   41.17192
+{txt}{hline 13}{c +}{hline 57}
+{space 4}dstrbcd3 {c |}{res}     23,581    .0496223    .4926127          0   18.03524
+{txt}{space 4}dstrbyr1 {c |}{res}     23,581    551.6287    907.5597          0       9999
+{txt}{space 4}dstrbyr2 {c |}{res}     23,581    66.24974    293.0085          0   7333.365
+{txt}{space 4}dstrbyr3 {c |}{res}     23,581    4.760872    49.85829          0   1579.914
+{txt}{space 7}slope {c |}{res}     23,581    10.71356    11.68218          0         65
+{txt}{hline 13}{c +}{hline 57}
+{space 4}fortypcd {c |}{res}     23,581     480.694    155.9597        161        999
+{txt}{space 6}sicond {c |}{res}     23,581    41.17876    24.18592          0         95
+{txt}{space 7}age20 {c |}{res}     23,581    .7419441    .1776507          0          1
+{txt}{space 7}age30 {c |}{res}     23,581    .6173696    .2249086          0          1
+{txt}{space 7}age40 {c |}{res}     23,581    .5102531    .2388461          0          1
+{txt}{hline 13}{c +}{hline 57}
+{space 4}rddistcd {c |}{res}     23,581    .3182592    .1505376   .0090808          2
+{txt}{space 8}elev {c |}{res}     23,581    756.2513    797.7727          0   5487.093
+{txt}{space 1}corporate_x {c |}{res}     23,581    .8697073    .1744233          0          1
+{txt}corporate_~i {c |}{res}     23,581    .1388108    .1659148          0   .7357748
+{txt}capacity_m~l {c |}{res}     20,538    98.83317    142.5069          0   1217.863
+{txt}{hline 13}{c +}{hline 57}
+forest_han~n {c |}{res}     30,797    210355.2    154072.2          0    1219387
+{txt}{space 4}unnamed0 {c |}{res}     36,356    43255.05    27203.21          0      79993
+{txt}{space 1}corporate_y {c |}{res}     36,356     .874625    .1738391          0          1
+{txt}{space 2}stdorgcd_y {c |}{res}     36,356    .1389816     .167835          0   .7357748
+{txt}{space 3}commodity {c |}{res}          0
+{txt}{hline 13}{c +}{hline 57}
+{space 2}all_val_yr {c |}{res}     27,298     5651726    1.10e+07          0   1.61e+08
+{txt}{space 2}ves_val_yr {c |}{res}     27,298     5060198    1.05e+07          0   1.60e+08
+{txt}{space 2}ves_wgt_yr {c |}{res}     27,298    1.99e+07    5.71e+07          0   1.03e+09
+{txt}{space 4}unnamed6 {c |}{res}          0
+{txt}commodi~1133 {c |}{res}          0
+{txt}{hline 13}{c +}{hline 57}
+all_val~1133 {c |}{res}     27,298     4705889    1.01e+07          0   1.55e+08
+{txt}ves_val~1133 {c |}{res}     27,298     4639563    1.01e+07          0   1.54e+08
+{txt}ves_wgt~1133 {c |}{res}     27,298    1.98e+07    5.69e+07          0   1.02e+09
+{txt}unnamed~1133 {c |}{res}          0
+{txt}commodity_im {c |}{res}          0
+{txt}{hline 13}{c +}{hline 57}
+all_val~r_im {c |}{res}     18,300    1.42e+08    1.82e+08       5065   1.43e+09
+{txt}ves_val~r_im {c |}{res}     27,298    1.55e+07    4.10e+07          0   7.54e+08
+{txt}ves_wgt~r_im {c |}{res}     19,846    1.07e+07    1.97e+07          0   1.66e+08
+{txt}{space 1}unnamed6_im {c |}{res}          0
+{txt}commodi~3_im {c |}{res}          0
+{txt}{hline 13}{c +}{hline 57}
+all_val~3_im {c |}{res}     19,846      186819    634908.3          0   1.32e+07
+{txt}ves_val~3_im {c |}{res}     19,846    163924.4    613351.6          0   1.32e+07
+{txt}ves_wgt~3_im {c |}{res}     19,846    470688.9     1717395          0   3.14e+07
+{txt}unnamed6_1~m {c |}{res}          0
+{txt}{space 6}year_x {c |}{res}     17,524    2016.289    3.927312       2010       2023
+{txt}{hline 13}{c +}{hline 57}
+{space 3}bartik_ex {c |}{res}     17,524    .0014527    .0033496  -.0109919   .0153472
+{txt}{space 6}year_y {c |}{res}     17,524    2016.289    3.927312       2010       2023
+{txt}{space 3}bartik_im {c |}{res}     17,524    .0000711    .0015507  -.0101464   .0061641
+{txt}{space 7}house {c |}{res}     29,886    3406.439    7780.229          0   117783.5
+{txt}{space 3}saw_price {c |}{res}     36,356    4.239971    5.266719          0   28.05741
+{txt}{hline 13}{c +}{hline 57}
+{space 2}pulp_price {c |}{res}     36,356    1.207721    1.488085          0   7.357505
+{txt}timber_price {c |}{res}     36,356    2.723846    3.335491          0   17.25148
+{txt}ves_v~r_firm {c |}{res}     27,298     4618637     9952528          0   1.60e+08
+{txt}ves_w~r_firm {c |}{res}     27,298    1.83e+07    5.42e+07          0   1.03e+09
+{txt}all_v~r_firm {c |}{res}     27,298     5143917    1.04e+07          0   1.61e+08
+{txt}{hline 13}{c +}{hline 57}
+ves_val_yr.. {c |}{res}     27,298    1.40e+07    3.79e+07          0   7.54e+08
+{txt}all_v~3_firm {c |}{res}     27,298     4311336     9587618          0   1.55e+08
+{txt}ves_v~3_firm {c |}{res}     27,298     4251392     9555289          0   1.54e+08
+{txt}ves_w~3_firm {c |}{res}     27,298    1.82e+07    5.41e+07          0   1.02e+09
+{txt}all_v~m_firm {c |}{res}     19,846    160979.6    547228.7          0   1.25e+07
+{txt}{hline 13}{c +}{hline 57}
+ves_val_yr.. {c |}{res}     19,846    140380.4    526753.1          0   1.25e+07
+{txt}ves_wgt_yr.. {c |}{res}     19,846    398723.2     1466883          0   2.97e+07
+{txt}ves_wgt_yr.. {c |}{res}     19,846     9686263    1.84e+07          0   1.66e+08
+{txt}{space 2}house_firm {c |}{res}     29,886    3012.571    6929.074          0   117783.5
+{txt}saw_price_~m {c |}{res}     36,356    3.829538    4.941593          0   28.05741
+{txt}{hline 13}{c +}{hline 57}
+pulp_price~m {c |}{res}     36,356    1.089578    1.395789          0   7.357505
+{txt}timber_pri~m {c |}{res}     36,356    2.459558    3.130498          0   17.25148
+{txt}{space 2}cc_private {c |}{res}     34,801    1764.726    4262.778          0   63689.14
+{txt}{space 4}cc_total {c |}{res}     34,801     1809.92    4329.008          0   63689.14
+{txt}major_cc_p~e {c |}{res}     34,801    1667.647    4097.955          0   63689.14
+{txt}{hline 13}{c +}{hline 57}
+major_cc_t~l {c |}{res}     34,801    1711.481    4163.822          0   63689.14
+{txt}{space 2}th_private {c |}{res}     34,801    2187.546    4861.402          0   59297.18
+{txt}{space 4}th_total {c |}{res}     34,801    2283.638    4980.176          0   59297.18
+{txt}major_th_p~e {c |}{res}     34,801     2096.59     4706.41          0   59297.18
+{txt}major_th_t~l {c |}{res}     34,801    2188.355    4819.698          0   59297.18
+{txt}{hline 13}{c +}{hline 57}
+{space 2}pt_private {c |}{res}     34,801    787.5791    2477.794          0   44357.75
+{txt}{space 4}pt_total {c |}{res}     34,801    822.5357    2550.823          0   46873.24
+{txt}major_pt_p~e {c |}{res}     34,801    753.5867    2423.854          0   44357.75
+{txt}major_pt_t~l {c |}{res}     34,801    787.4257    2495.032          0   46873.24
+{txt}n_cc_private {c |}{res}     34,801    2501.963    5169.958          0    70224.2
+{txt}{hline 13}{c +}{hline 57}
+{space 2}n_cc_total {c |}{res}     34,801     2580.33    5274.174          0    70224.2
+{txt}major_n_cc~e {c |}{res}     34,801     2413.76    5022.479          0   64261.16
+{txt}major_n_cc~l {c |}{res}     34,801    2490.399    5124.992          0   64261.16
+{txt}n_th_private {c |}{res}     34,801    1405.743    3885.146          0   47843.88
+{txt}{space 2}n_th_total {c |}{res}     34,801    1466.918    3966.593          0   47843.88
+{txt}{hline 13}{c +}{hline 57}
+major_n_th~e {c |}{res}     34,801    1349.893    3769.964          0   43253.98
+{txt}major_n_th~l {c |}{res}     34,801    1408.676    3849.123          0   43253.98
+{txt}major_cc_a~a {c |}{res}     34,801    1449.105    3629.653          0   55971.76
+{txt}major_th_a~a {c |}{res}     34,801    1842.712    4208.525          0    55797.1
+{txt}major_pt_a~a {c |}{res}     34,801     661.544    2190.117          0   34878.68
+{txt}{hline 13}{c +}{hline 57}
+major_n_cc~a {c |}{res}     34,801    2103.935    4465.816          0    61262.2
+{txt}major_n_th~a {c |}{res}     34,801    1187.403     3365.38          0   40677.16
+{txt}private_ar~s {c |}{res}     37,929     3467104     2291014   42932.43    7977403
+{txt}private_na~s {c |}{res}     37,929    2.45e+07    2.63e+07    4602156   1.07e+08
+{txt}{space 7}c_a_s {c |}{res}     37,929    73210.87    62753.59          0   282550.4
+{txt}{hline 13}{c +}{hline 57}
+{space 7}t_a_s {c |}{res}     37,929    93118.91    99323.84          0   510548.4
+{txt}{space 7}c_n_s {c |}{res}     37,929    165054.9    104622.4          0   582963.7
+{txt}{space 7}t_n_s {c |}{res}     37,929    44168.45    45438.01          0     191427
+{txt}private_ar~e {c |}{res}     37,873     1017075     1413929          0    5539319
+{txt}private_na~e {c |}{res}     37,873     4237306     3292068   18042.88   2.56e+07
+{txt}{hline 13}{c +}{hline 57}
+{space 6}c_a_se {c |}{res}     37,873    21832.17       36142          0   186752.5
+{txt}{space 6}t_a_se {c |}{res}     37,873    27404.18    50506.94          0   320937.1
+{txt}{space 6}c_n_se {c |}{res}     37,873    44449.97    58395.95          0   422361.7
+{txt}{space 6}t_n_se {c |}{res}     37,873     11980.8    22000.16          0   144524.4
+{txt}private_ar~c {c |}{res}     36,506    35631.66    54975.33          0   416579.3
+{txt}{hline 13}{c +}{hline 57}
+private_na~c {c |}{res}     36,506    172706.1    163524.3          0    2663634
+{txt}{space 7}c_a_c {c |}{res}     36,506    766.6312    2559.562          0   51441.85
+{txt}{space 7}t_a_c {c |}{res}     36,506     941.192    2936.635          0   41916.97
+{txt}{space 7}c_n_c {c |}{res}     36,506    1692.358    3853.136          0    61262.2
+{txt}{space 7}t_n_c {c |}{res}     36,506    436.1805    1695.472          0   24272.97
+{txt}{hline 13}{c +}{hline 57}
+{space 7}state {c |}{res}     38,831    31.23749    16.72021          1         51
+{txt}bio_grow_a~m {c |}{res}     19,499    1.544771    .8597759  -5.660089   7.320917
+{txt}{space 1}south_state {c |}{res}     38,831           1           0          1          1
+{txt}
+{com}. 
+. * generate establishment
+. gen stdorgcd=stdorgcd_x
+{txt}(15,250 missing values generated)
+
+{com}. 
+. * backfill the FIA data and trade based IV
+. foreach v in tpa baa bio_acre area_total_total area_total_private saw_cf_acre bio_grow_ac_num reservcd stdage siteclcd stdszcd slope sicond rddistcd elev age30 stdorgcd estabs {c -(}
+{txt}  2{com}.     gsort fips -year
+{txt}  3{com}.     by fips: replace `v' = `v'[_n-1] if missing(`v')
+{txt}  4{com}. {c )-}
+{txt}(13322 real changes made)
+(13322 real changes made)
+(13343 real changes made)
+(13353 real changes made)
+(13342 real changes made)
+(13322 real changes made)
+(17157 real changes made)
+(13353 real changes made)
+(13353 real changes made)
+(13353 real changes made)
+(13353 real changes made)
+(13353 real changes made)
+(13353 real changes made)
+(13353 real changes made)
+(13353 real changes made)
+(13353 real changes made)
+(13353 real changes made)
+(8,161 real changes made)
+
+{com}. 
+. 
+. xtset fips year
+{res}{txt}{col 8}panel variable:  {res}fips (strongly balanced)
+{txt}{col 9}time variable:  {res}{col 25}year, 1995 to 2023
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. 
+. 
+. 
+. * fill na
+. foreach var in mtbs_acre nifc_acre mtbs_count nifc_count capacity capacity_mill open_c close_c open_o close_o milling_count open  forest_hansen  cc_private cc_total major_cc_private major_cc_total th_private th_total major_th_private major_th_total pt_private pt_total major_pt_private major_pt_total n_cc_private n_cc_total major_n_cc_private major_n_cc_total n_th_private n_th_total major_n_th_private major_n_th_total major_cc_area major_th_area major_pt_area major_n_cc_area major_n_th_area estabs fema_count estabs{c -(}
+{txt}  2{com}.         replace `var'=0 if missing(`var')
+{txt}  3{com}. {c )-}
+{txt}(35,535 real changes made)
+(38,522 real changes made)
+(35,535 real changes made)
+(38,522 real changes made)
+(31,733 real changes made)
+(18,293 real changes made)
+(31,733 real changes made)
+(31,733 real changes made)
+(31,733 real changes made)
+(31,733 real changes made)
+(31,733 real changes made)
+(31,733 real changes made)
+(8,034 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(4,030 real changes made)
+(11,215 real changes made)
+(37,379 real changes made)
+(0 real changes made)
+
+{com}. 
+. * fillna for iv
+. local covars private_arti_s private_natural_s c_a_s t_a_s c_n_s t_n_s private_arti_se private_natural_se c_a_se t_a_se c_n_se t_n_se private_arti_c private_natural_c c_a_c t_a_c c_n_c t_n_c
+{txt}
+{com}. 
+. * Forward fill
+. gsort fips year
+{txt}
+{com}. foreach v of local covars {c -(}
+{txt}  2{com}.     by fips (year): replace `v' = `v'[_n-1] if missing(`v')
+{txt}  3{com}. {c )-}
+{txt}(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(589 real changes made)
+(592 real changes made)
+(592 real changes made)
+(592 real changes made)
+(592 real changes made)
+(592 real changes made)
+(592 real changes made)
+
+{com}. 
+. * Backfill
+. gsort fips -year
+{txt}
+{com}. foreach v of local covars {c -(}
+{txt}  2{com}.     by fips: replace `v' = `v'[_n-1] if missing(`v')
+{txt}  3{com}. {c )-}
+{txt}(313 real changes made)
+(313 real changes made)
+(313 real changes made)
+(313 real changes made)
+(313 real changes made)
+(313 real changes made)
+(311 real changes made)
+(311 real changes made)
+(311 real changes made)
+(311 real changes made)
+(311 real changes made)
+(311 real changes made)
+(428 real changes made)
+(428 real changes made)
+(428 real changes made)
+(428 real changes made)
+(428 real changes made)
+(428 real changes made)
+
+{com}. xtset fips year
+{res}{txt}{col 8}panel variable:  {res}fips (strongly balanced)
+{txt}{col 9}time variable:  {res}{col 25}year, 1995 to 2023
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. 
+. foreach x in private_arti private_natural c_a t_a c_n t_n {c -(}
+{txt}  2{com}.     replace `x'_se = `x'_s if missing(`x'_se) & !missing(`x'_s)
+{txt}  3{com}. {c )-}
+{txt}(58 real changes made)
+(58 real changes made)
+(58 real changes made)
+(58 real changes made)
+(58 real changes made)
+(58 real changes made)
+
+{com}. 
+. foreach col in private_arti_c private_natural_c c_a_c t_a_c c_n_c t_n_c{c -(}
+{txt}  2{com}.         replace `col'=0 if missing(`col')
+{txt}  3{com}. {c )-}
+{txt}(1,305 real changes made)
+(1,305 real changes made)
+(1,305 real changes made)
+(1,305 real changes made)
+(1,305 real changes made)
+(1,305 real changes made)
+
+{com}. 
+. 
+. * mtbs data change
+. replace mtbs_acre=mtbs_acre/4046.856
+{txt}(3,296 real changes made)
+
+{com}. replace nifc_acre=nifc_acre/4046.856
+{txt}(309 real changes made)
+
+{com}. 
+. * drop nifc>2018
+. replace nifc_acre  = . if year>2018
+{txt}(6,695 real changes made, 6,695 to missing)
+
+{com}. replace nifc_count  = . if year>2018
+{txt}(6,695 real changes made, 6,695 to missing)
+
+{com}. 
+. 
+. * fill by group means
+. foreach var in slope h_a stdorgcd tpa  saw_cf_acre {c -(}
+{txt}  2{com}.     bysort fips : egen length_mean = mean(`var')
+{txt}  3{com}.         replace `var'=length_mean if missing(`var')
+{txt}  4{com}.         drop length_mean
+{txt}  5{com}.         replace `var'=0 if missing(`var')
+{txt}  6{com}. {c )-}
+{txt}(1,305 missing values generated)
+(592 real changes made)
+(1,305 real changes made)
+(1,305 missing values generated)
+(13,945 real changes made)
+(1,305 real changes made)
+(1,305 missing values generated)
+(592 real changes made)
+(1,305 real changes made)
+(1,363 missing values generated)
+(598 real changes made)
+(1,363 real changes made)
+(1,363 missing values generated)
+(598 real changes made)
+(1,363 real changes made)
+
+{com}. 
+. foreach var in house house_firm reservcd corporate_x corporate_arti saw_price pulp_price timber_price saw_price_firm pulp_price_firm timber_price_firm{c -(}
+{txt}  2{com}.         bysort state: egen test = mean(`var')
+{txt}  3{com}.         replace `var'=test if missing(`var')
+{txt}  4{com}.         drop test
+{txt}  5{com}. {c )-}
+{txt}(8,945 real changes made)
+(8,945 real changes made)
+(1,897 real changes made)
+(15,250 real changes made)
+(15,250 real changes made)
+(2,475 real changes made)
+(2,475 real changes made)
+(2,475 real changes made)
+(2,475 real changes made)
+(2,475 real changes made)
+(2,475 real changes made)
+
+{com}. 
+. bysort state year: egen vdp_mean = mean(vdp_max)
+{txt}(6,695 missing values generated)
+
+{com}. replace vdp_max=vdp_mean if missing(vdp_max)
+{txt}(120 real changes made)
+
+{com}. drop vdp_mean
+{txt}
+{com}. 
+. 
+. gen private_forest_p=area_total_private/area_total_total
+{txt}(1,954 missing values generated)
+
+{com}. 
+. foreach var in private_forest_p bio_grow_ac_num siteclcd stdage age30 elev stdszcd sicond{c -(}
+{txt}  2{com}.         bysort state year: egen mid_mean = mean(`var')
+{txt}  3{com}.         replace `var'=mid_mean if missing(`var')
+{txt}  4{com}.         drop mid_mean
+{txt}  5{com}.         
+.         sum `var'
+{txt}  6{com}.         replace `var'=r(mean) if missing(`var')
+{txt}  7{com}. {c )-}
+{txt}(589 missing values generated)
+(1,365 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+private_fo~p {c |}{res}     38,242    .8748151    .1663424   .0412426   1.325008
+{txt}(589 real changes made)
+(589 missing values generated)
+(1,586 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+bio_grow_a~m {c |}{res}     38,242    1.339726    .9876557  -5.660089   7.320917
+{txt}(589 real changes made)
+(589 missing values generated)
+(1,308 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 4}siteclcd {c |}{res}     38,242    68.05967    31.49135        9.5        225
+{txt}(589 real changes made)
+(589 missing values generated)
+(1,308 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}stdage {c |}{res}     38,242    41.85722     13.7739          0        135
+{txt}(589 real changes made)
+(589 missing values generated)
+(1,308 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 7}age30 {c |}{res}     38,242    .6037658    .2317275          0          1
+{txt}(589 real changes made)
+(589 missing values generated)
+(1,308 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}elev {c |}{res}     38,242    772.9983    803.0971          0   5487.093
+{txt}(589 real changes made)
+(589 missing values generated)
+(1,308 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 5}stdszcd {c |}{res}     38,242    1.788581    .4501877          1          5
+{txt}(589 real changes made)
+(589 missing values generated)
+(1,308 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}sicond {c |}{res}     38,242    39.06407    24.00005          0         95
+{txt}(589 real changes made)
+
+{com}. 
+. * generate event
+. gen mtbs_d=0
+{txt}
+{com}. replace mtbs_d=1 if mtbs_acre>0
+{txt}(3,296 real changes made)
+
+{com}. 
+. gen nifc_d=0 if year<=2018
+{txt}(6,695 missing values generated)
+
+{com}. replace nifc_d=1 if nifc_acre>0 &  year<=2018
+{txt}(309 real changes made)
+
+{com}. 
+. * fema event
+. replace fema_count=1 if fema_count>0
+{txt}(217 real changes made)
+
+{com}. 
+. * log transformation
+. foreach var in mtbs_acre nifc_acre capacity vdp_max tpa baa area_total_total area_total_private forest_hansen cc_private cc_total major_cc_private major_cc_total th_private th_total major_th_private major_th_total pt_private pt_total major_pt_private major_pt_total n_cc_private n_cc_total major_n_cc_private major_n_cc_total n_th_private n_th_total major_n_th_private major_n_th_total major_cc_area major_th_area major_pt_area major_n_cc_area major_n_th_area{c -(}
+{txt}  2{com}.     gen log`var'=log(`var'+1)
+{txt}  3{com}. {c )-}
+{txt}(6,695 missing values generated)
+(6,695 missing values generated)
+(1,961 missing values generated)
+(1,897 missing values generated)
+(1,954 missing values generated)
+
+{com}. 
+. 
+. * generate baseline data
+. foreach var in tpa area_total_total stdorgcd private_forest_p bio_grow_ac_num siteclcd stdage age30 house house_firm{c -(}
+{txt}  2{com}.         bysort fips (year): egen `var'_base = mean(cond(year==2000,  `var', .))
+{txt}  3{com}. {c )-}
+{txt}(1,305 missing values generated)
+
+{com}. foreach var in ves_val_yr ves_wgt_yr all_val_yr ves_val_yr_im ves_wgt_yr_im ves_val_yr_firm ves_wgt_yr_firm all_val_yr_firm ves_val_yr_im_firm ves_wgt_yr_im_firm{c -(}
+{txt}  2{com}.         bysort fips (year): egen `var'_base = mean(cond(year==2000,  `var', .))
+{txt}  3{com}. {c )-}
+{txt}(38,831 missing values generated)
+(38,831 missing values generated)
+(38,831 missing values generated)
+(38,831 missing values generated)
+(38,831 missing values generated)
+(38,831 missing values generated)
+(38,831 missing values generated)
+(38,831 missing values generated)
+(38,831 missing values generated)
+(38,831 missing values generated)
+
+{com}. 
+. replace house=house/1000
+{txt}(26,277 real changes made)
+
+{com}. 
+. 
+. label variable vdp_max             "Maximum VPD"
+{txt}
+{com}. label variable tpa             "Trees per acre"
+{txt}
+{com}. label variable area_total_total "Log total forest area"
+{txt}
+{com}. label variable private_forest_p   "Private forest share"
+{txt}
+{com}. label variable saw_cf_acre     "Sawtimber volume per acre"
+{txt}
+{com}. label variable slope           "Average slope"
+{txt}
+{com}. label variable elev            "Average elevation"
+{txt}
+{com}. label variable stdage          "Average stand age"
+{txt}
+{com}. label variable bio_grow_ac          "Bio growth rate"
+{txt}
+{com}. label variable siteclcd          "Site productivity"
+{txt}
+{com}. label variable stdszcd          "Tree diameter class"
+{txt}
+{com}. label variable estabs          "Forestry and logging establishments "
+{txt}
+{com}. 
+. * area_total_total bio_grow_ac_num
+. gl CONTROL "vdp_max tpa  saw_cf_acre bio_grow_ac_num slope elev stdage siteclcd"
+{txt}
+{com}. replace private_forest_p=1 if private_forest_p>1
+{txt}(14 real changes made)
+
+{com}. 
+. * state-eco shift delocalized
+. gen se_iv_harvest=(c_a_se-c_a_c)/(private_arti_se-private_arti_c)*L.private_arti_c+(c_n_se-c_n_c)/(private_natural_se-private_natural_c)*L.private_natural_c
+{txt}(5,776 missing values generated)
+
+{com}. gen se_iv_thin=(t_a_se-t_a_c)/(private_arti_se-private_arti_c)*L.private_arti_c+(t_n_se-t_n_c)/(private_natural_se-private_natural_c)*L.private_natural_c
+{txt}(5,776 missing values generated)
+
+{com}. 
+. replace se_iv_harvest=(c_n_se-c_n_c)/(private_natural_se-private_natural_c)*L.private_natural_c if missing(se_iv_harvest)
+{txt}(4,437 real changes made)
+
+{com}. replace se_iv_thin=(t_n_se-t_n_c)/(private_natural_se-private_natural_c)*L.private_natural_c if missing(se_iv_thin)
+{txt}(4,437 real changes made)
+
+{com}. 
+. 
+. 
+. * state shift
+. gen s_iv_harvest=(c_a_s-c_a_c)/(private_arti_s-private_arti_c)*L.private_arti_c+(c_n_s-c_n_c)/(private_natural_s-private_natural_c)*L.private_natural_c
+{txt}(1,339 missing values generated)
+
+{com}. gen s_iv_thin=(t_a_s-t_a_c)/(private_arti_s-private_arti_c)*L.private_arti_c+(t_n_s-t_n_c)/(private_natural_s-private_natural_c)*L.private_natural_c
+{txt}(1,339 missing values generated)
+
+{com}. 
+. 
+. replace s_iv_harvest=f.s_iv_harvest if year==1995
+{txt}(1,339 real changes made)
+
+{com}. 
+. // gen s_iv_harvest_fill = L.s_iv_harvest
+. // replace s_iv_harvest_fill = s_iv_harvest if missing(s_iv_harvest_fill)
+. // replace s_iv_harvest=s_iv_harvest_fill
+. 
+. 
+. * undelocalized shift share instrument
+. gen se_iv_harvest_g=(c_a_se)/(private_arti_se)*L.private_arti_c+(c_n_se)/(private_natural_se)*L.private_natural_c
+{txt}(5,737 missing values generated)
+
+{com}. gen se_iv_thin_g=(t_a_se)/(private_arti_se)*L.private_arti_c+(t_n_se)/(private_natural_se)*L.private_natural_c
+{txt}(5,737 missing values generated)
+
+{com}. 
+. 
+. * drop fips with tpa
+. drop if inlist(fips, ///
+>     1057, 12103, 13015, 13157, 13171, 13227, 13237, 13257, 13265, 13307)
+{txt}(290 observations deleted)
+
+{com}. 
+. drop if inlist(fips, ///
+>     22023, 22051, 22075, 22113, 28013, 28097, 28117, 28145, 28155)
+{txt}(261 observations deleted)
+
+{com}. 
+. drop if inlist(fips, ///
+>     37001, 37003, 37015, 37029, 37033, 37037, 37041, 37053, 37057, 37063)
+{txt}(290 observations deleted)
+
+{com}. 
+. drop if inlist(fips, ///
+>     37065, 37069, 37077, 37083, 37101, 37105, 37107, 37109, 37123, 37131)
+{txt}(290 observations deleted)
+
+{com}. 
+. drop if inlist(fips, ///
+>     37135, 37139, 37145, 37157, 37163, 37177, 37181, 37185, 37195, 45001)
+{txt}(290 observations deleted)
+
+{com}. 
+. drop if inlist(fips, ///
+>     47011, 47127, 48113, 48361, 51001, 51025, 51049, 51053, 51057, 51081)
+{txt}(290 observations deleted)
+
+{com}. 
+. drop if inlist(fips, ///
+>     51083, 51089, 51093, 51101, 51111, 51115, 51119, 51127, 51131, 51147)
+{txt}(290 observations deleted)
+
+{com}. 
+. drop if inlist(fips, ///
+>     51149, 51159, 51175, 51181, 51183, 51193, 51550)
+{txt}(203 observations deleted)
+
+{com}. 
+. ******************************** SS table **************************************
+. preserve
+{txt}
+{com}. foreach var in  area_total_total{c -(}
+{txt}  2{com}.         replace `var' = `var' / 1000
+{txt}  3{com}. {c )-}
+{txt}(34,734 real changes made)
+
+{com}. 
+. foreach var in n_cc_private n_th_private mtbs_acre s_iv_harvest s_iv_thin{c -(}
+{txt}  2{com}.         replace `var' = `var' / 1000 
+{txt}  3{com}. {c )-}
+{txt}(8,935 real changes made)
+(5,210 real changes made)
+(3,237 real changes made)
+(34,071 real changes made)
+(29,561 real changes made)
+
+{com}. 
+. tabstat mtbs_acre mtbs_d n_cc_private n_th_private s_iv_harvest s_iv_thin ///
+>                     vdp_max tpa area_total_total ///
+>                     saw_cf_acre bio_grow_ac_num slope elev stdage siteclcd estabs if year >= 2000, ///
+>     stat(mean sd min max) ///
+>     col(stat) save
+
+{txt}{ralign 12:variable} {...}
+{c |}      mean        sd       min       max
+{hline 13}{c +}{hline 40}
+{ralign 12:mtbs_acre} {...}
+{c |}{...}
+ {res} .7526768  6.972107         0  348.9165
+{txt}{ralign 12:mtbs_d} {...}
+{c |}{...}
+ {res} .0923067  .2894632         0         1
+{txt}{ralign 12:n_cc_private} {...}
+{c |}{...}
+ {res} 2.448736  5.178592         0  70.22421
+{txt}{ralign 12:n_th_private} {...}
+{c |}{...}
+ {res}  1.47235  4.023974         0  47.84388
+{txt}{ralign 12:s_iv_harvest} {...}
+{c |}{...}
+ {res} 2.564216  2.759333         0  42.98513
+{txt}{ralign 12:s_iv_thin} {...}
+{c |}{...}
+ {res} 1.523555  2.359732         0  23.29991
+{txt}{ralign 12:vdp_max} {...}
+{c |}{...}
+ {res} 31.77372  9.246424    14.311    78.167
+{txt}{ralign 12:tpa} {...}
+{c |}{...}
+ {res} 510.9973  225.3872         0   998.441
+{txt}{ralign 12:area_total~l} {...}
+{c |}{...}
+ {res}   209.12  148.8436  .5491388  1637.981
+{txt}{ralign 12:saw_cf_acre} {...}
+{c |}{...}
+ {res} 870.0753  682.5186         0  11163.57
+{txt}{ralign 12:bio_grow_a~m} {...}
+{c |}{...}
+ {res} 1.309658  .9509758 -5.660089  7.320917
+{txt}{ralign 12:slope} {...}
+{c |}{...}
+ {res} 10.14304  11.66508         0        65
+{txt}{ralign 12:elev} {...}
+{c |}{...}
+ {res} 798.0629  807.9964         0  5487.093
+{txt}{ralign 12:stdage} {...}
+{c |}{...}
+ {res} 42.73753  13.79279         0       135
+{txt}{ralign 12:siteclcd} {...}
+{c |}{...}
+ {res} 66.97455   31.6482       9.5       225
+{txt}{ralign 12:estabs} {...}
+{c |}{...}
+ {res}  3.78266  6.054687         0        55
+{txt}{hline 13}{c BT}{hline 40}
+
+{com}. 
+. matrix A = r(StatTotal)'
+{txt}
+{com}. matrix rownames A = mtbs_acre mtbs_d n_cc_private n_th_private s_iv_harvest s_iv_thin ///
+>                     vdp_max tpa area_total_total ///
+>                     saw_cf_acre bio_grow_ac_num slope elev stdage siteclcd estabs
+{txt}
+{com}.                                                                         
+.                                         
+. matrix B = A
+{txt}
+{com}. 
+. forvalues i = 1/`=rowsof(A)' {c -(}
+{txt}  2{com}.     forvalues j = 1/`=colsof(A)' {c -(}
+{txt}  3{com}.         matrix B[`i',`j'] = round(A[`i',`j'], .001)
+{txt}  4{com}.     {c )-}
+{txt}  5{com}. {c )-}
+{txt}
+{com}. 
+. esttab matrix(B) using "table_A1.tex", replace ///
+>     fragment booktabs nomtitles nonumber ///
+>         label ///
+>     varlabels( ///
+>         mtbs_acre  "Wildfire area in MTBS (thousand acre)" ///
+>         mtbs_d "Wildfire occurrence in MTBS" ///
+>         n_cc_private "Harvest area (thousand acre)" ///
+>         n_th_private "Thinning area (thousand acre)" ///
+>         s_iv_harvest "Harvest shift-share (thousand acre)" ///
+>         s_iv_thin "Thinning shift-share (thousand acre)" ///
+>         vdp_max "Maximum VPD (hPa)" ///
+>         tpa "Trees per acre" ///
+>         area_total_total "Total forest area (thousand acre)" ///
+>         saw_cf_acre "Sawtimber volume per acre (ft$^3$/acre)" ///
+>                 bio_grow_ac_num "Bio growth rate" ///
+>         slope "Slope (\%)" ///
+>         elev "Elevation (m)" ///
+>         stdage "Stand age" ///
+>         bio_grow_ac_num "Bio growth rate" ///
+>                 estabs "Forestry and logging establishments" ///
+>     ) ///
+>     collabels("Mean" "Std. Dev." "Min" "Max") ///
+>     cells("B") ///
+>     postfoot("\midrule")
+{res}{txt}(output written to {browse  `"table_A1.tex"'})
+
+{com}. restore 
+{txt}
+{com}.         
+. 
+. 
+. xtset fips year
+{res}{txt}{col 8}panel variable:  {res}fips (strongly balanced)
+{txt}{col 9}time variable:  {res}{col 25}year, 1995 to 2023
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. 
+. * clean treatment
+. foreach var in cc_private cc_total major_cc_private major_cc_total th_private th_total major_th_private major_th_total{c -(}
+{txt}  2{com}.     gen `var'_d=(`var'>0)
+{txt}  3{com}.         gen `var'_perc=`var'/area_total_total
+{txt}  4{com}.         quietly sum `var'_perc
+{txt}  5{com}.         replace `var'_perc=r(mean) if missing(`var'_perc)
+{txt}  6{com}.         replace `var'_perc=`var'_perc/(r(max)+1)
+{txt}  7{com}. {c )-}
+{txt}(1,893 missing values generated)
+(1,893 real changes made)
+(8,436 real changes made)
+(1,893 missing values generated)
+(1,893 real changes made)
+(8,546 real changes made)
+(1,893 missing values generated)
+(1,893 real changes made)
+(8,216 real changes made)
+(1,893 missing values generated)
+(1,893 real changes made)
+(8,326 real changes made)
+(1,893 missing values generated)
+(1,893 real changes made)
+(9,901 real changes made)
+(1,893 missing values generated)
+(1,893 real changes made)
+(10,160 real changes made)
+(1,893 missing values generated)
+(1,893 real changes made)
+(9,709 real changes made)
+(1,893 missing values generated)
+(1,893 real changes made)
+(9,970 real changes made)
+
+{com}. 
+. gen mtbs_acre_p=mtbs_acre/area
+{txt}
+{com}. 
+. drop if south_state!=1
+{txt}(0 observations deleted)
+
+{com}. sum cc_total th_total
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 4}cc_total {c |}{res}     36,627     1610.67    4152.818          0   63689.14
+{txt}{space 4}th_total {c |}{res}     36,627    2084.735    4840.563          0   59297.18
+{txt}
+{com}. 
+. sum all_val_yr ves_val_yr ves_wgt_yr all_val_yr_1133 ves_val_yr_1133 ves_wgt_yr_1133 all_val_yr_im ves_val_yr_im ves_wgt_yr_im all_val_yr_1133_im ves_val_yr_1133_im ves_wgt_yr_1133_im house saw_price pulp_price timber_price ves_val_yr_firm ves_wgt_yr_firm all_val_yr_firm ves_val_yr_im_firm all_val_yr_1133_firm ves_val_yr_1133_firm ves_wgt_yr_1133_firm all_val_yr_1133_im_firm ves_val_yr_1133_im_firm ves_wgt_yr_1133_im_firm ves_wgt_yr_im_firm house_firm saw_price_firm pulp_price_firm timber_price_firm
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 2}all_val_yr {c |}{res}     25,695     5093841    1.06e+07          0   1.61e+08
+{txt}{space 2}ves_val_yr {c |}{res}     25,695     4580300    1.02e+07          0   1.60e+08
+{txt}{space 2}ves_wgt_yr {c |}{res}     25,695    1.86e+07    5.72e+07          0   1.03e+09
+{txt}all_val~1133 {c |}{res}     25,695     4222593     9828456          0   1.55e+08
+{txt}ves_val~1133 {c |}{res}     25,695     4160043     9797269          0   1.54e+08
+{txt}{hline 13}{c +}{hline 57}
+ves_wgt~1133 {c |}{res}     25,695    1.85e+07    5.70e+07          0   1.02e+09
+{txt}all_val~r_im {c |}{res}     17,159    1.36e+08    1.82e+08       5065   1.43e+09
+{txt}ves_val~r_im {c |}{res}     25,695    1.39e+07    3.89e+07          0   7.54e+08
+{txt}ves_wgt~r_im {c |}{res}     18,669     9674758    1.88e+07          0   1.66e+08
+{txt}all_val~3_im {c |}{res}     18,669      175772    645664.2          0   1.32e+07
+{txt}{hline 13}{c +}{hline 57}
+ves_val~3_im {c |}{res}     18,669    155742.3    625321.4          0   1.32e+07
+{txt}ves_wgt~3_im {c |}{res}     18,669    458076.8     1757458          0   3.14e+07
+{txt}{space 7}house {c |}{res}     36,627    3.331764    7.232607          0   117.7835
+{txt}{space 3}saw_price {c |}{res}     36,627    4.044799    5.103268          0   28.05741
+{txt}{space 2}pulp_price {c |}{res}     36,627    1.152363     1.43975          0   7.357505
+{txt}{hline 13}{c +}{hline 57}
+timber_price {c |}{res}     36,627    2.598581    3.232649          0   17.25148
+{txt}ves_v~r_firm {c |}{res}     25,695     4159448     9681217          0   1.60e+08
+{txt}ves_w~r_firm {c |}{res}     25,695    1.70e+07    5.44e+07          0   1.03e+09
+{txt}all_v~r_firm {c |}{res}     25,695     4608686    1.00e+07          0   1.61e+08
+{txt}ves_val_yr.. {c |}{res}     25,695    1.26e+07    3.57e+07          0   7.54e+08
+{txt}{hline 13}{c +}{hline 57}
+all_v~3_firm {c |}{res}     25,695     3850180     9297457          0   1.55e+08
+{txt}ves_v~3_firm {c |}{res}     25,695     3793951     9268034          0   1.54e+08
+{txt}ves_w~3_firm {c |}{res}     25,695    1.69e+07    5.42e+07          0   1.02e+09
+{txt}all_v~m_firm {c |}{res}     18,669    149691.5    554370.3          0   1.25e+07
+{txt}ves_val_yr.. {c |}{res}     18,669    131869.5    535367.7          0   1.25e+07
+{txt}{hline 13}{c +}{hline 57}
+ves_wgt_yr.. {c |}{res}     18,669    384287.4     1497945          0   2.97e+07
+{txt}ves_wgt_yr.. {c |}{res}     18,669     8710070    1.74e+07          0   1.66e+08
+{txt}{space 2}house_firm {c |}{res}     36,627    2922.826    6377.232          0   117783.5
+{txt}saw_price_~m {c |}{res}     36,627    3.634693    4.764374          0   28.05741
+{txt}pulp_price~m {c |}{res}     36,627    1.034252    1.343377          0   7.357505
+{txt}{hline 13}{c +}{hline 57}
+timber_pri~m {c |}{res}     36,627    2.334473    3.018534          0   17.25148
+{txt}
+{com}. egen state_eco_year = group(state na_l3code year)
+{txt}
+{com}. egen state_eco = group(state na_l3code)
+{txt}
+{com}. 
+. 
+. *****************************************************
+. *****************************************************
+. *****************************************************
+. *****************************************************
+. *****************************************************
+. *****************************************************
+. *****************************************************
+. *****************************************************
+. 
+. 
+. eststo clear
+{txt}
+{com}. local mark "$\checkmark$"
+{txt}
+{com}. 
+. preserve
+{txt}
+{com}. keep if south_state == 1
+{txt}(0 observations deleted)
+
+{com}. 
+. *****************************************************
+. * Generate 5-year treatment variables
+. *****************************************************
+. 
+. cap drop logavg_harvest logavg_thin
+{txt}
+{com}. 
+. gen logavg_harvest = log((L.n_cc_private + L2.n_cc_private + ///
+>                           L3.n_cc_private + L4.n_cc_private)/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. 
+. gen logavg_thin = log((L.n_th_private + L2.n_th_private + ///
+>                        L3.n_th_private + L4.n_th_private)/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. 
+. label variable logavg_harvest "Harvest"
+{txt}
+{com}. label variable logavg_thin    "Thinning"
+{txt}
+{com}. 
+. *****************************************************
+. * (1) Harvest FE
+. *****************************************************
+. 
+. qui reghdfe logmtbs_acre logavg_harvest $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     vce(cluster fips)
+{txt}
+{com}. 
+. eststo cc_fe
+{txt}
+{com}. estadd scalar firstF = .
+
+{txt}added scalar:
+             e(firstF) =  {res}.
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. scalar b_ols_cc = _b[logavg_harvest]
+{txt}
+{com}. 
+. *****************************************************
+. * (2) Harvest IV
+. *****************************************************
+. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_harvest = L5.s_iv_harvest) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo cc_iv5
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. scalar b_iv_cc = _b[logavg_harvest]
+{txt}
+{com}. 
+. *****************************************************
+. * (3) Thinning FE
+. *****************************************************
+. 
+. qui reghdfe logmtbs_acre logavg_thin $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     vce(cluster fips)
+{txt}
+{com}. 
+. eststo th_fe
+{txt}
+{com}. estadd scalar firstF = .
+
+{txt}added scalar:
+             e(firstF) =  {res}.
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. scalar b_ols_th = _b[logavg_thin]
+{txt}
+{com}. 
+. *****************************************************
+. * (4) Thinning IV
+. *****************************************************
+. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_thin = L4.s_iv_thin) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo th_iv5
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. scalar b_iv_th = _b[logavg_thin]
+{txt}
+{com}. 
+. *****************************************************
+. * (5) Joint IV: harvest and thinning together
+. *****************************************************
+. 
+. ivreghdfe logmtbs_acre ///
+>     (logavg_harvest logavg_thin = L5.s_iv_harvest L4.s_iv_thin ) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{res}{txt}({browse "http://scorreia.com/research/hdfe.pdf":MWFE estimator} converged in 2 iterations)
+{res}
+{txt}IV (2SLS) estimation
+{hline 20}
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on fips
+
+Number of clusters (fips) = {col 33}{res}  1263{txt}{col 55}Number of obs = {res}   30312
+{txt}{col 55}F( 10,  1262) = {res}   18.69
+{txt}{col 55}Prob > F      = {res}  0.0000
+{txt}Total (centered) SS     = {res} 114913.3404{txt}{col 55}Centered R2   = {res} -0.1007
+{txt}Total (uncentered) SS   = {res} 114913.3404{txt}{col 55}Uncentered R2 = {res} -0.1007
+{txt}Residual SS             = {res} 126484.6197{txt}{col 55}Root MSE      = {res}   2.044
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 17}{c |}{col 29}    Robust
+{col 1}   logmtbs_acre{col 17}{c |}      Coef.{col 29}   Std. Err.{col 41}      t{col 49}   P>|t|{col 57}     [95% Con{col 70}f. Interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 1}logavg_harvest {c |}{col 17}{res}{space 2}-.2526868{col 29}{space 2} .1248307{col 40}{space 1}   -2.02{col 49}{space 3}0.043{col 57}{space 4}-.4975852{col 70}{space 3}-.0077883
+{txt}{space 4}logavg_thin {c |}{col 17}{res}{space 2}-.1673259{col 29}{space 2} .0572527{col 40}{space 1}   -2.92{col 49}{space 3}0.004{col 57}{space 4}-.2796468{col 70}{space 3}-.0550049
+{txt}{space 8}vdp_max {c |}{col 17}{res}{space 2} .0489398{col 29}{space 2} .0043677{col 40}{space 1}   11.20{col 49}{space 3}0.000{col 57}{space 4} .0403711{col 70}{space 3} .0575086
+{txt}{space 12}tpa {c |}{col 17}{res}{space 2}-.0007111{col 29}{space 2} .0004536{col 40}{space 1}   -1.57{col 49}{space 3}0.117{col 57}{space 4} -.001601{col 70}{space 3} .0001788
+{txt}{space 4}saw_cf_acre {c |}{col 17}{res}{space 2} .0000378{col 29}{space 2} .0000878{col 40}{space 1}    0.43{col 49}{space 3}0.667{col 57}{space 4}-.0001344{col 70}{space 3}   .00021
+{txt}bio_grow_ac_num {c |}{col 17}{res}{space 2}-.0358053{col 29}{space 2} .0407253{col 40}{space 1}   -0.88{col 49}{space 3}0.379{col 57}{space 4}-.1157022{col 70}{space 3} .0440915
+{txt}{space 10}slope {c |}{col 17}{res}{space 2} .0116776{col 29}{space 2} .0113439{col 40}{space 1}    1.03{col 49}{space 3}0.303{col 57}{space 4}-.0105774{col 70}{space 3} .0339327
+{txt}{space 11}elev {c |}{col 17}{res}{space 2} .0000828{col 29}{space 2} .0001307{col 40}{space 1}    0.63{col 49}{space 3}0.527{col 57}{space 4}-.0001736{col 70}{space 3} .0003392
+{txt}{space 9}stdage {c |}{col 17}{res}{space 2}-.0049672{col 29}{space 2} .0044226{col 40}{space 1}   -1.12{col 49}{space 3}0.262{col 57}{space 4}-.0136437{col 70}{space 3} .0037092
+{txt}{space 7}siteclcd {c |}{col 17}{res}{space 2} .0055746{col 29}{space 2} .0020315{col 40}{space 1}    2.74{col 49}{space 3}0.006{col 57}{space 4} .0015892{col 70}{space 3} .0095601
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{help ivreg2##idtest:Underidentification test} (Kleibergen-Paap rk LM statistic):{res}{col 71}  70.913
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}{hline 78}
+{help ivreg2##widtest:Weak identification test} (Cragg-Donald Wald F statistic):{res}{col 71}  43.000
+{txt}                         (Kleibergen-Paap rk Wald F statistic):{res}{col 71}  21.167
+{txt}Stock-Yogo weak ID test critical values:{res}{txt}{col 42}10% maximal IV size{res}{col 73}  7.03
+{txt}{col 42}15% maximal IV size{res}{col 73}  4.58
+{txt}{col 42}20% maximal IV size{res}{col 73}  3.95
+{txt}{col 42}25% maximal IV size{res}{col 73}  3.63
+{txt}Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+{hline 78}
+{help ivreg2##overidtests:Hansen J statistic} (overidentification test of all instruments):{res}{col 71}   0.000
+{txt}{col 50}(equation exactly identified)
+{hline 78}
+Instrumented:{col 23}logavg_harvest logavg_thin
+Included instruments:{col 23}vdp_max tpa saw_cf_acre bio_grow_ac_num slope elev stdage
+{col 23}siteclcd
+Excluded instruments:{col 23}L5.s_iv_harvest L4.s_iv_thin
+{help ivreg2##partial:Partialled-out}:{col 23}_cons
+{col 23}nb: total SS, model F and R2s are after partialling-out;
+{col 23}    any {help ivreg2##s_small:small-sample adjustments} include partialled-out
+{col 23}    variables in regressor count K
+{hline 78}
+{res}
+{txt}Absorbed degrees of freedom:
+{res}{col 1}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 14}{hline 1}{c TRC}
+{col 1}{text} Absorbed FE{col 14}{c |} Categories{col 27} - Redundant{col 39}  = Num. Coefs{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 14}{hline 1}{c RT}
+{col 1}{text}        fips{col 14}{c |}{space 1}     1263{col 27}{space 1}     1263{col 39}{result}{space 1}        0{col 53}{text}*{col 54}{c |}
+{res}{col 1}{text}        year{col 14}{c |}{space 1}       24{col 27}{space 1}        1{col 39}{result}{space 1}       23{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 14}{hline 1}{c BRC}
+* = FE nested within cluster; treated as redundant for DoF computation
+{res}{txt}
+{com}. 
+. eststo joint_iv
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. *****************************************************
+. * Compare harvest and thinning effects
+. *****************************************************
+. 
+. test logavg_harvest = logavg_thin
+
+{p 0 7}{space 1}{text:( 1)}{space 1} {res}logavg_harvest - logavg_thin = 0{p_end}
+
+{txt}       F(  1,  1262) ={res}    0.28
+{txt}{col 13}Prob > F ={res}    0.5977
+{txt}
+{com}. 
+. lincom logavg_harvest - logavg_thin
+
+{p 0 7}{space 1}{text:( 1)}{space 1} {res}logavg_harvest - logavg_thin = 0{p_end}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}logmtbs_acre{col 14}{c |}      Coef.{col 26}   Std. Err.{col 38}      t{col 46}   P>|t|{col 54}     [95% Con{col 67}f. Interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}(1) {c |}{col 14}{res}{space 2}-.0853609{col 26}{space 2} .1617271{col 37}{space 1}   -0.53{col 46}{space 3}0.598{col 54}{space 4}-.4026446{col 67}{space 3} .2319228
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. corr logavg_harvest logavg_thin
+{txt}(obs=31,575)
+
+             {c |} logavg~t logavg~n
+{hline 13}{c +}{hline 18}
+logavg_har~t {c |}{res}   1.0000
+ {txt}logavg_thin {c |}{res}   0.5740   1.0000
+
+{txt}
+{com}. 
+. *****************************************************
+. * Export table
+. *****************************************************
+. 
+. esttab cc_fe cc_iv5 th_fe th_iv5 joint_iv ///
+>     using "Table_1.tex", replace ///
+>     fragment booktabs label ///
+>     varlabels(logavg_harvest "Harvest" ///
+>               logavg_thin "Thinning" ///
+>               bio_grow_ac_num "Bio growth rate") ///
+>     star(* 0.10 ** 0.05 *** 0.01) ///
+>     b(%9.4f) se(%9.4f) ///
+>     nonumbers nomtitles compress ///
+>     keep(logavg_harvest logavg_thin) ///
+>     order(logavg_harvest logavg_thin) ///
+>     mgroups("Harvest" "Thinning" "Joint IV", ///
+>         pattern(1 0 1 0 1) ///
+>         prefix(\multicolumn{c -(}@span{c )-}{c -(}c{c )-}{c -(}) suffix({c )-}) span ///
+>         erepeat(\cmidrule(lr){c -(}@span{c )-})) ///
+>     collabels(none) ///
+>     posthead("& (1) & (2) & (3) & (4) & (5) \\" ///
+>              "& FE & IV & FE & IV & IV \\" ///
+>              "\midrule") ///
+>     postfoot("\midrule") ///
+>     stats(firstF N countyfe yearfe, ///
+>         fmt(%9.2f %9.0f %9s %9s) ///
+>         labels("Kleibergen-Paap Wald F statistic" ///
+>                "Observations" ///
+>                "County FE" ///
+>                "Year FE"))
+{res}{txt}(output written to {browse  `"Table_1.tex"'})
+
+{com}. 
+. restore
+{txt}
+{com}. 
+. eststo clear
+{txt}
+{com}. local mark "$\checkmark$"
+{txt}
+{com}. 
+. *****************************************************
+. * Full sample: south only
+. *****************************************************
+. 
+. preserve
+{txt}
+{com}. keep if south_state == 1
+{txt}(0 observations deleted)
+
+{com}. 
+. *****************************************************
+. * Harvest
+. *****************************************************
+. 
+. cap drop iv_house_ma3 logavg_treat
+{txt}
+{com}. gen iv_house_ma3=L5.s_iv_harvest
+{txt}(6,315 missing values generated)
+
+{com}. 
+. label variable iv_house_ma3 "Shift-share instrument"
+{txt}
+{com}. 
+. gen logavg_treat = log((L.n_cc_private + L2.n_cc_private + ///
+>                         L3.n_cc_private + L4.n_cc_private)/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. label variable logavg_treat "Log average treatment"
+{txt}
+{com}. 
+. * (1) FE: Harvest baseline
+. qui reghdfe logmtbs_acre logavg_treat $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     vce(cluster state_eco)
+{txt}
+{com}. 
+. eststo cc_fe
+{txt}
+{com}. estadd scalar firstF = .
+
+{txt}added scalar:
+             e(firstF) =  {res}.
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. * (2) First stage: Harvest baseline
+. qui reghdfe logavg_treat iv_house_ma3 $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     vce(cluster state_eco)
+{txt}
+{com}. 
+. eststo cc_fs
+{txt}
+{com}. estadd scalar firstF = .
+
+{txt}added scalar:
+             e(firstF) =  {res}.
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. * (3) IV: Harvest 5-year baseline
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_treat = iv_house_ma3) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo cc_iv5
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. drop logavg_treat
+{txt}
+{com}. 
+. *****************************************************
+. * Harvest
+. *****************************************************
+. 
+. gen logavg_treat = log((L.n_cc_private + L2.n_cc_private + ///
+>                         L3.n_cc_private)/3 + 1)
+{txt}(3,789 missing values generated)
+
+{com}. label variable logavg_treat "Log average treatment"
+{txt}
+{com}. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_treat = L4.s_iv_harvest) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo cc_iv4
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. drop logavg_treat
+{txt}
+{com}. 
+. *****************************************************
+. * Harvest
+. *****************************************************
+. 
+. gen logavg_treat = log((L.n_cc_private + L2.n_cc_private + ///
+>                         L3.n_cc_private + L4.n_cc_private + ///
+>                         L5.n_cc_private )/5 + 1)
+{txt}(6,315 missing values generated)
+
+{com}. label variable logavg_treat "Log average treatment"
+{txt}
+{com}. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_treat = L6.s_iv_harvest) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo cc_iv6
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. drop logavg_treat
+{txt}
+{com}. 
+. 
+. *****************************************************
+. * Thinning
+. *****************************************************
+. 
+. cap drop iv_house_ma3 
+{txt}
+{com}. cap drop logavg_treat
+{txt}
+{com}. gen iv_house_ma3 = L4.s_iv_thin
+{txt}(6,315 missing values generated)
+
+{com}. label variable iv_house_ma3 "Shift-share instrument"
+{txt}
+{com}. 
+. gen logavg_treat = log((L.n_th_private + L2.n_th_private + ///
+>                         L3.n_th_private + L4.n_th_private )/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. label variable logavg_treat "Log average treatment"
+{txt}
+{com}. 
+. * (7) FE: Thinning baseline
+. qui reghdfe logmtbs_acre logavg_treat $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     vce(cluster state_eco)
+{txt}
+{com}. 
+. eststo th_fe
+{txt}
+{com}. estadd scalar firstF = .
+
+{txt}added scalar:
+             e(firstF) =  {res}.
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. * (8) First stage: Thinning baseline
+. qui reghdfe logavg_treat iv_house_ma3 $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     vce(cluster state_eco)
+{txt}
+{com}. 
+. eststo th_fs
+{txt}
+{com}. estadd scalar firstF = .
+
+{txt}added scalar:
+             e(firstF) =  {res}.
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. * (9) IV: Thinning 5-year baseline
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_treat = L4.s_iv_thin) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo th_iv5
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. drop logavg_treat
+{txt}
+{com}. 
+. *****************************************************
+. * Thinning
+. *****************************************************
+. 
+. gen logavg_treat = log((L.n_th_private + L2.n_th_private + ///
+>                         L3.n_th_private)/3 + 1)
+{txt}(3,789 missing values generated)
+
+{com}. label variable logavg_treat "Log average treatment"
+{txt}
+{com}. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_treat = L3.s_iv_thin) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo th_iv4
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. drop logavg_treat
+{txt}
+{com}. 
+. *****************************************************
+. * Thinning
+. *****************************************************
+. 
+. gen logavg_treat = log((L.n_th_private + L2.n_th_private + ///
+>                         L3.n_th_private + L4.n_th_private + ///
+>                         L5.n_th_private)/5 + 1)
+{txt}(6,315 missing values generated)
+
+{com}. label variable logavg_treat "Log average treatment"
+{txt}
+{com}. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_treat = L5.s_iv_thin) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo th_iv6
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. drop logavg_treat
+{txt}
+{com}. 
+. restore
+{txt}
+{com}. 
+. 
+. *****************************************************
+. * No-COVID robustness, year < 2020
+. *****************************************************
+. 
+. preserve
+{txt}
+{com}. keep if south_state == 1
+{txt}(0 observations deleted)
+
+{com}. keep if year < 2020
+{txt}(5,052 observations deleted)
+
+{com}. xtset fips year
+{res}{txt}{col 8}panel variable:  {res}fips (strongly balanced)
+{txt}{col 9}time variable:  {res}{col 25}year, 1995 to 2019
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. 
+. *****************************************************
+. * Harvest no-COVID
+. *****************************************************
+. 
+. cap drop logavg_treat
+{txt}
+{com}. gen logavg_treat = log((L.n_cc_private + L2.n_cc_private + ///
+>                         L3.n_cc_private+L4.n_cc_private)/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. label variable logavg_treat "Log average treatment"
+{txt}
+{com}. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_treat = L5.s_iv_harvest) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo cc_iv5_2020
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. drop logavg_treat
+{txt}
+{com}. 
+. *****************************************************
+. * Thinning no-COVID
+. *****************************************************
+. 
+. gen logavg_treat = log((L.n_th_private + L2.n_th_private + ///
+>                         L3.n_th_private +L4.n_th_private)/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. label variable logavg_treat "Log average treatment"
+{txt}
+{com}. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_treat = L4.s_iv_thin) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo th_iv5_2020
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. tab year if e(sample)
+
+       {txt}year {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+       2000 {c |}{res}      1,263        5.00        5.00
+{txt}       2001 {c |}{res}      1,263        5.00       10.00
+{txt}       2002 {c |}{res}      1,263        5.00       15.00
+{txt}       2003 {c |}{res}      1,263        5.00       20.00
+{txt}       2004 {c |}{res}      1,263        5.00       25.00
+{txt}       2005 {c |}{res}      1,263        5.00       30.00
+{txt}       2006 {c |}{res}      1,263        5.00       35.00
+{txt}       2007 {c |}{res}      1,263        5.00       40.00
+{txt}       2008 {c |}{res}      1,263        5.00       45.00
+{txt}       2009 {c |}{res}      1,263        5.00       50.00
+{txt}       2010 {c |}{res}      1,263        5.00       55.00
+{txt}       2011 {c |}{res}      1,263        5.00       60.00
+{txt}       2012 {c |}{res}      1,263        5.00       65.00
+{txt}       2013 {c |}{res}      1,263        5.00       70.00
+{txt}       2014 {c |}{res}      1,263        5.00       75.00
+{txt}       2015 {c |}{res}      1,263        5.00       80.00
+{txt}       2016 {c |}{res}      1,263        5.00       85.00
+{txt}       2017 {c |}{res}      1,263        5.00       90.00
+{txt}       2018 {c |}{res}      1,263        5.00       95.00
+{txt}       2019 {c |}{res}      1,263        5.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}     25,260      100.00
+{txt}
+{com}. 
+. drop logavg_treat
+{txt}
+{com}. restore
+{txt}
+{com}. 
+. 
+. *****************************************************
+. * Export table
+. *****************************************************
+. 
+. esttab cc_fe cc_fs cc_iv5 cc_iv4 cc_iv6 cc_iv5_2020 ///
+>        th_fe th_fs th_iv5 th_iv4 th_iv6 th_iv5_2020 ///
+>     using "table_A3.tex", replace ///
+>     fragment booktabs label ///
+>     varlabels(logavg_treat "Log average treatment" ///
+>               iv_house_ma3 "Shift-share instrument" ///
+>               bio_grow_ac_num "Bio growth rate") ///
+>     star(* 0.10 ** 0.05 *** 0.01) ///
+>     b(%9.4f) se(%9.4f) ///
+>     nonumbers nomtitles compress ///
+>     keep(logavg_treat iv_house_ma3 $CONTROL) ///
+>     order(logavg_treat iv_house_ma3 $CONTROL) ///
+>     mgroups("Harvest" "Thinning", ///
+>         pattern(1 0 0 0 0 0 1 0 0 0 0 0) ///
+>         prefix(\multicolumn{c -(}@span{c )-}{c -(}c{c )-}{c -(}) suffix({c )-}) span ///
+>         erepeat(\cmidrule(lr){c -(}@span{c )-})) ///
+>     mlabels("Log wildfire area" "Log average treatment" "Log wildfire area" ///
+>             "Log wildfire area" "Log wildfire area" "Log wildfire area" ///
+>             "Log wildfire area" "Log average treatment" "Log wildfire area" ///
+>             "Log wildfire area" "Log wildfire area" "Log wildfire area", ///
+>             span prefix(\multicolumn{c -(}@span{c )-}{c -(}c{c )-}{c -(}) suffix({c )-})) ///
+>     collabels(none) ///
+>     posthead("& (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) & (9) & (10) & (11) & (12) \\" ///
+>              "& FE & First stage & IV: 4-year & IV: 3-year & IV: 5-year & IV no COVID & FE & First stage & IV: 4-year & IV: 3-year & IV: 5-year & IV no COVID \\" ///
+>              "\midrule") ///
+>     postfoot("\midrule") ///
+>     stats(firstF N countyfe yearfe, ///
+>         fmt(%9.2f %9.0f %9s %9s) ///
+>         labels("Kleibergen-Paap Wald F statistic" ///
+>                "Observations" ///
+>                "County FE" ///
+>                "Year FE"))
+{res}{txt}(output written to {browse  `"table_A3.tex"'})
+
+{com}.                            
+.                            
+.                            
+.                            
+. *==================================================*
+. * Table A4. Robustness tests for alternative wildfire indicators
+. *==================================================*
+. 
+. preserve
+{txt}
+{com}. drop if south_state != 1
+{txt}(0 observations deleted)
+
+{com}. 
+. eststo clear
+{txt}
+{com}. xtset fips year
+{res}{txt}{col 8}panel variable:  {res}fips (strongly balanced)
+{txt}{col 9}time variable:  {res}{col 25}year, 1995 to 2023
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. 
+. local mark "$\checkmark$"
+{txt}
+{com}. 
+. local outcomes1 logmtbs_acre mtbs_d mtbs_acre_p fema_count
+{txt}
+{com}. 
+. *****************************************************
+. * Panel A. Harvest results: 4-year baseline
+. *****************************************************
+. 
+. capture drop ma5_logcc_total
+{txt}
+{com}. gen ma5_logcc_total = log((L.n_cc_private + L2.n_cc_private + ///
+>                            L3.n_cc_private + L4.n_cc_private)/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. 
+. label var ma5_logcc_total "Log average harvest area"
+{txt}
+{com}. 
+. foreach y of local outcomes1 {c -(}
+{txt}  2{com}. 
+.     qui ivreghdfe `y' ///
+>         (ma5_logcc_total = L5.s_iv_harvest) ///
+>         $CONTROL if year >= 2000, ///
+>         absorb(fips year) ///
+>         cluster(fips) first
+{txt}  3{com}. 
+.     eststo cc_`y'
+{txt}  4{com}.     capture estadd scalar firstF = e(widstat)
+{txt}  5{com}.     estadd local countyfe "`mark'"
+{txt}  6{com}.     estadd local yearfe   "`mark'"
+{txt}  7{com}. {c )-}
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. *****************************************************
+. * Panel B. Thinning results: 4-year baseline
+. *****************************************************
+. 
+. capture drop ma5_logth_total
+{txt}
+{com}. gen ma5_logth_total = log((L.n_th_private + L2.n_th_private + ///
+>                            L3.n_th_private + L4.n_th_private)/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. 
+. label var ma5_logth_total "Log average thinning area"
+{txt}
+{com}. 
+. foreach y of local outcomes1 {c -(}
+{txt}  2{com}. 
+.     qui ivreghdfe `y' ///
+>         (ma5_logth_total = L4.s_iv_thin) ///
+>         $CONTROL if year >= 2000, ///
+>         absorb(fips year) ///
+>         cluster(fips) first
+{txt}  3{com}. 
+.     eststo th_`y'
+{txt}  4{com}.     capture estadd scalar firstF = e(widstat)
+{txt}  5{com}.     estadd local countyfe "`mark'"
+{txt}  6{com}.     estadd local yearfe   "`mark'"
+{txt}  7{com}. {c )-}
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. *****************************************************
+. * Export Panel A: Harvest
+. *****************************************************
+. 
+. esttab ///
+>     cc_logmtbs_acre cc_mtbs_d cc_mtbs_acre_p ///
+>     using "table_A4_panelA.tex", replace ///
+>     fragment booktabs label ///
+>     coeflabels( ///
+>         ma5_logcc_total "Log average harvest area" ///
+>     ) ///
+>     keep(ma5_logcc_total) ///
+>     order(ma5_logcc_total) ///
+>     cells(b(fmt(%9.3f) star) se(par fmt(%9.3f))) ///
+>     nonumbers nomtitles noobs compress ///
+>     mlabels("Log wildfire area (MTBS)" ///
+>             "Wildfire event (MTBS)" ///
+>             "Percent fire (MTBS)", ///
+>             span prefix(\multicolumn{c -(}@span{c )-}{c -(}c{c )-}{c -(}) suffix({c )-})) ///
+>     collabels(none) ///
+>     posthead("Panel A. Harvest results \\" ///
+>              "& (1) & (2) & (3) \\" ///
+>              "\midrule") ///
+>     stats(firstF N countyfe yearfe, ///
+>           fmt(%9.2f %9.0f %9s %9s) ///
+>           labels("Kleibergen-Paap Wald F statistic" ///
+>                  "Observations" ///
+>                  "County FE" ///
+>                  "Year FE")) ///
+>     star(* 0.10 ** 0.05 *** 0.01) ///
+>     postfoot("\midrule")
+{res}{txt}(output written to {browse  `"table_A4_panelA.tex"'})
+
+{com}. 
+. *****************************************************
+. * Export Panel B: Thinning
+. *****************************************************
+. 
+. esttab ///
+>     th_logmtbs_acre th_mtbs_d th_mtbs_acre_p ///
+>     using "table_A4_panelB.tex", replace ///
+>     fragment booktabs label ///
+>     coeflabels( ///
+>         ma5_logth_total "Log average thinning area" ///
+>     ) ///
+>     keep(ma5_logth_total) ///
+>     order(ma5_logth_total) ///
+>     cells(b(fmt(%9.3f) star) se(par fmt(%9.3f))) ///
+>     nonumbers nomtitles noobs compress ///
+>     mlabels("Log wildfire area (MTBS)" ///
+>             "Wildfire event (MTBS)" ///
+>             "Percent fire (MTBS)", ///
+>             span prefix(\multicolumn{c -(}@span{c )-}{c -(}c{c )-}{c -(}) suffix({c )-})) ///
+>     collabels(none) ///
+>     posthead("Panel B. Thinning results \\" ///
+>              "& (4) & (5) & (6) \\" ///
+>              "\midrule") ///
+>     stats(firstF N countyfe yearfe, ///
+>           fmt(%9.2f %9.0f %9s %9s) ///
+>           labels("Kleibergen-Paap Wald F statistic" ///
+>                  "Observations" ///
+>                  "County FE" ///
+>                  "Year FE")) ///
+>     star(* 0.10 ** 0.05 *** 0.01) ///
+>     postfoot("\midrule")
+{res}{txt}(output written to {browse  `"table_A4_panelB.tex"'})
+
+{com}. 
+. restore
+{txt}
+{com}. 
+. 
+. *****************************************************
+. * Robustness of dropping Texas and oklohoma
+. *****************************************************
+. 
+. eststo clear
+{txt}
+{com}. local mark "$\checkmark$"
+{txt}
+{com}. 
+. preserve
+{txt}
+{com}. keep if south_state == 1
+{txt}(0 observations deleted)
+
+{com}. 
+. *****************************************************
+. * Generate 5-year treatment variables
+. *****************************************************
+. 
+. cap drop logavg_harvest logavg_thin
+{txt}
+{com}. 
+. gen logavg_harvest = log((L.n_cc_private + L2.n_cc_private + ///
+>                           L3.n_cc_private + L4.n_cc_private)/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. 
+. gen logavg_thin = log((L.n_th_private + L2.n_th_private + ///
+>                        L3.n_th_private + L4.n_th_private)/4 + 1)
+{txt}(5,052 missing values generated)
+
+{com}. 
+. label variable logavg_harvest "Harvest"
+{txt}
+{com}. label variable logavg_thin    "Thinning"
+{txt}
+{com}. 
+. *****************************************************
+. * (1) Harvest IV
+. *****************************************************
+. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_harvest = L5.s_iv_harvest) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo cc_iv5
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. *****************************************************
+. * (2) Harvest IV
+. *****************************************************
+. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_harvest = L5.s_iv_harvest) ///
+>     $CONTROL if year >= 2000  &  !inlist(state, 48, 40), ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo cc_iv5_dropped
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. 
+. *****************************************************
+. * (3) Thinning IV
+. *****************************************************
+. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_thin = L4.s_iv_thin) ///
+>     $CONTROL if year >= 2000, ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo th_iv5
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. scalar b_iv_th = _b[logavg_thin]
+{txt}
+{com}. 
+. *****************************************************
+. * (4) Thinning IV
+. *****************************************************
+. 
+. qui ivreghdfe logmtbs_acre ///
+>     (logavg_thin = L4.s_iv_thin) ///
+>     $CONTROL if year >= 2000 &  !inlist(state, 48, 40), ///
+>     absorb(fips year) ///
+>     cluster(fips)
+{txt}
+{com}. 
+. eststo th_iv5_dropped
+{txt}
+{com}. capture estadd scalar firstF = e(widstat)
+{txt}
+{com}. estadd local countyfe "`mark'"
+
+{txt}added macro:
+           e(countyfe) : "{res:$\checkmark$}"
+
+{com}. estadd local yearfe   "`mark'"
+
+{txt}added macro:
+             e(yearfe) : "{res:$\checkmark$}"
+
+{com}. 
+. scalar b_iv_th = _b[logavg_thin]
+{txt}
+{com}. 
+. *****************************************************
+. * Export table
+. *****************************************************
+. 
+. esttab cc_iv5 cc_iv5_dropped th_iv5 th_iv5_dropped ///
+>     using "Table_A6_noFLOK.tex", replace ///
+>     fragment booktabs label ///
+>     varlabels(logavg_harvest "Harvest" ///
+>               logavg_thin "Thinning" ///
+>               bio_grow_ac_num "Bio growth rate") ///
+>     star(* 0.10 ** 0.05 *** 0.01) ///
+>     b(%9.4f) se(%9.4f) ///
+>     nonumbers nomtitles compress ///
+>     keep(logavg_harvest logavg_thin) ///
+>     order(logavg_harvest logavg_thin) ///
+>     mgroups("Harvest" "Thinning", ///
+>         pattern(1 0 1 0) ///
+>         prefix(\multicolumn{c -(}@span{c )-}{c -(}c{c )-}{c -(}) suffix({c )-}) span ///
+>         erepeat(\cmidrule(lr){c -(}@span{c )-})) ///
+>     collabels(none) ///
+>     posthead("& (1) & (2) & (3) & (4) \\" ///
+>              "\midrule") ///
+>     postfoot("\midrule") ///
+>     stats(firstF N countyfe yearfe, ///
+>         fmt(%9.2f %9.0f %9s %9s) ///
+>         labels("Kleibergen-Paap Wald F statistic" ///
+>                "Observations" ///
+>                "County FE" ///
+>                "Year FE"))
+{res}{txt}(output written to {browse  `"Table_A6_noFLOK.tex"'})
+
+{com}. 
+. 
+. restore
+{txt}
+{com}. 
+. 
+{txt}end of do-file
+
+{com}. exit, clear

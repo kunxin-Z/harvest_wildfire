@@ -1,0 +1,2765 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\zhuku\OneDrive - Auburn University\python_project\wildfire_milling\STATA\fia_old\v11\disturbance_wildfire_fia.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}27 Aug 2026, 00:33:01
+{txt}
+{com}. 
+. 
+. xtset plt_id year
+{res}{txt}{col 8}panel variable:  {res}plt_id (unbalanced)
+{txt}{col 9}time variable:  {res}{col 25}year, 1987 to 2024
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. 
+. * data cleaning
+. gen state = statecd
+{txt}
+{com}. gen geo =statecd*1000+countycd
+{txt}
+{com}. 
+. * generate states with information
+. gen south_state=0
+{txt}
+{com}. replace south_state=1 if inlist(state, 1, 5, 37, 40, 12, 13, 45, 47, 48, 51, 21, 22, 28)
+{txt}(1,631,858 real changes made)
+
+{com}. drop if south_state != 1
+{txt}(0 observations deleted)
+
+{com}. 
+. 
+. tab year
+
+       {txt}YEAR {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+       1987 {c |}{res}      4,082        0.25        0.25
+{txt}       1988 {c |}{res}      4,755        0.29        0.54
+{txt}       1989 {c |}{res}      9,220        0.57        1.11
+{txt}       1990 {c |}{res}     16,330        1.00        2.11
+{txt}       1991 {c |}{res}     19,540        1.20        3.30
+{txt}       1992 {c |}{res}     27,363        1.68        4.98
+{txt}       1993 {c |}{res}     31,444        1.93        6.91
+{txt}       1994 {c |}{res}     35,554        2.18        9.09
+{txt}       1995 {c |}{res}     38,263        2.34       11.43
+{txt}       1996 {c |}{res}     44,049        2.70       14.13
+{txt}       1997 {c |}{res}     45,991        2.82       16.95
+{txt}       1998 {c |}{res}     48,230        2.96       19.90
+{txt}       1999 {c |}{res}     49,504        3.03       22.94
+{txt}       2000 {c |}{res}     50,833        3.12       26.05
+{txt}       2001 {c |}{res}     52,380        3.21       29.26
+{txt}       2002 {c |}{res}     53,888        3.30       32.57
+{txt}       2003 {c |}{res}     55,200        3.38       35.95
+{txt}       2004 {c |}{res}     54,813        3.36       39.31
+{txt}       2005 {c |}{res}     54,876        3.36       42.67
+{txt}       2006 {c |}{res}     54,672        3.35       46.02
+{txt}       2007 {c |}{res}     54,396        3.33       49.35
+{txt}       2008 {c |}{res}     54,253        3.32       52.68
+{txt}       2009 {c |}{res}     54,052        3.31       55.99
+{txt}       2010 {c |}{res}     53,840        3.30       59.29
+{txt}       2011 {c |}{res}     53,652        3.29       62.58
+{txt}       2012 {c |}{res}     53,451        3.28       65.85
+{txt}       2013 {c |}{res}     53,283        3.27       69.12
+{txt}       2014 {c |}{res}     52,829        3.24       72.36
+{txt}       2015 {c |}{res}     52,447        3.21       75.57
+{txt}       2016 {c |}{res}     52,058        3.19       78.76
+{txt}       2017 {c |}{res}     51,626        3.16       81.92
+{txt}       2018 {c |}{res}     51,111        3.13       85.06
+{txt}       2019 {c |}{res}     50,485        3.09       88.15
+{txt}       2020 {c |}{res}     49,887        3.06       91.21
+{txt}       2021 {c |}{res}     49,187        3.01       94.22
+{txt}       2022 {c |}{res}     46,168        2.83       97.05
+{txt}       2023 {c |}{res}     34,379        2.11       99.16
+{txt}       2024 {c |}{res}     13,767        0.84      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}  1,631,858      100.00
+{txt}
+{com}. tab year if clearcut_srs==1
+
+       {txt}YEAR {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+       1992 {c |}{res}          7        0.06        0.06
+{txt}       1993 {c |}{res}         26        0.23        0.29
+{txt}       1994 {c |}{res}         30        0.26        0.55
+{txt}       1995 {c |}{res}         50        0.44        0.98
+{txt}       1996 {c |}{res}        125        1.09        2.07
+{txt}       1997 {c |}{res}        169        1.47        3.54
+{txt}       1998 {c |}{res}        273        2.38        5.92
+{txt}       1999 {c |}{res}        330        2.87        8.79
+{txt}       2000 {c |}{res}        439        3.82       12.61
+{txt}       2001 {c |}{res}        446        3.88       16.50
+{txt}       2002 {c |}{res}        522        4.54       21.04
+{txt}       2003 {c |}{res}        458        3.99       25.03
+{txt}       2004 {c |}{res}        483        4.20       29.23
+{txt}       2005 {c |}{res}        524        4.56       33.79
+{txt}       2006 {c |}{res}        491        4.27       38.07
+{txt}       2007 {c |}{res}        501        4.36       42.43
+{txt}       2008 {c |}{res}        439        3.82       46.25
+{txt}       2009 {c |}{res}        480        4.18       50.43
+{txt}       2010 {c |}{res}        430        3.74       54.17
+{txt}       2011 {c |}{res}        404        3.52       57.69
+{txt}       2012 {c |}{res}        435        3.79       61.47
+{txt}       2013 {c |}{res}        533        4.64       66.11
+{txt}       2014 {c |}{res}        529        4.60       70.72
+{txt}       2015 {c |}{res}        490        4.27       74.98
+{txt}       2016 {c |}{res}        467        4.07       79.05
+{txt}       2017 {c |}{res}        470        4.09       83.14
+{txt}       2018 {c |}{res}        487        4.24       87.38
+{txt}       2019 {c |}{res}        457        3.98       91.36
+{txt}       2020 {c |}{res}        353        3.07       94.43
+{txt}       2021 {c |}{res}        278        2.42       96.85
+{txt}       2022 {c |}{res}        213        1.85       98.70
+{txt}       2023 {c |}{res}        128        1.11       99.82
+{txt}       2024 {c |}{res}         21        0.18      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}     11,488      100.00
+{txt}
+{com}. 
+. tab owngrpcd stdorgcd if clearcut_srs==1
+
+           {txt}{c |}       STDORGCD
+  OWNGRPCD {c |}         0          1 {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+        10 {c |}{res}        79         16 {txt}{c |}{res}        95 
+{txt}        20 {c |}{res}        46         18 {txt}{c |}{res}        64 
+{txt}        30 {c |}{res}       132         66 {txt}{c |}{res}       198 
+{txt}        40 {c |}{res}     6,669      4,462 {txt}{c |}{res}    11,131 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}     6,926      4,562 {txt}{c |}{res}    11,488 
+{txt}
+{com}. 
+. drop if extend_year!=0
+{txt}(0 observations deleted)
+
+{com}. 
+. 
+. *only include private land owners
+. drop if owngrpcd !=40
+{txt}(232,236 observations deleted)
+
+{com}. 
+. tab mtbs_count_10 year
+
+{txt}MTBS_count {c |}                                                                      YEAR
+       _10 {c |}      1987       1988       1989       1990       1991       1992       1993       1994       1995       1996       1997       1998       1999 {c |}     Total
+{hline 11}{c +}{hline 143}{c +}{hline 10}
+         1 {c |}{res}       133        157        117        111        229        175        360        656        570      1,205        448        991      1,435 {txt}{c |}{res}    44,921 
+{txt}         2 {c |}{res}        11         23         39         49         90         29         80        164        117        219        142        307        367 {txt}{c |}{res}    10,332 
+{txt}         3 {c |}{res}         5         14         22          7         38         17         33        107         42         72         89        147        161 {txt}{c |}{res}     4,115 
+{txt}         4 {c |}{res}         2          5         27          7         30         13         22         52         27         40         25         56         95 {txt}{c |}{res}     1,862 
+{txt}         5 {c |}{res}         4          0         13          4         19         11         10         22         16         16         23         61         70 {txt}{c |}{res}       966 
+{txt}         6 {c |}{res}        17          0          5          0          5         16         20          5         17         16         11         26         44 {txt}{c |}{res}       618 
+{txt}         7 {c |}{res}         0          0          0          0          9          7          4          6          1          7         14          8         15 {txt}{c |}{res}       369 
+{txt}         8 {c |}{res}         0          0          0          0          9         10          4          7          0         10         13          4          9 {txt}{c |}{res}       215 
+{txt}         9 {c |}{res}         0          0          0          0          6          1          5          5          0          4         10          3          6 {txt}{c |}{res}       150 
+{txt}        10 {c |}{res}         0          0          0          0          1          3          7          4          0          5          9          3          4 {txt}{c |}{res}       128 
+{txt}        11 {c |}{res}         0          0          0          0          0          2          2          7          0          5          1          7          8 {txt}{c |}{res}        80 
+{txt}        12 {c |}{res}         0          0          0          0          0          1          4          0          0          0          0          9          5 {txt}{c |}{res}        58 
+{txt}        13 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}        33 
+{txt}        14 {c |}{res}         0          0          0          0          0          1          0          0          0          0          0          0          0 {txt}{c |}{res}        32 
+{txt}        15 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}        17 
+{txt}        16 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}        14 
+{txt}        17 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         7 
+{txt}        18 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         4 
+{txt}        19 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        20 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         4 
+{txt}        21 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        22 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        23 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        24 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        25 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         7 
+{txt}        26 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         5 
+{txt}        27 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        28 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        29 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}        30 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        31 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        32 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}        33 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         4 
+{txt}        34 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}{hline 11}{c +}{hline 143}{c +}{hline 10}
+     Total {c |}{res}       172        199        223        178        436        286        551      1,035        790      1,599        785      1,622      2,219 {txt}{c |}{res}    63,966 
+
+
+{txt}MTBS_count {c |}                                                                      YEAR
+       _10 {c |}      2000       2001       2002       2003       2004       2005       2006       2007       2008       2009       2010       2011       2012 {c |}     Total
+{hline 11}{c +}{hline 143}{c +}{hline 10}
+         1 {c |}{res}     2,611      1,437        953        997      1,341      1,929      3,441      2,345      3,081      1,780      1,243      4,208      1,267 {txt}{c |}{res}    44,921 
+{txt}         2 {c |}{res}       628        414        183        186        476        408        947        661        642        556        220      1,386        148 {txt}{c |}{res}    10,332 
+{txt}         3 {c |}{res}       261        291         93         71        181        205        314        235        284        159         49        571         52 {txt}{c |}{res}     4,115 
+{txt}         4 {c |}{res}        89        168         34         73         95        113        147        113        166         44          2        203         17 {txt}{c |}{res}     1,862 
+{txt}         5 {c |}{res}        56         86         14         40         45         70         60         69         82         17          0         94          2 {txt}{c |}{res}       966 
+{txt}         6 {c |}{res}        36         42         23         12         34         52         36         52         51         23          0         21          0 {txt}{c |}{res}       618 
+{txt}         7 {c |}{res}        15         40          3         13         22         45         34         51         22         15          0         10          0 {txt}{c |}{res}       369 
+{txt}         8 {c |}{res}        13          6          5          9         11         26          9         23         23          4          0          2          0 {txt}{c |}{res}       215 
+{txt}         9 {c |}{res}         8          1          3         12         12          9         10         17         29          0          0          3          0 {txt}{c |}{res}       150 
+{txt}        10 {c |}{res}         7          4          3         14         19          8         10          9         13          0          0          0          0 {txt}{c |}{res}       128 
+{txt}        11 {c |}{res}         1          4          5          6          6          2          7          9          5          0          0          0          0 {txt}{c |}{res}        80 
+{txt}        12 {c |}{res}         0          2          5          4         11          0          2          8          6          0          0          0          0 {txt}{c |}{res}        58 
+{txt}        13 {c |}{res}         0          0          3          3          7          0          1          5         14          0          0          0          0 {txt}{c |}{res}        33 
+{txt}        14 {c |}{res}         0          0          6          7          6          0          0          9          3          0          0          0          0 {txt}{c |}{res}        32 
+{txt}        15 {c |}{res}         0          0          0          0          6          0          1          3          7          0          0          0          0 {txt}{c |}{res}        17 
+{txt}        16 {c |}{res}         0          1          0          0          0          0          2          8          3          0          0          0          0 {txt}{c |}{res}        14 
+{txt}        17 {c |}{res}         0          0          0          0          0          0          2          5          0          0          0          0          0 {txt}{c |}{res}         7 
+{txt}        18 {c |}{res}         0          0          0          0          0          0          0          3          1          0          0          0          0 {txt}{c |}{res}         4 
+{txt}        19 {c |}{res}         0          0          0          0          0          0          0          3          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        20 {c |}{res}         0          0          0          0          0          0          0          4          0          0          0          0          0 {txt}{c |}{res}         4 
+{txt}        21 {c |}{res}         0          0          0          0          0          0          0          3          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        22 {c |}{res}         0          0          0          0          0          0          0          2          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        23 {c |}{res}         0          0          0          0          0          0          0          2          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        24 {c |}{res}         0          0          0          0          0          0          0          3          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        25 {c |}{res}         0          0          0          0          0          0          0          7          0          0          0          0          0 {txt}{c |}{res}         7 
+{txt}        26 {c |}{res}         0          0          0          0          0          0          0          5          0          0          0          0          0 {txt}{c |}{res}         5 
+{txt}        27 {c |}{res}         0          0          0          0          0          0          0          2          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        28 {c |}{res}         0          0          0          0          0          0          0          3          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        29 {c |}{res}         0          0          0          0          0          0          0          1          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}        30 {c |}{res}         0          0          0          0          0          0          0          2          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        31 {c |}{res}         0          0          0          0          0          0          0          2          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        32 {c |}{res}         0          0          0          0          0          0          0          1          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}        33 {c |}{res}         0          0          0          0          0          0          0          4          0          0          0          0          0 {txt}{c |}{res}         4 
+{txt}        34 {c |}{res}         0          0          0          0          0          0          0          1          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}{hline 11}{c +}{hline 143}{c +}{hline 10}
+     Total {c |}{res}     3,725      2,496      1,333      1,447      2,272      2,867      5,023      3,670      4,432      2,598      1,514      6,498      1,486 {txt}{c |}{res}    63,966 
+
+
+{txt}MTBS_count {c |}                                                                YEAR
+       _10 {c |}      2013       2014       2015       2016       2017       2018       2019       2020       2021       2022       2023       2024 {c |}     Total
+{hline 11}{c +}{hline 132}{c +}{hline 10}
+         1 {c |}{res}       575        678      1,091      1,814      1,154      1,331        773        885      1,104      1,959        210        127 {txt}{c |}{res}    44,921 
+{txt}         2 {c |}{res}        74        113        120        509        230        251        128         54         59        227         64         11 {txt}{c |}{res}    10,332 
+{txt}         3 {c |}{res}        32         28         56        162         92         89         22          1         40         40         22         11 {txt}{c |}{res}     4,115 
+{txt}         4 {c |}{res}        10         37          1         41         42         35          5          0          5          7         13          1 {txt}{c |}{res}     1,862 
+{txt}         5 {c |}{res}         0         21          1          7          6          9          6          0          6          5          1          0 {txt}{c |}{res}       966 
+{txt}         6 {c |}{res}         0         16          0          7          9          2         13          0          4          3          0          0 {txt}{c |}{res}       618 
+{txt}         7 {c |}{res}         0         16          0          0          6          1          0          0          0          5          0          0 {txt}{c |}{res}       369 
+{txt}         8 {c |}{res}         0          9          0          0          5          3          0          0          0          1          0          0 {txt}{c |}{res}       215 
+{txt}         9 {c |}{res}         0          2          0          0          3          0          0          0          0          1          0          0 {txt}{c |}{res}       150 
+{txt}        10 {c |}{res}         0          2          0          0          0          3          0          0          0          0          0          0 {txt}{c |}{res}       128 
+{txt}        11 {c |}{res}         0          2          0          0          0          1          0          0          0          0          0          0 {txt}{c |}{res}        80 
+{txt}        12 {c |}{res}         0          1          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}        58 
+{txt}        13 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}        33 
+{txt}        14 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}        32 
+{txt}        15 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}        17 
+{txt}        16 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}        14 
+{txt}        17 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         7 
+{txt}        18 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         4 
+{txt}        19 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        20 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         4 
+{txt}        21 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        22 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        23 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        24 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        25 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         7 
+{txt}        26 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         5 
+{txt}        27 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        28 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         3 
+{txt}        29 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}        30 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        31 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         2 
+{txt}        32 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}        33 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         4 
+{txt}        34 {c |}{res}         0          0          0          0          0          0          0          0          0          0          0          0 {txt}{c |}{res}         1 
+{txt}{hline 11}{c +}{hline 132}{c +}{hline 10}
+     Total {c |}{res}       691        925      1,269      2,540      1,547      1,725        947        940      1,218      2,248        310        150 {txt}{c |}{res}    63,966 
+{txt}
+{com}. tab nifc_count_10 year
+
+{txt}NIFC_count {c |}                                                                      YEAR
+       _10 {c |}      2000       2001       2002       2004       2006       2007       2008       2009       2010       2011       2012       2013       2014 {c |}     Total
+{hline 11}{c +}{hline 143}{c +}{hline 10}
+         1 {c |}{res}         2         76         36         19         75        407        751        407        332      2,910        730        323        430 {txt}{c |}{res}     9,256 
+{txt}         2 {c |}{res}         0          5         37         15         21        120        109         46         77      1,549        168        104        136 {txt}{c |}{res}     2,998 
+{txt}         3 {c |}{res}         0         12          0          0         15         36         29         24         18        930         56         29         18 {txt}{c |}{res}     1,437 
+{txt}         4 {c |}{res}         0          0          0          0          0         11          8         14         16        577         16          5         17 {txt}{c |}{res}       767 
+{txt}         5 {c |}{res}         0          0          0          0          0          2          0          0          3        366         11          0         12 {txt}{c |}{res}       444 
+{txt}         6 {c |}{res}         0          0          0          0          0          0          0          0          1        216          1          0          6 {txt}{c |}{res}       267 
+{txt}         7 {c |}{res}         0          0          0          0          0          0          0          0          0        126          0          0          1 {txt}{c |}{res}       147 
+{txt}         8 {c |}{res}         0          0          0          0          0          0          0          0          0        111          0          0          0 {txt}{c |}{res}       114 
+{txt}         9 {c |}{res}         0          0          0          0          0          0          0          0          0         68          0          0          0 {txt}{c |}{res}        70 
+{txt}        10 {c |}{res}         0          0          0          0          0          0          0          0          0         46          0          0          0 {txt}{c |}{res}        46 
+{txt}        11 {c |}{res}         0          0          0          0          0          0          0          0          0         32          0          0          0 {txt}{c |}{res}        32 
+{txt}        12 {c |}{res}         0          0          0          0          0          0          0          0          0         24          0          0          0 {txt}{c |}{res}        24 
+{txt}        13 {c |}{res}         0          0          0          0          0          0          0          0          0         14          0          0          0 {txt}{c |}{res}        14 
+{txt}        14 {c |}{res}         0          0          0          0          0          0          0          0          0         18          0          0          0 {txt}{c |}{res}        18 
+{txt}        15 {c |}{res}         0          0          0          0          0          0          0          0          0         10          0          0          0 {txt}{c |}{res}        10 
+{txt}        16 {c |}{res}         0          0          0          0          0          0          0          0          0          6          0          0          0 {txt}{c |}{res}         6 
+{txt}        17 {c |}{res}         0          0          0          0          0          0          0          0          0          5          0          0          0 {txt}{c |}{res}         5 
+{txt}        18 {c |}{res}         0          0          0          0          0          0          0          0          0          3          0          0          0 {txt}{c |}{res}         3 
+{txt}        19 {c |}{res}         0          0          0          0          0          0          0          0          0          2          0          0          0 {txt}{c |}{res}         2 
+{txt}        24 {c |}{res}         0          0          0          0          0          0          0          0          0          3          0          0          0 {txt}{c |}{res}         3 
+{txt}        25 {c |}{res}         0          0          0          0          0          0          0          0          0          1          0          0          0 {txt}{c |}{res}         1 
+{txt}        26 {c |}{res}         0          0          0          0          0          0          0          0          0          5          0          0          0 {txt}{c |}{res}         5 
+{txt}        29 {c |}{res}         0          0          0          0          0          0          0          0          0          1          0          0          0 {txt}{c |}{res}         1 
+{txt}        30 {c |}{res}         0          0          0          0          0          0          0          0          0          1          0          0          0 {txt}{c |}{res}         1 
+{txt}{hline 11}{c +}{hline 143}{c +}{hline 10}
+     Total {c |}{res}         2         93         73         34        111        576        897        491        447      7,024        982        461        620 {txt}{c |}{res}    15,671 
+
+
+{txt}NIFC_count {c |}                    YEAR
+       _10 {c |}      2015       2016       2017       2018 {c |}     Total
+{hline 11}{c +}{hline 44}{c +}{hline 10}
+         1 {c |}{res}       433      1,277        536        512 {txt}{c |}{res}     9,256 
+{txt}         2 {c |}{res}        85        318        105        103 {txt}{c |}{res}     2,998 
+{txt}         3 {c |}{res}        23        182         28         37 {txt}{c |}{res}     1,437 
+{txt}         4 {c |}{res}         3         83          4         13 {txt}{c |}{res}       767 
+{txt}         5 {c |}{res}         1         46          1          2 {txt}{c |}{res}       444 
+{txt}         6 {c |}{res}         1         30          0         12 {txt}{c |}{res}       267 
+{txt}         7 {c |}{res}         2          7          0         11 {txt}{c |}{res}       147 
+{txt}         8 {c |}{res}         0          1          0          2 {txt}{c |}{res}       114 
+{txt}         9 {c |}{res}         0          1          0          1 {txt}{c |}{res}        70 
+{txt}        10 {c |}{res}         0          0          0          0 {txt}{c |}{res}        46 
+{txt}        11 {c |}{res}         0          0          0          0 {txt}{c |}{res}        32 
+{txt}        12 {c |}{res}         0          0          0          0 {txt}{c |}{res}        24 
+{txt}        13 {c |}{res}         0          0          0          0 {txt}{c |}{res}        14 
+{txt}        14 {c |}{res}         0          0          0          0 {txt}{c |}{res}        18 
+{txt}        15 {c |}{res}         0          0          0          0 {txt}{c |}{res}        10 
+{txt}        16 {c |}{res}         0          0          0          0 {txt}{c |}{res}         6 
+{txt}        17 {c |}{res}         0          0          0          0 {txt}{c |}{res}         5 
+{txt}        18 {c |}{res}         0          0          0          0 {txt}{c |}{res}         3 
+{txt}        19 {c |}{res}         0          0          0          0 {txt}{c |}{res}         2 
+{txt}        24 {c |}{res}         0          0          0          0 {txt}{c |}{res}         3 
+{txt}        25 {c |}{res}         0          0          0          0 {txt}{c |}{res}         1 
+{txt}        26 {c |}{res}         0          0          0          0 {txt}{c |}{res}         5 
+{txt}        29 {c |}{res}         0          0          0          0 {txt}{c |}{res}         1 
+{txt}        30 {c |}{res}         0          0          0          0 {txt}{c |}{res}         1 
+{txt}{hline 11}{c +}{hline 44}{c +}{hline 10}
+     Total {c |}{res}       548      1,945        674        693 {txt}{c |}{res}    15,671 
+{txt}
+{com}. 
+. * drop reserved land
+. drop if reservcd==1
+{txt}(0 observations deleted)
+
+{com}. 
+. * generate code for ecoregion 3
+. encode na_l3code_x, gen(l3eco)
+{txt}
+{com}. gen na_l2code = regexs(1) if regexm(na_l3code_x, "^([0-9]+\.[0-9]+)\.")
+{txt}
+{com}. encode na_l2code, gen(l2eco)
+{txt}
+{com}. 
+. 
+. * clean tpa
+. sum tpa if year>2000,d
+
+                             {txt}TPA
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}        0              0
+{txt} 5%    {res} 6.018046              0
+{txt}10%    {res} 24.07218              0       {txt}Obs         {res}  1,025,071
+{txt}25%    {res} 138.4151              0       {txt}Sum of Wgt. {res}  1,025,071
+
+{txt}50%    {res} 374.8264                      {txt}Mean          {res} 499.2971
+                        {txt}Largest       Std. Dev.     {res} 494.8686
+{txt}75%    {res} 705.2983       9601.574
+{txt}90%    {res} 1122.251       9601.574       {txt}Variance      {res} 244894.9
+{txt}95%    {res} 1451.682       9601.574       {txt}Skewness      {res} 2.097783
+{txt}99%    {res} 2225.407       9601.574       {txt}Kurtosis      {res} 11.78133
+{txt}
+{com}. local p90 = r(p90)
+{txt}
+{com}. display r(p90)
+{res}1122.2511
+{txt}
+{com}. gen tpa_cap=0
+{txt}
+{com}. replace tpa_cap=1 if tpa>1000
+{txt}(188,570 real changes made)
+
+{com}. replace tpa=r(p90) if tpa>`p90'
+{txt}(144,412 real changes made)
+
+{com}. egen tpa_cap_max = max(tpa_cap), by(plt_id)
+{txt}
+{com}. drop if tpa_cap_max==1
+{txt}(361,123 observations deleted)
+
+{com}. 
+. * clean stdage
+. replace stdage=200 if stdage>200
+{txt}(20 real changes made)
+
+{com}. 
+. 
+. * fill na
+. * not included dia_grow ba_grow netvol_grow sawvol_grow bio_grow baa_grow netvol_grow_ac sawvol_grow_ac bio_grow_ac
+. foreach var in rddistcd prev_tpa spgrpcd  clearcut_srs thin_srs part_srs n_clearcut_srs n_thin_srs major_clearcut_srs major_thin_srs major_part_srs major_n_clearcut_srs major_n_thin_srs l3eco mtbs_count_2 nifc_count_2 mtbs_count_10 nifc_count_10 fire_srs cutting site_preparation arti_regen natural_regen silviculture private_arti private_natural c_a t_a c_n t_n private_arti_s private_natural_s c_a_s t_a_s c_n_s t_n_s private_arti_se private_natural_se c_a_se t_a_se c_n_se t_n_se estabs{c -(}
+{txt}  2{com}.         replace `var'=0 if missing(`var')
+{txt}  3{com}. {c )-}
+{txt}(2,516 real changes made)
+(123,711 real changes made)
+(21,443 real changes made)
+(1,032,240 real changes made)
+(1,029,674 real changes made)
+(1,035,059 real changes made)
+(1,028,964 real changes made)
+(1,033,093 real changes made)
+(1,032,573 real changes made)
+(1,030,011 real changes made)
+(1,035,164 real changes made)
+(1,029,269 real changes made)
+(1,033,316 real changes made)
+(0 real changes made)
+(1,031,912 real changes made)
+(1,036,646 real changes made)
+(986,753 real changes made)
+(1,025,633 real changes made)
+(161,409 real changes made)
+(1,025,242 real changes made)
+(1,035,640 real changes made)
+(1,034,877 real changes made)
+(1,036,472 real changes made)
+(1,037,083 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1,028,964 real changes made)
+(1,033,093 real changes made)
+(1,028,964 real changes made)
+(1,033,093 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(521,819 real changes made)
+
+{com}. 
+. 
+. 
+. * get whether management activities happens in the last 4 years
+. gen sitep_4 = ///
+>     (l4.site_preparation == 1) | ///
+>     (l1.site_preparation == 1) | ///
+>     (l2.site_preparation == 1) | ///
+>     (l3.site_preparation == 1)
+{txt}
+{com}. gen silvi_4 = ///
+>     (l4.silviculture == 1) | ///
+>     (l1.silviculture == 1) | ///
+>     (l2.silviculture == 1) | ///
+>     (l3.silviculture == 1)
+{txt}
+{com}.         
+. * fill na by mean
+. foreach var in stdage bio_grow_ac slope elev vdp_max_2 vdp_max_10{c -(}
+{txt}  2{com}.         sum `var'
+{txt}  3{com}.         replace `var'=r(mean) if missing(`var')
+{txt}  4{com}. {c )-}
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}stdage {c |}{res}  1,038,499    40.31237    25.99617          0        200
+{txt}(0 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 1}bio_grow_ac {c |}{res}    914,788    .9414856    1.764473  -146.2591   55.62061
+{txt}(123,711 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 7}slope {c |}{res}  1,038,499     8.94356    14.59889          0        155
+{txt}(0 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 8}elev {c |}{res}  1,038,499    747.6146    793.0957          0       7170
+{txt}(0 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 3}vdp_max_2 {c |}{res}    953,038    18.13208    4.150482       6.59      44.16
+{txt}(85,461 real changes made)
+
+    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 2}vdp_max_10 {c |}{res}    953,038     18.8618    4.150571        9.5       44.3
+{txt}(85,461 real changes made)
+
+{com}. 
+. * drop nifc>2018
+. foreach var in nifc_count_2 nifc_count_10{c -(}
+{txt}  2{com}.         replace `var'=1 if `var'>1 & missing(`var')==0
+{txt}  3{com}.         replace `var'  = . if year>2018
+{txt}  4{com}. {c )-}
+{txt}(211 real changes made)
+(148,234 real changes made, 148,234 to missing)
+(5,228 real changes made)
+(148,234 real changes made, 148,234 to missing)
+
+{com}. 
+. foreach var in mtbs_count_2 mtbs_count_10{c -(}
+{txt}  2{com}.         replace `var'=1 if `var'>1 & missing(`var')==0
+{txt}  3{com}. {c )-}
+{txt}(573 real changes made)
+(15,637 real changes made)
+
+{com}. 
+. * log transformation
+. foreach var in vdp_max_2 vdp_max_10 {c -(}
+{txt}  2{com}.     gen log`var'=log(`var'+1)
+{txt}  3{com}. {c )-}
+{txt}
+{com}. 
+. * artifically generated
+. egen artifical_gen = max(stdorgcd), by(plt_id)
+{txt}
+{com}. 
+. * tree types
+. gen SPGR =  .
+{txt}(1,038,499 missing values generated)
+
+{com}. * 1. Loblolly Pines
+. replace SPGR = 1 if spgrpcd == 2
+{txt}(142,613 real changes made)
+
+{com}. * 2. Other Commercial Softwood
+. replace SPGR = 2 if inlist(spgrpcd, 1, 3, 4, 6)
+{txt}(61,779 real changes made)
+
+{com}. * 3. Non-Commercial Softwood
+. replace SPGR = 3 if inlist(spgrpcd, 7, 8, 9, 23, 24)
+{txt}(79,684 real changes made)
+
+{com}. * 4. Upland Hardwoods
+. replace SPGR = 4 if inlist(spgrpcd, ///
+>     28, 27, 25, 26, 29, 31, 33, 40, 38, 30)
+{txt}(196,861 real changes made)
+
+{com}. * 5. Bottomland Hardwoods
+. replace SPGR = 5 if inlist(spgrpcd, ///
+>     34, 32, 35, 39, 36, 37, ///
+>     43, 41, 42, 48, 55, 54)
+{txt}(536,119 real changes made)
+
+{com}. replace SPGR=0 if missing(SPGR)
+{txt}(21,443 real changes made)
+
+{com}. 
+. gen rddist_ft=0
+{txt}
+{com}. replace rddist_ft = 50       if rddistcd == 1   // 100 ft | less
+{txt}(111,742 real changes made)
+
+{com}. replace rddist_ft = 200      if rddistcd == 2   // 101–300 ft
+{txt}(147,129 real changes made)
+
+{com}. replace rddist_ft = 400      if rddistcd == 3   // 301–500 ft
+{txt}(126,725 real changes made)
+
+{com}. replace rddist_ft = 750      if rddistcd == 4   // 501–1000 ft
+{txt}(202,430 real changes made)
+
+{com}. replace rddist_ft = 3140     if rddistcd == 5   // 1001 ft–1/2 mile
+{txt}(290,682 real changes made)
+
+{com}. replace rddist_ft = 3960     if rddistcd == 6   // 1/2–1 mile
+{txt}(112,264 real changes made)
+
+{com}. replace rddist_ft = 10560    if rddistcd == 7   // 1–3 miles
+{txt}(38,648 real changes made)
+
+{com}. replace rddist_ft = 21120    if rddistcd == 8   // 3–5 miles
+{txt}(3,861 real changes made)
+
+{com}. replace rddist_ft = 31680    if rddistcd == 9   // greater than 5 miles, assigned 6 miles
+{txt}(2,502 real changes made)
+
+{com}. 
+. 
+. * weighted by baseline area_total_private
+. bysort plt_id (year): gen area_total_private_s = area_total_private[1]
+{txt}
+{com}. 
+. 
+. egen state_eco = group(state l3eco)
+{res}{txt}
+{com}. egen county_eco = group(fips l3eco)
+{res}{txt}
+{com}. ********************************************************************************
+. ******************Southern regions analysis ************************************
+. ********************************************************************************
+. 
+. 
+. gen iv_saw=saw_price*private_arti/(private_natural+private_arti)
+{txt}
+{com}. gen iv_pulp=pulp_price*private_arti/(private_natural+private_arti)
+{txt}
+{com}. 
+. * state level shift share
+. gen state_clear=((c_a_s-c_a)/(private_arti_s-private_arti)*L.private_arti+(c_n_s-c_n)/(private_natural_s-private_natural)*L.private_natural)/(L.private_natural+L.private_arti)
+{txt}(37,222 missing values generated)
+
+{com}. gen state_thin=((t_a_s-t_a)/(private_arti_s-private_arti)*L.private_arti+(t_n_s-t_n)/(private_natural_s-private_natural)*L.private_natural)/(L.private_natural+L.private_arti)
+{txt}(37,222 missing values generated)
+
+{com}. 
+. * state_eco region level
+. gen se_clear=((c_a_se-c_a)/(private_arti_se-private_arti)*L.private_arti+(c_n_se-c_n)/(private_natural_se-private_natural)*L.private_natural)/(L.private_natural+L.private_arti)
+{txt}(181,824 missing values generated)
+
+{com}. gen se_thin=((t_a_se-t_a)/(private_arti_se-private_arti)*L.private_arti+(t_n_se-t_n)/(private_natural_se-private_natural)*L.private_natural)/(L.private_natural+L.private_arti)
+{txt}(181,824 missing values generated)
+
+{com}. 
+. gen c_clear=((c_a_c-c_a)/(private_arti_c-private_arti)*L.private_arti+(c_n_c-c_n)/(private_natural_c-private_natural)*L.private_natural)/(L.private_natural+L.private_arti)
+{txt}(394,569 missing values generated)
+
+{com}. gen c_thin=((t_a_c-t_a)/(private_arti_c-private_arti)*L.private_arti+(t_n_c-t_n)/(private_natural_c-private_natural)*L.private_natural)/(L.private_natural+L.private_arti)
+{txt}(394,569 missing values generated)
+
+{com}. 
+. foreach var in se_clear c_clear{c -(}
+{txt}  2{com}.         replace `var'=state_clear if missing(`var')
+{txt}  3{com}. {c )-}
+{txt}(144,602 real changes made)
+(357,347 real changes made)
+
+{com}. foreach var in se_thin c_thin{c -(}
+{txt}  2{com}.         replace `var'=state_thin if missing(`var')
+{txt}  3{com}. {c )-}
+{txt}(144,602 real changes made)
+(357,347 real changes made)
+
+{com}.         
+. *****************************************************
+. gl CONTROL "vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev bio_grow_ac estabs rddist_ft i.siteclcd"
+{txt}
+{com}. *********************************************************
+. ******************************** SS table **************************************
+. 
+. 
+. xtset plt_id year
+{res}{txt}{col 8}panel variable:  {res}plt_id (unbalanced)
+{txt}{col 9}time variable:  {res}{col 25}year, 1987 to 2024, but with gaps
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. preserve
+{txt}
+{com}. 
+. foreach v in state_clear state_thin {c -(}
+{txt}  2{com}. 
+.     capture drop L1_`v' L2_`v' L3_`v' L4_`v' ma3_`v'
+{txt}  3{com}. 
+.     gen L1_`v' = L1.`v'
+{txt}  4{com}.     gen L2_`v' = L2.`v'
+{txt}  5{com}.     gen L3_`v' = L3.`v'
+{txt}  6{com}.         gen L4_`v' =L4.`v'
+{txt}  7{com}.         gen ma3_`v' = L1_`v'+ L2_`v'+ L3_`v'+ L4_`v'
+{txt}  8{com}. {c )-}
+{txt}(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(185,952 missing values generated)
+(185,952 missing values generated)
+(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(185,952 missing values generated)
+(185,952 missing values generated)
+
+{com}. 
+. 
+. 
+. foreach var in  area_total_private{c -(}
+{txt}  2{com}.         replace `var' = `var'/1000
+{txt}  3{com}. {c )-}
+{txt}(1,038,499 real changes made)
+
+{com}. replace rddist_ft = rddist_ft / 5280
+{txt}(1,035,983 real changes made)
+
+{com}. 
+. tabstat mtbs_count_10 major_n_clearcut_srs major_n_thin_srs state_clear state_thin area_total_private ///
+>                     vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev bio_grow_ac estabs rddist_ft  siteclcd if year >= 2000 & missing(ma3_state_clear)==0, ///
+>     stat(n mean sd min max) ///
+>     col(stat) save
+
+{txt}{ralign 12:variable} {...}
+{c |}         N      mean        sd       min       max
+{hline 13}{c +}{hline 50}
+{ralign 12:mtbs_coun~10} {...}
+{c |}{...}
+ {res}   761250  .0547166  .2274264         0         1
+{txt}{ralign 12:major_n_cl~s} {...}
+{c |}{...}
+ {res}   761250  .0107901  .1033138         0         1
+{txt}{ralign 12:major_n_th~s} {...}
+{c |}{...}
+ {res}   761250  .0064197  .0798655         0         1
+{txt}{ralign 12:state_clear} {...}
+{c |}{...}
+ {res}   761250  .0132137  .0094176         0  .1716398
+{txt}{ralign 12:state_thin} {...}
+{c |}{...}
+ {res}   761250  .0070535  .0111659         0   .076461
+{txt}{ralign 12:area_total~e} {...}
+{c |}{...}
+ {res}   761250  5.830397  3.213151  .0005824  44.89241
+{txt}{ralign 12:vdp_max_10} {...}
+{c |}{...}
+ {res}   761250  19.07919  4.071347  9.950001      44.3
+{txt}{ralign 12:tpa} {...}
+{c |}{...}
+ {res}   761250  328.4694  259.0918         0   999.662
+{txt}{ralign 12:saw_cf_acre} {...}
+{c |}{...}
+ {res}   761250  699.0403  1031.797         0  17464.57
+{txt}{ralign 12:stdage} {...}
+{c |}{...}
+ {res}   761250  40.99134   26.1118         0       200
+{txt}{ralign 12:percent_arti} {...}
+{c |}{...}
+ {res}   761250  .1461271  .3304764         0         1
+{txt}{ralign 12:slope} {...}
+{c |}{...}
+ {res}   761250  8.831842  14.43756         0       155
+{txt}{ralign 12:elev} {...}
+{c |}{...}
+ {res}   761250  752.6517  800.8712         0      7170
+{txt}{ralign 12:bio_grow_ac} {...}
+{c |}{...}
+ {res}   761250   .967495  1.647731 -146.2591  55.62061
+{txt}{ralign 12:estabs} {...}
+{c |}{...}
+ {res}   761250  5.232972   7.45937         0        55
+{txt}{ralign 12:rddist_ft} {...}
+{c |}{...}
+ {res}   761250  .3941345  .5530349         0         6
+{txt}{ralign 12:siteclcd} {...}
+{c |}{...}
+ {res}   761250  5.103347   1.29416         1         7
+{txt}{hline 13}{c BT}{hline 50}
+
+{com}. 
+. matrix A = r(StatTotal)'
+{txt}
+{com}. matrix rownames A = mtbs_count_10 major_n_clearcut_srs major_n_thin_srs state_clear state_thin area_total_private ///
+>                     vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev bio_grow_ac estabs rddist_ft  siteclcd
+{txt}
+{com}.         
+.                 
+. matrix B = A
+{txt}
+{com}. 
+. forvalues i = 1/`=rowsof(A)' {c -(}
+{txt}  2{com}.     forvalues j = 1/`=colsof(A)' {c -(}
+{txt}  3{com}.         matrix B[`i',`j'] = round(A[`i',`j'], .001)
+{txt}  4{com}.     {c )-}
+{txt}  5{com}. {c )-}
+{txt}
+{com}. 
+. esttab matrix(B) using "table_1.tex", replace ///
+>     fragment booktabs nomtitles nonumber ///
+>         label ///
+>     varlabels( ///
+>         mtbs_count_10 "Wildfire occurrence" ///
+>         major_n_clearcut_srs "Harvest" ///
+>         major_n_thin_srs "Thinning" ///
+>         state_clear "Harvest shift-share" ///
+>         state_thin "Thinning shift-share" ///
+>         area_total_private "Total forest area (thousand acre)" ///
+>         vdp_max_10 "Maximum VPD (hPa)" ///
+>         tpa "Trees per acre" ///
+>         saw_cf_acre "Sawtimber volume per acre (ft$^3$/acre)" ///
+>                 bio_grow_ac "Bio growth rate" ///
+>         slope "Slope (\%)" ///
+>         elev "Elevation (m)" ///
+>         stdage "Stand age" ///
+>         percent_arti "Percentage artifical forest" ///
+>                 rddist_ft "Distance to nearest road (mile)" ///
+>                 siteclcd "Siteclass (Best:1 to Worst:7)" ///
+>                 estabs "Forestry and logging establishments" ///
+>     ) ///
+>     collabels("Obs" "Mean" "Std. Dev." "Min" "Max") ///
+>     cells("B") ///
+>     postfoot("\midrule")
+{res}{txt}(output written to {browse  `"table_1.tex"'})
+
+{com}.         
+. egen unit_tag = tag(plt_id) if year >= 2000 & missing(ma3_state_clear)==0
+{txt}
+{com}. count if unit_tag == 1
+  {res}37,071
+{txt}
+{com}. display "Number of units in the sample = " r(N)
+{res}Number of units in the sample = 37071
+{txt}
+{com}. drop unit_tag
+{txt}
+{com}. 
+. restore 
+{txt}
+{com}. 
+. replace stdage=stdage/10
+{txt}variable {bf}stdage{sf} was {bf}{res}int{sf}{txt} now {bf}{res}float{sf}
+{txt}(1,004,494 real changes made)
+
+{com}. replace tpa=tpa/100
+{txt}(983,120 real changes made)
+
+{com}. replace saw_cf_acre=saw_cf_acre/1000
+{txt}(634,783 real changes made)
+
+{com}. replace rddist_ft = rddist_ft / 5280
+{txt}(1,035,983 real changes made)
+
+{com}. 
+. ********************************************************************************
+. * Plot fixed effects: IV using ivreghdfe first stage, also test statistics
+. ********************************************************************************
+. preserve
+{txt}
+{com}. eststo clear
+{txt}
+{com}. 
+. drop if south_state != 1
+{txt}(0 observations deleted)
+
+{com}. xtset plt_id year
+{res}{txt}{col 8}panel variable:  {res}plt_id (unbalanced)
+{txt}{col 9}time variable:  {res}{col 25}year, 1987 to 2024, but with gaps
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. 
+. * Generate lag and MA3 treatment variables
+. foreach v in major_n_clearcut_srs major_n_thin_srs {c -(}
+{txt}  2{com}. 
+.     capture drop L1_`v' L2_`v' L3_`v' L4_`v' ma3_`v'
+{txt}  3{com}. 
+.     gen L1_`v' = L1.`v'
+{txt}  4{com}.     gen L2_`v' = L2.`v'
+{txt}  5{com}.     gen L3_`v' = L3.`v'
+{txt}  6{com}.         gen L4_`v' = L4.`v'
+{txt}  7{com}.         
+. 
+.     egen ma3_`v' = rowmax(L1_`v' L2_`v' L3_`v' L4_`v')
+{txt}  8{com}. {c )-}
+{txt}(37,222 missing values generated)
+(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(37,222 missing values generated)
+(37,222 missing values generated)
+(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(37,222 missing values generated)
+
+{com}. 
+. 
+. foreach v in state_clear state_thin {c -(}
+{txt}  2{com}. 
+.     capture drop L1_`v' L2_`v' L3_`v' L4_`v' ma3_`v'
+{txt}  3{com}. 
+.     gen L1_`v' = L1.`v'
+{txt}  4{com}.     gen L2_`v' = L2.`v'
+{txt}  5{com}.     gen L3_`v' = L3.`v'
+{txt}  6{com}.         gen L4_`v' =L4.`v'
+{txt}  7{com}.         gen ma3_`v' = L1_`v'+ L2_`v'+ L3_`v'+ L4_`v'
+{txt}  8{com}. {c )-}
+{txt}(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(185,952 missing values generated)
+(185,952 missing values generated)
+(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(185,952 missing values generated)
+(185,952 missing values generated)
+
+{com}. 
+. 
+. *****************************************************
+. * Harvest models
+. *****************************************************
+. * (3) Harvest IV
+. eststo cc_iv: ivreghdfe mtbs_count_10 ///
+>     $CONTROL ///
+>     (ma3_major_n_clearcut_srs = ma3_state_clear) ///
+>     [aweight = area_total_private_s] if year >= 2000, ///
+>     absorb(plt_id year SPGR l3eco) cluster(county_eco) endog(ma3_major_n_clearcut_srs)
+{res}{txt}(dropped 14 {browse "http://scorreia.com/research/singletons.pdf":singleton observations})
+{res}{txt}(sum of wgt is     4.9919e+09)
+{res}{txt}({browse "http://scorreia.com/research/hdfe.pdf":MWFE estimator} converged in 11 iterations)
+{res}
+{txt}IV (2SLS) estimation
+{hline 20}
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on county_eco
+
+Number of clusters (county_eco) = {col 33}{res}  3969{txt}{col 55}Number of obs = {res}  761236
+{txt}{col 55}F( 17,  3968) = {res}   20.28
+{txt}{col 55}Prob > F      = {res}  0.0000
+{txt}Total (centered) SS     = {res} 36182.23503{txt}{col 55}Centered R2   = {res} -0.1080
+{txt}Total (uncentered) SS   = {res} 36182.23503{txt}{col 55}Uncentered R2 = {res} -0.1080
+{txt}Residual SS             = {res}  40091.2365{txt}{col 55}Root MSE      = {res}   .2295
+
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}           mtbs_count_10{col 26}{c |}      Coef.{col 38}   Std. Err.{col 50}      t{col 58}   P>|t|{col 66}     [95% Con{col 79}f. Interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_clearcut_srs {c |}{col 26}{res}{space 2}-.4453298{col 38}{space 2} .0829745{col 49}{space 1}   -5.37{col 58}{space 3}0.000{col 66}{space 4}-.6080065{col 79}{space 3}-.2826532
+{txt}{space 14}vdp_max_10 {c |}{col 26}{res}{space 2} .0118317{col 38}{space 2} .0006848{col 49}{space 1}   17.28{col 58}{space 3}0.000{col 66}{space 4} .0104891{col 79}{space 3} .0131744
+{txt}{space 21}tpa {c |}{col 26}{res}{space 2}-.0089406{col 38}{space 2} .0017738{col 49}{space 1}   -5.04{col 58}{space 3}0.000{col 66}{space 4}-.0124183{col 79}{space 3}-.0054628
+{txt}{space 13}saw_cf_acre {c |}{col 26}{res}{space 2}-.0044298{col 38}{space 2} .0013698{col 49}{space 1}   -3.23{col 58}{space 3}0.001{col 66}{space 4}-.0071154{col 79}{space 3}-.0017443
+{txt}{space 18}stdage {c |}{col 26}{res}{space 2}-.0050867{col 38}{space 2}  .001021{col 49}{space 1}   -4.98{col 58}{space 3}0.000{col 66}{space 4}-.0070884{col 79}{space 3} -.003085
+{txt}{space 12}percent_arti {c |}{col 26}{res}{space 2}-.0530252{col 38}{space 2}  .011593{col 49}{space 1}   -4.57{col 58}{space 3}0.000{col 66}{space 4} -.075754{col 79}{space 3}-.0302963
+{txt}{space 19}slope {c |}{col 26}{res}{space 2} .0001145{col 38}{space 2} .0001253{col 49}{space 1}    0.91{col 58}{space 3}0.361{col 66}{space 4}-.0001312{col 79}{space 3} .0003602
+{txt}{space 20}elev {c |}{col 26}{res}{space 2}-.0021276{col 38}{space 2} .0064833{col 49}{space 1}   -0.33{col 58}{space 3}0.743{col 66}{space 4}-.0148385{col 79}{space 3} .0105833
+{txt}{space 13}bio_grow_ac {c |}{col 26}{res}{space 2}-.0016838{col 38}{space 2} .0003826{col 49}{space 1}   -4.40{col 58}{space 3}0.000{col 66}{space 4}-.0024339{col 79}{space 3}-.0009337
+{txt}{space 18}estabs {c |}{col 26}{res}{space 2} .0006949{col 38}{space 2} .0003856{col 49}{space 1}    1.80{col 58}{space 3}0.072{col 66}{space 4}-.0000611{col 79}{space 3} .0014509
+{txt}{space 15}rddist_ft {c |}{col 26}{res}{space 2} .0008801{col 38}{space 2} .0018711{col 49}{space 1}    0.47{col 58}{space 3}0.638{col 66}{space 4}-.0027882{col 79}{space 3} .0045485
+{txt}{space 24} {c |}
+{space 16}siteclcd {c |}
+{space 22}1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (empty)
+{space 22}2  {c |}{col 26}{res}{space 2}-.0006073{col 38}{space 2} .0107689{col 49}{space 1}   -0.06{col 58}{space 3}0.955{col 66}{space 4}-.0217204{col 79}{space 3} .0205057
+{txt}{space 22}3  {c |}{col 26}{res}{space 2}-.0036738{col 38}{space 2} .0104487{col 49}{space 1}   -0.35{col 58}{space 3}0.725{col 66}{space 4}-.0241592{col 79}{space 3} .0168116
+{txt}{space 22}4  {c |}{col 26}{res}{space 2} -.008238{col 38}{space 2} .0103054{col 49}{space 1}   -0.80{col 58}{space 3}0.424{col 66}{space 4}-.0284423{col 79}{space 3} .0119664
+{txt}{space 22}5  {c |}{col 26}{res}{space 2} -.009331{col 38}{space 2} .0101908{col 49}{space 1}   -0.92{col 58}{space 3}0.360{col 66}{space 4}-.0293108{col 79}{space 3} .0106487
+{txt}{space 22}6  {c |}{col 26}{res}{space 2}-.0152157{col 38}{space 2} .0104167{col 49}{space 1}   -1.46{col 58}{space 3}0.144{col 66}{space 4}-.0356383{col 79}{space 3} .0052068
+{txt}{space 22}7  {c |}{col 26}{res}{space 2}-.0053844{col 38}{space 2} .0134602{col 49}{space 1}   -0.40{col 58}{space 3}0.689{col 66}{space 4}-.0317739{col 79}{space 3} .0210052
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{help ivreg2##idtest:Underidentification test} (Kleibergen-Paap rk LM statistic):{res}{col 71} 159.277
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}{hline 78}
+{help ivreg2##widtest:Weak identification test} (Cragg-Donald Wald F statistic):{res}{col 71}1621.750
+{txt}                         (Kleibergen-Paap rk Wald F statistic):{res}{col 71} 214.637
+{txt}Stock-Yogo weak ID test critical values:{res}{txt}{col 42}10% maximal IV size{res}{col 73} 16.38
+{txt}{col 42}15% maximal IV size{res}{col 73}  8.96
+{txt}{col 42}20% maximal IV size{res}{col 73}  6.66
+{txt}{col 42}25% maximal IV size{res}{col 73}  5.53
+{txt}Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+{hline 78}
+{help ivreg2##overidtests:Hansen J statistic} (overidentification test of all instruments):{res}{col 71}   0.000
+{txt}{col 50}(equation exactly identified)
+-endog- option:
+{help ivreg2##endogtest:Endogeneity test} of endogenous regressors: {res}{col 71}  30.449
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}Regressors tested:  {col 23}ma3_major_n_clearcut_srs
+{hline 78}
+Instrumented:{col 23}ma3_major_n_clearcut_srs
+Included instruments:{col 23}vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev
+{col 23}bio_grow_ac estabs rddist_ft 2.siteclcd 3.siteclcd
+{col 23}4.siteclcd 5.siteclcd 6.siteclcd 7.siteclcd
+Excluded instruments:{col 23}ma3_state_clear
+{help ivreg2##partial:Partialled-out}:{col 23}_cons
+{col 23}nb: total SS, model F and R2s are after partialling-out;
+{col 23}    any {help ivreg2##s_small:small-sample adjustments} include partialled-out
+{col 23}    variables in regressor count K
+{hline 78}
+{res}
+{txt}Absorbed degrees of freedom:
+{res}{col 1}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 14}{hline 1}{c TRC}
+{col 1}{text} Absorbed FE{col 14}{c |} Categories{col 27} - Redundant{col 39}  = Num. Coefs{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 14}{hline 1}{c RT}
+{col 1}{text}      plt_id{col 14}{c |}{space 1}    37057{col 27}{space 1}    37057{col 39}{result}{space 1}        0{col 53}{text}*{col 54}{c |}
+{res}{col 1}{text}        year{col 14}{c |}{space 1}       25{col 27}{space 1}        1{col 39}{result}{space 1}       24{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}        SPGR{col 14}{c |}{space 1}        6{col 27}{space 1}        1{col 39}{result}{space 1}        5{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}       l3eco{col 14}{c |}{space 1}       32{col 27}{space 1}        1{col 39}{result}{space 1}       31{col 53}{text}?{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 14}{hline 1}{c BRC}
+? = number of redundant parameters may be higher
+* = FE nested within cluster; treated as redundant for DoF computation
+{res}{txt}
+{com}. 
+. 
+. capture estadd scalar firstF = e(cdf)
+{txt}
+{com}. capture estadd scalar secF   = e(widstat)
+{txt}
+{com}. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. gen sample=e(sample)
+{txt}
+{com}. 
+. * (1) Harvest FE
+. eststo cc_fe: xtreg mtbs_count_10 ma3_major_n_clearcut_srs $CONTROL ///
+>     i.year i.SPGR i.l3eco ///
+>     [aweight = area_total_private_s] ///
+>     if sample== 1, ///
+>     fe vce(cluster county_eco)
+{txt}note: 3.SPGR omitted because of collinearity
+note: 2.l3eco omitted because of collinearity
+note: 3.l3eco omitted because of collinearity
+note: 4.l3eco omitted because of collinearity
+note: 5.l3eco omitted because of collinearity
+note: 6.l3eco omitted because of collinearity
+note: 7.l3eco omitted because of collinearity
+note: 8.l3eco omitted because of collinearity
+note: 9.l3eco omitted because of collinearity
+note: 10.l3eco omitted because of collinearity
+note: 11.l3eco omitted because of collinearity
+note: 12.l3eco omitted because of collinearity
+note: 13.l3eco omitted because of collinearity
+note: 14.l3eco omitted because of collinearity
+note: 15.l3eco omitted because of collinearity
+note: 16.l3eco omitted because of collinearity
+note: 17.l3eco omitted because of collinearity
+note: 18.l3eco omitted because of collinearity
+note: 19.l3eco omitted because of collinearity
+note: 20.l3eco omitted because of collinearity
+note: 21.l3eco omitted because of collinearity
+note: 22.l3eco omitted because of collinearity
+note: 23.l3eco omitted because of collinearity
+note: 24.l3eco omitted because of collinearity
+note: 25.l3eco omitted because of collinearity
+note: 26.l3eco omitted because of collinearity
+note: 27.l3eco omitted because of collinearity
+note: 28.l3eco omitted because of collinearity
+note: 29.l3eco omitted because of collinearity
+note: 30.l3eco omitted because of collinearity
+note: 31.l3eco omitted because of collinearity
+note: 32.l3eco omitted because of collinearity
+
+Fixed-effects (within) regression               Number of obs      = {res}   761236
+{txt}Group variable: {res}plt_id                          {txt}Number of groups   = {res}    37057
+
+{txt}R-sq:  within  = {res}0.0514                         {txt}Obs per group: min = {res}        2
+{txt}       between = {res}0.0186                                        {txt}avg = {res}     20.5
+{txt}       overall = {res}0.0036                                        {txt}max = {res}       25
+
+                                                {txt}F({res}45{txt},{res}3968{txt})         = {res}    22.71
+{txt}corr(u_i, Xb)  = {res}-0.9996                        {txt}Prob > F           =    {res}0.0000
+
+{txt}{ralign 90:(Std. Err. adjusted for {res:3,969} clusters in county_eco)}
+{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}           mtbs_count_10{col 26}{c |}      Coef.{col 38}   Std. Err.{col 50}      t{col 58}   P>|t|{col 66}     [95% Con{col 79}f. Interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_clearcut_srs {c |}{col 26}{res}{space 2}-7.09e-08{col 38}{space 2} .0013602{col 49}{space 1}   -0.00{col 58}{space 3}1.000{col 66}{space 4}-.0026669{col 79}{space 3} .0026668
+{txt}{space 14}vdp_max_10 {c |}{col 26}{res}{space 2} .0118403{col 38}{space 2} .0006824{col 49}{space 1}   17.35{col 58}{space 3}0.000{col 66}{space 4} .0105024{col 79}{space 3} .0131783
+{txt}{space 21}tpa {c |}{col 26}{res}{space 2} .0004838{col 38}{space 2} .0002336{col 49}{space 1}    2.07{col 58}{space 3}0.038{col 66}{space 4} .0000258{col 79}{space 3} .0009418
+{txt}{space 13}saw_cf_acre {c |}{col 26}{res}{space 2}-.0005601{col 38}{space 2} .0008814{col 49}{space 1}   -0.64{col 58}{space 3}0.525{col 66}{space 4}-.0022882{col 79}{space 3} .0011679
+{txt}{space 18}stdage {c |}{col 26}{res}{space 2}-.0006437{col 38}{space 2} .0004795{col 49}{space 1}   -1.34{col 58}{space 3}0.179{col 66}{space 4}-.0015838{col 79}{space 3} .0002963
+{txt}{space 12}percent_arti {c |}{col 26}{res}{space 2} .0050642{col 38}{space 2}  .002643{col 49}{space 1}    1.92{col 58}{space 3}0.055{col 66}{space 4}-.0001176{col 79}{space 3}  .010246
+{txt}{space 19}slope {c |}{col 26}{res}{space 2} -.000075{col 38}{space 2} .0000986{col 49}{space 1}   -0.76{col 58}{space 3}0.447{col 66}{space 4}-.0002683{col 79}{space 3} .0001182
+{txt}{space 20}elev {c |}{col 26}{res}{space 2} .0044183{col 38}{space 2} .0059395{col 49}{space 1}    0.74{col 58}{space 3}0.457{col 66}{space 4}-.0072264{col 79}{space 3} .0160631
+{txt}{space 13}bio_grow_ac {c |}{col 26}{res}{space 2}-.0009879{col 38}{space 2} .0003515{col 49}{space 1}   -2.81{col 58}{space 3}0.005{col 66}{space 4}-.0016771{col 79}{space 3}-.0002987
+{txt}{space 18}estabs {c |}{col 26}{res}{space 2} .0007565{col 38}{space 2} .0003672{col 49}{space 1}    2.06{col 58}{space 3}0.039{col 66}{space 4} .0000366{col 79}{space 3} .0014764
+{txt}{space 15}rddist_ft {c |}{col 26}{res}{space 2} -.000091{col 38}{space 2} .0017561{col 49}{space 1}   -0.05{col 58}{space 3}0.959{col 66}{space 4}-.0035339{col 79}{space 3} .0033519
+{txt}{space 24} {c |}
+{space 16}siteclcd {c |}
+{space 22}2  {c |}{col 26}{res}{space 2} .0109761{col 38}{space 2} .0075131{col 49}{space 1}    1.46{col 58}{space 3}0.144{col 66}{space 4}-.0037539{col 79}{space 3} .0257061
+{txt}{space 22}3  {c |}{col 26}{res}{space 2} .0075081{col 38}{space 2} .0071064{col 49}{space 1}    1.06{col 58}{space 3}0.291{col 66}{space 4}-.0064244{col 79}{space 3} .0214405
+{txt}{space 22}4  {c |}{col 26}{res}{space 2}  .006392{col 38}{space 2} .0069086{col 49}{space 1}    0.93{col 58}{space 3}0.355{col 66}{space 4}-.0071528{col 79}{space 3} .0199368
+{txt}{space 22}5  {c |}{col 26}{res}{space 2} .0046844{col 38}{space 2} .0068762{col 49}{space 1}    0.68{col 58}{space 3}0.496{col 66}{space 4}-.0087968{col 79}{space 3} .0181656
+{txt}{space 22}6  {c |}{col 26}{res}{space 2}-.0005272{col 38}{space 2} .0069708{col 49}{space 1}   -0.08{col 58}{space 3}0.940{col 66}{space 4}-.0141939{col 79}{space 3} .0131396
+{txt}{space 22}7  {c |}{col 26}{res}{space 2}  .007169{col 38}{space 2} .0108651{col 49}{space 1}    0.66{col 58}{space 3}0.509{col 66}{space 4}-.0141327{col 79}{space 3} .0284708
+{txt}{space 24} {c |}
+{space 20}year {c |}
+{space 19}2001  {c |}{col 26}{res}{space 2}-.0129033{col 38}{space 2} .0052804{col 49}{space 1}   -2.44{col 58}{space 3}0.015{col 66}{space 4}-.0232558{col 79}{space 3}-.0025507
+{txt}{space 19}2002  {c |}{col 26}{res}{space 2}-.0435169{col 38}{space 2} .0059322{col 49}{space 1}   -7.34{col 58}{space 3}0.000{col 66}{space 4}-.0551473{col 79}{space 3}-.0318865
+{txt}{space 19}2003  {c |}{col 26}{res}{space 2}-.0337764{col 38}{space 2} .0058005{col 49}{space 1}   -5.82{col 58}{space 3}0.000{col 66}{space 4}-.0451487{col 79}{space 3}-.0224042
+{txt}{space 19}2004  {c |}{col 26}{res}{space 2}-.0119903{col 38}{space 2} .0062676{col 49}{space 1}   -1.91{col 58}{space 3}0.056{col 66}{space 4}-.0242783{col 79}{space 3} .0002977
+{txt}{space 19}2005  {c |}{col 26}{res}{space 2}-.0260151{col 38}{space 2} .0065343{col 49}{space 1}   -3.98{col 58}{space 3}0.000{col 66}{space 4}-.0388261{col 79}{space 3}-.0132041
+{txt}{space 19}2006  {c |}{col 26}{res}{space 2} .0058927{col 38}{space 2}  .007119{col 49}{space 1}    0.83{col 58}{space 3}0.408{col 66}{space 4}-.0080646{col 79}{space 3} .0198499
+{txt}{space 19}2007  {c |}{col 26}{res}{space 2}-.0070478{col 38}{space 2} .0066337{col 49}{space 1}   -1.06{col 58}{space 3}0.288{col 66}{space 4}-.0200536{col 79}{space 3} .0059581
+{txt}{space 19}2008  {c |}{col 26}{res}{space 2} .0359487{col 38}{space 2}  .009383{col 49}{space 1}    3.83{col 58}{space 3}0.000{col 66}{space 4} .0175527{col 79}{space 3} .0543447
+{txt}{space 19}2009  {c |}{col 26}{res}{space 2}-.0136502{col 38}{space 2} .0073795{col 49}{space 1}   -1.85{col 58}{space 3}0.064{col 66}{space 4}-.0281182{col 79}{space 3} .0008177
+{txt}{space 19}2010  {c |}{col 26}{res}{space 2}-.0649921{col 38}{space 2}  .005595{col 49}{space 1}  -11.62{col 58}{space 3}0.000{col 66}{space 4}-.0759615{col 79}{space 3}-.0540227
+{txt}{space 19}2011  {c |}{col 26}{res}{space 2} .0602632{col 38}{space 2} .0104275{col 49}{space 1}    5.78{col 58}{space 3}0.000{col 66}{space 4} .0398195{col 79}{space 3}  .080707
+{txt}{space 19}2012  {c |}{col 26}{res}{space 2}-.0835066{col 38}{space 2} .0058615{col 49}{space 1}  -14.25{col 58}{space 3}0.000{col 66}{space 4}-.0949983{col 79}{space 3}-.0720148
+{txt}{space 19}2013  {c |}{col 26}{res}{space 2}-.0740153{col 38}{space 2} .0054117{col 49}{space 1}  -13.68{col 58}{space 3}0.000{col 66}{space 4}-.0846252{col 79}{space 3}-.0634053
+{txt}{space 19}2014  {c |}{col 26}{res}{space 2}-.0615969{col 38}{space 2} .0054403{col 49}{space 1}  -11.32{col 58}{space 3}0.000{col 66}{space 4} -.072263{col 79}{space 3}-.0509308
+{txt}{space 19}2015  {c |}{col 26}{res}{space 2}-.0414488{col 38}{space 2} .0073155{col 49}{space 1}   -5.67{col 58}{space 3}0.000{col 66}{space 4}-.0557912{col 79}{space 3}-.0271064
+{txt}{space 19}2016  {c |}{col 26}{res}{space 2}-.0398091{col 38}{space 2} .0057701{col 49}{space 1}   -6.90{col 58}{space 3}0.000{col 66}{space 4}-.0511217{col 79}{space 3}-.0284965
+{txt}{space 19}2017  {c |}{col 26}{res}{space 2}-.0507147{col 38}{space 2} .0057196{col 49}{space 1}   -8.87{col 58}{space 3}0.000{col 66}{space 4}-.0619284{col 79}{space 3} -.039501
+{txt}{space 19}2018  {c |}{col 26}{res}{space 2}-.0247991{col 38}{space 2} .0069187{col 49}{space 1}   -3.58{col 58}{space 3}0.000{col 66}{space 4}-.0383637{col 79}{space 3}-.0112345
+{txt}{space 19}2019  {c |}{col 26}{res}{space 2}-.0573719{col 38}{space 2} .0070316{col 49}{space 1}   -8.16{col 58}{space 3}0.000{col 66}{space 4}-.0711578{col 79}{space 3} -.043586
+{txt}{space 19}2020  {c |}{col 26}{res}{space 2}-.0515971{col 38}{space 2} .0065873{col 49}{space 1}   -7.83{col 58}{space 3}0.000{col 66}{space 4}-.0645118{col 79}{space 3}-.0386823
+{txt}{space 19}2021  {c |}{col 26}{res}{space 2} -.041022{col 38}{space 2} .0065922{col 49}{space 1}   -6.22{col 58}{space 3}0.000{col 66}{space 4}-.0539464{col 79}{space 3}-.0280975
+{txt}{space 19}2022  {c |}{col 26}{res}{space 2} .0114555{col 38}{space 2} .0073858{col 49}{space 1}    1.55{col 58}{space 3}0.121{col 66}{space 4}-.0030247{col 79}{space 3} .0259358
+{txt}{space 19}2023  {c |}{col 26}{res}{space 2} -.082649{col 38}{space 2}  .006603{col 49}{space 1}  -12.52{col 58}{space 3}0.000{col 66}{space 4}-.0955946{col 79}{space 3}-.0697033
+{txt}{space 19}2024  {c |}{col 26}{res}{space 2}-.0529851{col 38}{space 2} .0072265{col 49}{space 1}   -7.33{col 58}{space 3}0.000{col 66}{space 4}-.0671531{col 79}{space 3}-.0388171
+{txt}{space 24} {c |}
+{space 20}SPGR {c |}
+{space 22}1  {c |}{col 26}{res}{space 2}-.0053632{col 38}{space 2} .0044595{col 49}{space 1}   -1.20{col 58}{space 3}0.229{col 66}{space 4}-.0141062{col 79}{space 3} .0033799
+{txt}{space 22}2  {c |}{col 26}{res}{space 2} .0066725{col 38}{space 2} .0055387{col 49}{space 1}    1.20{col 58}{space 3}0.228{col 66}{space 4}-.0041864{col 79}{space 3} .0175315
+{txt}{space 22}3  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 22}4  {c |}{col 26}{res}{space 2}-.0002588{col 38}{space 2}  .004349{col 49}{space 1}   -0.06{col 58}{space 3}0.953{col 66}{space 4}-.0087853{col 79}{space 3} .0082676
+{txt}{space 22}5  {c |}{col 26}{res}{space 2}-.0014517{col 38}{space 2} .0041851{col 49}{space 1}   -0.35{col 58}{space 3}0.729{col 66}{space 4}-.0096568{col 79}{space 3} .0067535
+{txt}{space 24} {c |}
+{space 19}l3eco {c |}
+{space 17}15.4.1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.3.1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.3.2  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.3.3  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.3.4  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.3.5  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.3.6  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.3.7  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.3.8  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.4.1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.4.2  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.4.3  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.4.4  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.4.5  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.4.6  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.4.7  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.4.8  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.4.9  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.5.1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.5.2  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}8.5.3  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.2.4  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.4.1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.4.2  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.4.3  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.4.4  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.4.5  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.4.6  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.4.7  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.5.1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 18}9.6.1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (omitted)
+{space 24} {c |}
+{space 19}_cons {c |}{col 26}{res}{space 2}-4.186401{col 38}{space 2} 5.422031{col 49}{space 1}   -0.77{col 58}{space 3}0.440{col 66}{space 4}-14.81663{col 79}{space 3} 6.443826
+{txt}{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+                 sigma_u {c |} {res} 3.6683445
+                 {txt}sigma_e {c |} {res} .22232937
+                     {txt}rho {c |} {res} .99634017{txt}   (fraction of variance due to u_i)
+{hline 25}{c BT}{hline 64}
+
+{com}. 
+. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. * (2) Harvest first stage
+. eststo cc_fs: xtreg ma3_major_n_clearcut_srs ma3_state_clear $CONTROL ///
+>     i.year i.SPGR i.l3eco ///
+>     [aweight = area_total_private_s] ///
+>     if sample== 1, ///
+>     fe vce(cluster county_eco)
+{txt}note: 3.SPGR omitted because of collinearity
+note: 2.l3eco omitted because of collinearity
+note: 3.l3eco omitted because of collinearity
+note: 4.l3eco omitted because of collinearity
+note: 5.l3eco omitted because of collinearity
+note: 6.l3eco omitted because of collinearity
+note: 7.l3eco omitted because of collinearity
+note: 8.l3eco omitted because of collinearity
+note: 9.l3eco omitted because of collinearity
+note: 10.l3eco omitted because of collinearity
+note: 11.l3eco omitted because of collinearity
+note: 12.l3eco omitted because of collinearity
+note: 13.l3eco omitted because of collinearity
+note: 14.l3eco omitted because of collinearity
+note: 15.l3eco omitted because of collinearity
+note: 16.l3eco omitted because of collinearity
+note: 17.l3eco omitted because of collinearity
+note: 18.l3eco omitted because of collinearity
+note: 19.l3eco omitted because of collinearity
+note: 20.l3eco omitted because of collinearity
+note: 21.l3eco omitted because of collinearity
+note: 22.l3eco omitted because of collinearity
+note: 23.l3eco omitted because of collinearity
+note: 24.l3eco omitted because of collinearity
+note: 25.l3eco omitted because of collinearity
+note: 26.l3eco omitted because of collinearity
+note: 27.l3eco omitted because of collinearity
+note: 28.l3eco omitted because of collinearity
+note: 29.l3eco omitted because of collinearity
+note: 30.l3eco omitted because of collinearity
+note: 31.l3eco omitted because of collinearity
+note: 32.l3eco omitted because of collinearity
+
+Fixed-effects (within) regression               Number of obs      = {res}   761236
+{txt}Group variable: {res}plt_id                          {txt}Number of groups   = {res}    37057
+
+{txt}R-sq:  within  = {res}0.0436                         {txt}Obs per group: min = {res}        2
+{txt}       between = {res}0.0426                                        {txt}avg = {res}     20.5
+{txt}       overall = {res}0.0077                                        {txt}max = {res}       25
+
+                                                {txt}F({res}45{txt},{res}3968{txt})         = {res}    64.93
+{txt}corr(u_i, Xb)  = {res}-1.0000                        {txt}Prob > F           =    {res}0.0000
+
+{txt}{ralign 81:(Std. Err. adjusted for {res:3,969} clusters in county_eco)}
+{hline 16}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 17}{c |}{col 29}    Robust
+{col 1}ma3_major_n_c~s{col 17}{c |}      Coef.{col 29}   Std. Err.{col 41}      t{col 49}   P>|t|{col 57}     [95% Con{col 70}f. Interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_state_clear {c |}{col 17}{res}{space 2} .6115774{col 29}{space 2} .0417436{col 40}{space 1}   14.65{col 49}{space 3}0.000{col 57}{space 4} .5297364{col 70}{space 3} .6934183
+{txt}{space 5}vdp_max_10 {c |}{col 17}{res}{space 2} .0000626{col 29}{space 2} .0000979{col 40}{space 1}    0.64{col 49}{space 3}0.522{col 57}{space 4}-.0001293{col 70}{space 3} .0002546
+{txt}{space 12}tpa {c |}{col 17}{res}{space 2}-.0210311{col 29}{space 2} .0005513{col 40}{space 1}  -38.15{col 49}{space 3}0.000{col 57}{space 4}-.0221119{col 70}{space 3}-.0199503
+{txt}{space 4}saw_cf_acre {c |}{col 17}{res}{space 2}-.0092438{col 29}{space 2} .0016382{col 40}{space 1}   -5.64{col 49}{space 3}0.000{col 57}{space 4}-.0124557{col 70}{space 3} -.006032
+{txt}{space 9}stdage {c |}{col 17}{res}{space 2}-.0099485{col 29}{space 2} .0007675{col 40}{space 1}  -12.96{col 49}{space 3}0.000{col 57}{space 4}-.0114533{col 70}{space 3}-.0084437
+{txt}{space 3}percent_arti {c |}{col 17}{res}{space 2}-.1379124{col 29}{space 2} .0069109{col 40}{space 1}  -19.96{col 49}{space 3}0.000{col 57}{space 4}-.1514616{col 70}{space 3}-.1243632
+{txt}{space 10}slope {c |}{col 17}{res}{space 2} .0004566{col 29}{space 2} .0001331{col 40}{space 1}    3.43{col 49}{space 3}0.001{col 57}{space 4} .0001957{col 70}{space 3} .0007176
+{txt}{space 11}elev {c |}{col 17}{res}{space 2}-.0148184{col 29}{space 2} .0059661{col 40}{space 1}   -2.48{col 49}{space 3}0.013{col 57}{space 4}-.0265153{col 70}{space 3}-.0031215
+{txt}{space 4}bio_grow_ac {c |}{col 17}{res}{space 2}-.0012407{col 29}{space 2} .0004147{col 40}{space 1}   -2.99{col 49}{space 3}0.003{col 57}{space 4}-.0020537{col 70}{space 3}-.0004277
+{txt}{space 9}estabs {c |}{col 17}{res}{space 2}-.0001106{col 29}{space 2} .0002442{col 40}{space 1}   -0.45{col 49}{space 3}0.651{col 57}{space 4}-.0005893{col 70}{space 3} .0003681
+{txt}{space 6}rddist_ft {c |}{col 17}{res}{space 2} .0023216{col 29}{space 2} .0012779{col 40}{space 1}    1.82{col 49}{space 3}0.069{col 57}{space 4}-.0001839{col 70}{space 3}  .004827
+{txt}{space 15} {c |}
+{space 7}siteclcd {c |}
+{space 13}2  {c |}{col 17}{res}{space 2}-.0290184{col 29}{space 2} .0160632{col 40}{space 1}   -1.81{col 49}{space 3}0.071{col 57}{space 4}-.0605112{col 70}{space 3} .0024745
+{txt}{space 13}3  {c |}{col 17}{res}{space 2}-.0267161{col 29}{space 2} .0151324{col 40}{space 1}   -1.77{col 49}{space 3}0.078{col 57}{space 4} -.056384{col 70}{space 3} .0029518
+{txt}{space 13}4  {c |}{col 17}{res}{space 2}-.0329955{col 29}{space 2} .0146516{col 40}{space 1}   -2.25{col 49}{space 3}0.024{col 57}{space 4}-.0617209{col 70}{space 3}  -.00427
+{txt}{space 13}5  {c |}{col 17}{res}{space 2}-.0306925{col 29}{space 2} .0145581{col 40}{space 1}   -2.11{col 49}{space 3}0.035{col 57}{space 4}-.0592346{col 70}{space 3}-.0021504
+{txt}{space 13}6  {c |}{col 17}{res}{space 2}-.0324836{col 29}{space 2} .0146839{col 40}{space 1}   -2.21{col 49}{space 3}0.027{col 57}{space 4}-.0612724{col 70}{space 3}-.0036949
+{txt}{space 13}7  {c |}{col 17}{res}{space 2}-.0287543{col 29}{space 2} .0152053{col 40}{space 1}   -1.89{col 49}{space 3}0.059{col 57}{space 4}-.0585652{col 70}{space 3} .0010566
+{txt}{space 15} {c |}
+{space 11}year {c |}
+{space 10}2001  {c |}{col 17}{res}{space 2} .0031844{col 29}{space 2} .0011376{col 40}{space 1}    2.80{col 49}{space 3}0.005{col 57}{space 4} .0009541{col 70}{space 3} .0054147
+{txt}{space 10}2002  {c |}{col 17}{res}{space 2} .0047464{col 29}{space 2} .0015936{col 40}{space 1}    2.98{col 49}{space 3}0.003{col 57}{space 4}  .001622{col 70}{space 3} .0078708
+{txt}{space 10}2003  {c |}{col 17}{res}{space 2} .0059658{col 29}{space 2} .0019647{col 40}{space 1}    3.04{col 49}{space 3}0.002{col 57}{space 4} .0021139{col 70}{space 3} .0098177
+{txt}{space 10}2004  {c |}{col 17}{res}{space 2} .0057486{col 29}{space 2} .0022059{col 40}{space 1}    2.61{col 49}{space 3}0.009{col 57}{space 4} .0014238{col 70}{space 3} .0100733
+{txt}{space 10}2005  {c |}{col 17}{res}{space 2} .0055057{col 29}{space 2} .0021955{col 40}{space 1}    2.51{col 49}{space 3}0.012{col 57}{space 4} .0012013{col 70}{space 3} .0098101
+{txt}{space 10}2006  {c |}{col 17}{res}{space 2} .0062155{col 29}{space 2} .0022498{col 40}{space 1}    2.76{col 49}{space 3}0.006{col 57}{space 4} .0018046{col 70}{space 3} .0106265
+{txt}{space 10}2007  {c |}{col 17}{res}{space 2} .0070621{col 29}{space 2}  .002351{col 40}{space 1}    3.00{col 49}{space 3}0.003{col 57}{space 4} .0024528{col 70}{space 3} .0116714
+{txt}{space 10}2008  {c |}{col 17}{res}{space 2} .0073498{col 29}{space 2} .0023844{col 40}{space 1}    3.08{col 49}{space 3}0.002{col 57}{space 4}  .002675{col 70}{space 3} .0120247
+{txt}{space 10}2009  {c |}{col 17}{res}{space 2} .0067447{col 29}{space 2} .0023197{col 40}{space 1}    2.91{col 49}{space 3}0.004{col 57}{space 4} .0021968{col 70}{space 3} .0112925
+{txt}{space 10}2010  {c |}{col 17}{res}{space 2} .0065173{col 29}{space 2} .0022918{col 40}{space 1}    2.84{col 49}{space 3}0.004{col 57}{space 4}  .002024{col 70}{space 3} .0110106
+{txt}{space 10}2011  {c |}{col 17}{res}{space 2}  .005705{col 29}{space 2}  .002232{col 40}{space 1}    2.56{col 49}{space 3}0.011{col 57}{space 4}  .001329{col 70}{space 3} .0100811
+{txt}{space 10}2012  {c |}{col 17}{res}{space 2} .0057376{col 29}{space 2} .0020679{col 40}{space 1}    2.77{col 49}{space 3}0.006{col 57}{space 4} .0016833{col 70}{space 3} .0097919
+{txt}{space 10}2013  {c |}{col 17}{res}{space 2} .0056265{col 29}{space 2} .0019415{col 40}{space 1}    2.90{col 49}{space 3}0.004{col 57}{space 4}   .00182{col 70}{space 3} .0094329
+{txt}{space 10}2014  {c |}{col 17}{res}{space 2} .0066068{col 29}{space 2} .0019927{col 40}{space 1}    3.32{col 49}{space 3}0.001{col 57}{space 4}    .0027{col 70}{space 3} .0105136
+{txt}{space 10}2015  {c |}{col 17}{res}{space 2} .0079261{col 29}{space 2} .0020192{col 40}{space 1}    3.93{col 49}{space 3}0.000{col 57}{space 4} .0039674{col 70}{space 3} .0118848
+{txt}{space 10}2016  {c |}{col 17}{res}{space 2} .0096958{col 29}{space 2} .0021319{col 40}{space 1}    4.55{col 49}{space 3}0.000{col 57}{space 4} .0055162{col 70}{space 3} .0138754
+{txt}{space 10}2017  {c |}{col 17}{res}{space 2} .0114999{col 29}{space 2} .0021478{col 40}{space 1}    5.35{col 49}{space 3}0.000{col 57}{space 4}  .007289{col 70}{space 3} .0157108
+{txt}{space 10}2018  {c |}{col 17}{res}{space 2} .0118083{col 29}{space 2} .0021856{col 40}{space 1}    5.40{col 49}{space 3}0.000{col 57}{space 4} .0075233{col 70}{space 3} .0160933
+{txt}{space 10}2019  {c |}{col 17}{res}{space 2} .0129238{col 29}{space 2} .0022322{col 40}{space 1}    5.79{col 49}{space 3}0.000{col 57}{space 4} .0085474{col 70}{space 3} .0173003
+{txt}{space 10}2020  {c |}{col 17}{res}{space 2} .0130302{col 29}{space 2} .0022298{col 40}{space 1}    5.84{col 49}{space 3}0.000{col 57}{space 4} .0086585{col 70}{space 3} .0174019
+{txt}{space 10}2021  {c |}{col 17}{res}{space 2} .0132088{col 29}{space 2} .0022287{col 40}{space 1}    5.93{col 49}{space 3}0.000{col 57}{space 4} .0088394{col 70}{space 3} .0175783
+{txt}{space 10}2022  {c |}{col 17}{res}{space 2} .0131224{col 29}{space 2} .0020991{col 40}{space 1}    6.25{col 49}{space 3}0.000{col 57}{space 4} .0090069{col 70}{space 3} .0172378
+{txt}{space 10}2023  {c |}{col 17}{res}{space 2} .0090823{col 29}{space 2} .0023891{col 40}{space 1}    3.80{col 49}{space 3}0.000{col 57}{space 4} .0043983{col 70}{space 3} .0137664
+{txt}{space 10}2024  {c |}{col 17}{res}{space 2} .0067603{col 29}{space 2} .0035393{col 40}{space 1}    1.91{col 49}{space 3}0.056{col 57}{space 4}-.0001787{col 70}{space 3} .0136994
+{txt}{space 15} {c |}
+{space 11}SPGR {c |}
+{space 13}1  {c |}{col 17}{res}{space 2} -.071681{col 29}{space 2} .0058785{col 40}{space 1}  -12.19{col 49}{space 3}0.000{col 57}{space 4}-.0832062{col 70}{space 3}-.0601558
+{txt}{space 13}2  {c |}{col 17}{res}{space 2}-.0207693{col 29}{space 2} .0080621{col 40}{space 1}   -2.58{col 49}{space 3}0.010{col 57}{space 4}-.0365756{col 70}{space 3} -.004963
+{txt}{space 13}3  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 13}4  {c |}{col 17}{res}{space 2}-.0114223{col 29}{space 2} .0045733{col 40}{space 1}   -2.50{col 49}{space 3}0.013{col 57}{space 4}-.0203885{col 70}{space 3} -.002456
+{txt}{space 13}5  {c |}{col 17}{res}{space 2}-.0022231{col 29}{space 2} .0043496{col 40}{space 1}   -0.51{col 49}{space 3}0.609{col 57}{space 4}-.0107508{col 70}{space 3} .0063047
+{txt}{space 15} {c |}
+{space 10}l3eco {c |}
+{space 8}15.4.1  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.3.1  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.3.2  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.3.3  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.3.4  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.3.5  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.3.6  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.3.7  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.3.8  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.4.1  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.4.2  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.4.3  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.4.4  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.4.5  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.4.6  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.4.7  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.4.8  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.4.9  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.5.1  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.5.2  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}8.5.3  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.2.4  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.4.1  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.4.2  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.4.3  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.4.4  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.4.5  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.4.6  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.4.7  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.5.1  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 9}9.6.1  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 15} {c |}
+{space 10}_cons {c |}{col 17}{res}{space 2} 13.70062{col 29}{space 2} 5.446242{col 40}{space 1}    2.52{col 49}{space 3}0.012{col 57}{space 4} 3.022925{col 70}{space 3} 24.37832
+{txt}{hline 16}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+        sigma_u {c |} {res} 12.258571
+        {txt}sigma_e {c |} {res} .17279508
+            {txt}rho {c |} {res} .99980135{txt}   (fraction of variance due to u_i)
+{hline 16}{c BT}{hline 64}
+
+{com}. 
+. test ma3_state_clear
+
+{p 0 7}{space 1}{text:( 1)}{space 1} {res}ma3_state_clear = 0{p_end}
+
+{txt}       F(  1,  3968) ={res}  214.65
+{txt}{col 13}Prob > F ={res}    0.0000
+{txt}
+{com}. 
+. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. 
+. 
+. drop sample
+{txt}
+{com}. *****************************************************
+. * Thinning models
+. *****************************************************
+. * (6) Thinning IV
+. eststo thin_iv: ivreghdfe mtbs_count_10 ///
+>     $CONTROL ///
+>     (ma3_major_n_thin_srs = ma3_state_thin) ///
+>     [aweight = area_total_private_s] if year >= 2000, ///
+>     absorb(plt_id year SPGR l3eco) cluster(county_eco) endog(ma3_major_n_thin_srs)
+{res}{txt}(dropped 14 {browse "http://scorreia.com/research/singletons.pdf":singleton observations})
+{res}{txt}(sum of wgt is     4.9919e+09)
+{res}{txt}({browse "http://scorreia.com/research/hdfe.pdf":MWFE estimator} converged in 11 iterations)
+{res}
+{txt}IV (2SLS) estimation
+{hline 20}
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on county_eco
+
+Number of clusters (county_eco) = {col 33}{res}  3969{txt}{col 55}Number of obs = {res}  761236
+{txt}{col 55}F( 17,  3968) = {res}   19.62
+{txt}{col 55}Prob > F      = {res}  0.0000
+{txt}Total (centered) SS     = {res} 36182.23503{txt}{col 55}Centered R2   = {res} -0.0015
+{txt}Total (uncentered) SS   = {res} 36182.23503{txt}{col 55}Uncentered R2 = {res} -0.0015
+{txt}Residual SS             = {res} 36235.76454{txt}{col 55}Root MSE      = {res}   .2182
+
+{txt}{hline 21}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 22}{c |}{col 34}    Robust
+{col 1}       mtbs_count_10{col 22}{c |}      Coef.{col 34}   Std. Err.{col 46}      t{col 54}   P>|t|{col 62}     [95% Con{col 75}f. Interval]
+{hline 21}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_thin_srs {c |}{col 22}{res}{space 2}-.1872483{col 34}{space 2} .0434592{col 45}{space 1}   -4.31{col 54}{space 3}0.000{col 62}{space 4}-.2724528{col 75}{space 3}-.1020438
+{txt}{space 10}vdp_max_10 {c |}{col 22}{res}{space 2} .0117475{col 34}{space 2} .0006782{col 45}{space 1}   17.32{col 54}{space 3}0.000{col 62}{space 4} .0104178{col 75}{space 3} .0130771
+{txt}{space 17}tpa {c |}{col 22}{res}{space 2}-.0001885{col 34}{space 2} .0002959{col 45}{space 1}   -0.64{col 54}{space 3}0.524{col 62}{space 4}-.0007686{col 75}{space 3} .0003917
+{txt}{space 9}saw_cf_acre {c |}{col 22}{res}{space 2}-.0013377{col 34}{space 2} .0009529{col 45}{space 1}   -1.40{col 54}{space 3}0.160{col 62}{space 4}-.0032058{col 75}{space 3} .0005305
+{txt}{space 14}stdage {c |}{col 22}{res}{space 2} .0009968{col 34}{space 2} .0006435{col 45}{space 1}    1.55{col 54}{space 3}0.121{col 62}{space 4}-.0002649{col 75}{space 3} .0022585
+{txt}{space 8}percent_arti {c |}{col 22}{res}{space 2} .0129402{col 34}{space 2} .0034386{col 45}{space 1}    3.76{col 54}{space 3}0.000{col 62}{space 4} .0061986{col 75}{space 3} .0196819
+{txt}{space 15}slope {c |}{col 22}{res}{space 2}-.0000923{col 34}{space 2} .0000988{col 45}{space 1}   -0.93{col 54}{space 3}0.350{col 62}{space 4}-.0002859{col 75}{space 3} .0001014
+{txt}{space 16}elev {c |}{col 22}{res}{space 2} .0042667{col 34}{space 2} .0059529{col 45}{space 1}    0.72{col 54}{space 3}0.474{col 62}{space 4}-.0074042{col 75}{space 3} .0159377
+{txt}{space 9}bio_grow_ac {c |}{col 22}{res}{space 2} .0002442{col 34}{space 2} .0005399{col 45}{space 1}    0.45{col 54}{space 3}0.651{col 62}{space 4}-.0008142{col 75}{space 3} .0013026
+{txt}{space 14}estabs {c |}{col 22}{res}{space 2} .0006461{col 34}{space 2} .0003747{col 45}{space 1}    1.72{col 54}{space 3}0.085{col 62}{space 4}-.0000885{col 75}{space 3} .0013807
+{txt}{space 11}rddist_ft {c |}{col 22}{res}{space 2} -.000272{col 34}{space 2} .0017588{col 45}{space 1}   -0.15{col 54}{space 3}0.877{col 62}{space 4}-.0037203{col 75}{space 3} .0031763
+{txt}{space 20} {c |}
+{space 12}siteclcd {c |}
+{space 18}1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (empty)
+{space 18}2  {c |}{col 22}{res}{space 2} .0194888{col 34}{space 2} .0080454{col 45}{space 1}    2.42{col 54}{space 3}0.015{col 62}{space 4} .0037153{col 75}{space 3} .0352624
+{txt}{space 18}3  {c |}{col 22}{res}{space 2} .0128941{col 34}{space 2} .0073816{col 45}{space 1}    1.75{col 54}{space 3}0.081{col 62}{space 4}-.0015779{col 75}{space 3} .0273662
+{txt}{space 18}4  {c |}{col 22}{res}{space 2} .0099194{col 34}{space 2} .0071203{col 45}{space 1}    1.39{col 54}{space 3}0.164{col 62}{space 4}-.0040405{col 75}{space 3} .0238793
+{txt}{space 18}5  {c |}{col 22}{res}{space 2} .0061664{col 34}{space 2} .0070757{col 45}{space 1}    0.87{col 54}{space 3}0.384{col 62}{space 4}-.0077061{col 75}{space 3} .0200388
+{txt}{space 18}6  {c |}{col 22}{res}{space 2} .0003358{col 34}{space 2} .0071721{col 45}{space 1}    0.05{col 54}{space 3}0.963{col 62}{space 4}-.0137256{col 75}{space 3} .0143972
+{txt}{space 18}7  {c |}{col 22}{res}{space 2} .0078164{col 34}{space 2}  .011029{col 45}{space 1}    0.71{col 54}{space 3}0.479{col 62}{space 4}-.0138066{col 75}{space 3} .0294394
+{txt}{hline 21}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{help ivreg2##idtest:Underidentification test} (Kleibergen-Paap rk LM statistic):{res}{col 71} 216.487
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}{hline 78}
+{help ivreg2##widtest:Weak identification test} (Cragg-Donald Wald F statistic):{res}{col 71}6484.440
+{txt}                         (Kleibergen-Paap rk Wald F statistic):{res}{col 71} 488.113
+{txt}Stock-Yogo weak ID test critical values:{res}{txt}{col 42}10% maximal IV size{res}{col 73} 16.38
+{txt}{col 42}15% maximal IV size{res}{col 73}  8.96
+{txt}{col 42}20% maximal IV size{res}{col 73}  6.66
+{txt}{col 42}25% maximal IV size{res}{col 73}  5.53
+{txt}Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+{hline 78}
+{help ivreg2##overidtests:Hansen J statistic} (overidentification test of all instruments):{res}{col 71}   0.000
+{txt}{col 50}(equation exactly identified)
+-endog- option:
+{help ivreg2##endogtest:Endogeneity test} of endogenous regressors: {res}{col 71}  18.079
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}Regressors tested:  {col 23}ma3_major_n_thin_srs
+{hline 78}
+Instrumented:{col 23}ma3_major_n_thin_srs
+Included instruments:{col 23}vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev
+{col 23}bio_grow_ac estabs rddist_ft 2.siteclcd 3.siteclcd
+{col 23}4.siteclcd 5.siteclcd 6.siteclcd 7.siteclcd
+Excluded instruments:{col 23}ma3_state_thin
+{help ivreg2##partial:Partialled-out}:{col 23}_cons
+{col 23}nb: total SS, model F and R2s are after partialling-out;
+{col 23}    any {help ivreg2##s_small:small-sample adjustments} include partialled-out
+{col 23}    variables in regressor count K
+{hline 78}
+{res}
+{txt}Absorbed degrees of freedom:
+{res}{col 1}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 14}{hline 1}{c TRC}
+{col 1}{text} Absorbed FE{col 14}{c |} Categories{col 27} - Redundant{col 39}  = Num. Coefs{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 14}{hline 1}{c RT}
+{col 1}{text}      plt_id{col 14}{c |}{space 1}    37057{col 27}{space 1}    37057{col 39}{result}{space 1}        0{col 53}{text}*{col 54}{c |}
+{res}{col 1}{text}        year{col 14}{c |}{space 1}       25{col 27}{space 1}        1{col 39}{result}{space 1}       24{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}        SPGR{col 14}{c |}{space 1}        6{col 27}{space 1}        1{col 39}{result}{space 1}        5{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}       l3eco{col 14}{c |}{space 1}       32{col 27}{space 1}        1{col 39}{result}{space 1}       31{col 53}{text}?{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 14}{hline 1}{c BRC}
+? = number of redundant parameters may be higher
+* = FE nested within cluster; treated as redundant for DoF computation
+{res}{txt}
+{com}. 
+. 
+. capture estadd scalar firstF = e(cdf)
+{txt}
+{com}. capture estadd scalar secF   = e(widstat)
+{txt}
+{com}. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. 
+. gen sample=e(sample)
+{txt}
+{com}. 
+. 
+. * (4) Thinning FE
+. eststo thin_fe: xtreg mtbs_count_10 ma3_major_n_thin_srs $CONTROL ///
+>     i.year i.SPGR i.l3eco ///
+>     [aweight = area_total_private_s] ///
+>     if sample== 1, ///
+>     fe vce(cluster county_eco)
+{txt}note: 3.SPGR omitted because of collinearity
+note: 2.l3eco omitted because of collinearity
+note: 3.l3eco omitted because of collinearity
+note: 4.l3eco omitted because of collinearity
+note: 5.l3eco omitted because of collinearity
+note: 6.l3eco omitted because of collinearity
+note: 7.l3eco omitted because of collinearity
+note: 8.l3eco omitted because of collinearity
+note: 9.l3eco omitted because of collinearity
+note: 10.l3eco omitted because of collinearity
+note: 11.l3eco omitted because of collinearity
+note: 12.l3eco omitted because of collinearity
+note: 13.l3eco omitted because of collinearity
+note: 14.l3eco omitted because of collinearity
+note: 15.l3eco omitted because of collinearity
+note: 16.l3eco omitted because of collinearity
+note: 17.l3eco omitted because of collinearity
+note: 18.l3eco omitted because of collinearity
+note: 19.l3eco omitted because of collinearity
+note: 20.l3eco omitted because of collinearity
+note: 21.l3eco omitted because of collinearity
+note: 22.l3eco omitted because of collinearity
+note: 23.l3eco omitted because of collinearity
+note: 24.l3eco omitted because of collinearity
+note: 25.l3eco omitted because of collinearity
+note: 26.l3eco omitted because of collinearity
+note: 27.l3eco omitted because of collinearity
+note: 28.l3eco omitted because of collinearity
+note: 29.l3eco omitted because of collinearity
+note: 30.l3eco omitted because of collinearity
+note: 31.l3eco omitted because of collinearity
+note: 32.l3eco omitted because of collinearity
+
+Fixed-effects (within) regression               Number of obs      = {res}   761236
+{txt}Group variable: {res}plt_id                          {txt}Number of groups   = {res}    37057
+
+{txt}R-sq:  within  = {res}0.0514                         {txt}Obs per group: min = {res}        2
+{txt}       between = {res}0.0186                                        {txt}avg = {res}     20.5
+{txt}       overall = {res}0.0036                                        {txt}max = {res}       25
+
+                                                {txt}F({res}45{txt},{res}3968{txt})         = {res}    22.77
+{txt}corr(u_i, Xb)  = {res}-0.9996                        {txt}Prob > F           =    {res}0.0000
+
+{txt}{ralign 86:(Std. Err. adjusted for {res:3,969} clusters in county_eco)}
+{hline 21}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 22}{c |}{col 34}    Robust
+{col 1}       mtbs_count_10{col 22}{c |}      Coef.{col 34}   Std. Err.{col 46}      t{col 54}   P>|t|{col 62}     [95% Con{col 75}f. Interval]
+{hline 21}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_thin_srs {c |}{col 22}{res}{space 2}-.0013815{col 34}{space 2} .0017999{col 45}{space 1}   -0.77{col 54}{space 3}0.443{col 62}{space 4}-.0049103{col 75}{space 3} .0021474
+{txt}{space 10}vdp_max_10 {c |}{col 22}{res}{space 2} .0118396{col 34}{space 2} .0006824{col 45}{space 1}   17.35{col 54}{space 3}0.000{col 62}{space 4} .0105018{col 75}{space 3} .0131775
+{txt}{space 17}tpa {c |}{col 22}{res}{space 2} .0004788{col 34}{space 2}  .000234{col 45}{space 1}    2.05{col 54}{space 3}0.041{col 62}{space 4} .0000201{col 75}{space 3} .0009375
+{txt}{space 9}saw_cf_acre {c |}{col 22}{res}{space 2}-.0005658{col 34}{space 2} .0008822{col 45}{space 1}   -0.64{col 54}{space 3}0.521{col 62}{space 4}-.0022955{col 75}{space 3} .0011638
+{txt}{space 14}stdage {c |}{col 22}{res}{space 2}-.0006316{col 34}{space 2} .0004806{col 45}{space 1}   -1.31{col 54}{space 3}0.189{col 62}{space 4}-.0015738{col 75}{space 3} .0003106
+{txt}{space 8}percent_arti {c |}{col 22}{res}{space 2} .0051223{col 34}{space 2} .0026483{col 45}{space 1}    1.93{col 54}{space 3}0.053{col 62}{space 4}-.0000698{col 75}{space 3} .0103144
+{txt}{space 15}slope {c |}{col 22}{res}{space 2}-.0000752{col 34}{space 2} .0000986{col 45}{space 1}   -0.76{col 54}{space 3}0.446{col 62}{space 4}-.0002684{col 75}{space 3} .0001181
+{txt}{space 16}elev {c |}{col 22}{res}{space 2} .0044172{col 34}{space 2} .0059406{col 45}{space 1}    0.74{col 54}{space 3}0.457{col 62}{space 4}-.0072298{col 75}{space 3} .0160642
+{txt}{space 9}bio_grow_ac {c |}{col 22}{res}{space 2}-.0009788{col 34}{space 2} .0003532{col 45}{space 1}   -2.77{col 54}{space 3}0.006{col 62}{space 4}-.0016714{col 75}{space 3}-.0002863
+{txt}{space 14}estabs {c |}{col 22}{res}{space 2} .0007557{col 34}{space 2} .0003671{col 45}{space 1}    2.06{col 54}{space 3}0.040{col 62}{space 4} .0000359{col 75}{space 3} .0014755
+{txt}{space 11}rddist_ft {c |}{col 22}{res}{space 2}-.0000923{col 34}{space 2} .0017563{col 45}{space 1}   -0.05{col 54}{space 3}0.958{col 62}{space 4}-.0035357{col 75}{space 3}  .003351
+{txt}{space 20} {c |}
+{space 12}siteclcd {c |}
+{space 18}2  {c |}{col 22}{res}{space 2} .0110389{col 34}{space 2}  .007512{col 45}{space 1}    1.47{col 54}{space 3}0.142{col 62}{space 4}-.0036889{col 75}{space 3} .0257667
+{txt}{space 18}3  {c |}{col 22}{res}{space 2} .0075478{col 34}{space 2} .0071064{col 45}{space 1}    1.06{col 54}{space 3}0.288{col 62}{space 4}-.0063848{col 75}{space 3} .0214804
+{txt}{space 18}4  {c |}{col 22}{res}{space 2} .0064181{col 34}{space 2} .0069108{col 45}{space 1}    0.93{col 54}{space 3}0.353{col 62}{space 4}-.0071309{col 75}{space 3}  .019967
+{txt}{space 18}5  {c |}{col 22}{res}{space 2} .0046953{col 34}{space 2} .0068768{col 45}{space 1}    0.68{col 54}{space 3}0.495{col 62}{space 4}-.0087871{col 75}{space 3} .0181777
+{txt}{space 18}6  {c |}{col 22}{res}{space 2}-.0005208{col 34}{space 2} .0069695{col 45}{space 1}   -0.07{col 54}{space 3}0.940{col 62}{space 4} -.014185{col 75}{space 3} .0131434
+{txt}{space 18}7  {c |}{col 22}{res}{space 2} .0071738{col 34}{space 2} .0108647{col 45}{space 1}    0.66{col 54}{space 3}0.509{col 62}{space 4}-.0141272{col 75}{space 3} .0284748
+{txt}{space 20} {c |}
+{space 16}year {c |}
+{space 15}2001  {c |}{col 22}{res}{space 2} -.012897{col 34}{space 2} .0052822{col 45}{space 1}   -2.44{col 54}{space 3}0.015{col 62}{space 4}-.0232531{col 75}{space 3} -.002541
+{txt}{space 15}2002  {c |}{col 22}{res}{space 2}-.0435064{col 34}{space 2} .0059354{col 45}{space 1}   -7.33{col 54}{space 3}0.000{col 62}{space 4}-.0551432{col 75}{space 3}-.0318696
+{txt}{space 15}2003  {c |}{col 22}{res}{space 2}-.0337608{col 34}{space 2} .0058035{col 45}{space 1}   -5.82{col 54}{space 3}0.000{col 62}{space 4}-.0451389{col 75}{space 3}-.0223828
+{txt}{space 15}2004  {c |}{col 22}{res}{space 2}-.0119717{col 34}{space 2} .0062694{col 45}{space 1}   -1.91{col 54}{space 3}0.056{col 62}{space 4}-.0242633{col 75}{space 3} .0003199
+{txt}{space 15}2005  {c |}{col 22}{res}{space 2}-.0259931{col 34}{space 2} .0065386{col 45}{space 1}   -3.98{col 54}{space 3}0.000{col 62}{space 4}-.0388124{col 75}{space 3}-.0131738
+{txt}{space 15}2006  {c |}{col 22}{res}{space 2} .0059198{col 34}{space 2} .0071236{col 45}{space 1}    0.83{col 54}{space 3}0.406{col 62}{space 4}-.0080464{col 75}{space 3}  .019886
+{txt}{space 15}2007  {c |}{col 22}{res}{space 2}-.0070207{col 34}{space 2} .0066366{col 45}{space 1}   -1.06{col 54}{space 3}0.290{col 62}{space 4}-.0200321{col 75}{space 3} .0059908
+{txt}{space 15}2008  {c |}{col 22}{res}{space 2} .0359792{col 34}{space 2} .0093856{col 45}{space 1}    3.83{col 54}{space 3}0.000{col 62}{space 4}  .017578{col 75}{space 3} .0543803
+{txt}{space 15}2009  {c |}{col 22}{res}{space 2}-.0136193{col 34}{space 2} .0073832{col 45}{space 1}   -1.84{col 54}{space 3}0.065{col 62}{space 4}-.0280945{col 75}{space 3} .0008558
+{txt}{space 15}2010  {c |}{col 22}{res}{space 2}-.0649599{col 34}{space 2} .0056022{col 45}{space 1}  -11.60{col 54}{space 3}0.000{col 62}{space 4}-.0759434{col 75}{space 3}-.0539763
+{txt}{space 15}2011  {c |}{col 22}{res}{space 2} .0603001{col 34}{space 2} .0104347{col 45}{space 1}    5.78{col 54}{space 3}0.000{col 62}{space 4} .0398423{col 75}{space 3} .0807579
+{txt}{space 15}2012  {c |}{col 22}{res}{space 2}-.0834729{col 34}{space 2} .0058666{col 45}{space 1}  -14.23{col 54}{space 3}0.000{col 62}{space 4}-.0949747{col 75}{space 3} -.071971
+{txt}{space 15}2013  {c |}{col 22}{res}{space 2}-.0739838{col 34}{space 2} .0054181{col 45}{space 1}  -13.65{col 54}{space 3}0.000{col 62}{space 4}-.0846063{col 75}{space 3}-.0633613
+{txt}{space 15}2014  {c |}{col 22}{res}{space 2}-.0615683{col 34}{space 2} .0054438{col 45}{space 1}  -11.31{col 54}{space 3}0.000{col 62}{space 4}-.0722413{col 75}{space 3}-.0508953
+{txt}{space 15}2015  {c |}{col 22}{res}{space 2}-.0414237{col 34}{space 2} .0073195{col 45}{space 1}   -5.66{col 54}{space 3}0.000{col 62}{space 4}-.0557741{col 75}{space 3}-.0270733
+{txt}{space 15}2016  {c |}{col 22}{res}{space 2}-.0397838{col 34}{space 2} .0057752{col 45}{space 1}   -6.89{col 54}{space 3}0.000{col 62}{space 4}-.0511065{col 75}{space 3}-.0284612
+{txt}{space 15}2017  {c |}{col 22}{res}{space 2}-.0506918{col 34}{space 2} .0057239{col 45}{space 1}   -8.86{col 54}{space 3}0.000{col 62}{space 4}-.0619139{col 75}{space 3}-.0394698
+{txt}{space 15}2018  {c |}{col 22}{res}{space 2}-.0247777{col 34}{space 2} .0069213{col 45}{space 1}   -3.58{col 54}{space 3}0.000{col 62}{space 4}-.0383473{col 75}{space 3}-.0112082
+{txt}{space 15}2019  {c |}{col 22}{res}{space 2} -.057352{col 34}{space 2} .0070356{col 45}{space 1}   -8.15{col 54}{space 3}0.000{col 62}{space 4}-.0711458{col 75}{space 3}-.0435582
+{txt}{space 15}2020  {c |}{col 22}{res}{space 2}-.0515801{col 34}{space 2} .0065908{col 45}{space 1}   -7.83{col 54}{space 3}0.000{col 62}{space 4}-.0645017{col 75}{space 3}-.0386585
+{txt}{space 15}2021  {c |}{col 22}{res}{space 2}-.0410098{col 34}{space 2} .0065953{col 45}{space 1}   -6.22{col 54}{space 3}0.000{col 62}{space 4}-.0539403{col 75}{space 3}-.0280793
+{txt}{space 15}2022  {c |}{col 22}{res}{space 2} .0114636{col 34}{space 2} .0073887{col 45}{space 1}    1.55{col 54}{space 3}0.121{col 62}{space 4}-.0030223{col 75}{space 3} .0259496
+{txt}{space 15}2023  {c |}{col 22}{res}{space 2}-.0826529{col 34}{space 2} .0066042{col 45}{space 1}  -12.52{col 54}{space 3}0.000{col 62}{space 4}-.0956008{col 75}{space 3} -.069705
+{txt}{space 15}2024  {c |}{col 22}{res}{space 2}-.0530026{col 34}{space 2} .0072245{col 45}{space 1}   -7.34{col 54}{space 3}0.000{col 62}{space 4}-.0671666{col 75}{space 3}-.0388386
+{txt}{space 20} {c |}
+{space 16}SPGR {c |}
+{space 18}1  {c |}{col 22}{res}{space 2}-.0053269{col 34}{space 2} .0044644{col 45}{space 1}   -1.19{col 54}{space 3}0.233{col 62}{space 4}-.0140797{col 75}{space 3} .0034258
+{txt}{space 18}2  {c |}{col 22}{res}{space 2}  .006681{col 34}{space 2} .0055396{col 45}{space 1}    1.21{col 54}{space 3}0.228{col 62}{space 4}-.0041797{col 75}{space 3} .0175417
+{txt}{space 18}3  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 18}4  {c |}{col 22}{res}{space 2}-.0002596{col 34}{space 2} .0043493{col 45}{space 1}   -0.06{col 54}{space 3}0.952{col 62}{space 4}-.0087867{col 75}{space 3} .0082675
+{txt}{space 18}5  {c |}{col 22}{res}{space 2}-.0014485{col 34}{space 2} .0041852{col 45}{space 1}   -0.35{col 54}{space 3}0.729{col 62}{space 4}-.0096539{col 75}{space 3} .0067568
+{txt}{space 20} {c |}
+{space 15}l3eco {c |}
+{space 13}15.4.1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.3.1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.3.2  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.3.3  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.3.4  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.3.5  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.3.6  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.3.7  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.3.8  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.4.1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.4.2  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.4.3  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.4.4  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.4.5  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.4.6  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.4.7  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.4.8  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.4.9  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.5.1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.5.2  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}8.5.3  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.2.4  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.4.1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.4.2  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.4.3  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.4.4  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.4.5  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.4.6  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.4.7  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.5.1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 14}9.6.1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (omitted)
+{space 20} {c |}
+{space 15}_cons {c |}{col 22}{res}{space 2}-4.185419{col 34}{space 2} 5.423089{col 45}{space 1}   -0.77{col 54}{space 3}0.440{col 62}{space 4}-14.81772{col 75}{space 3} 6.446884
+{txt}{hline 21}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+             sigma_u {c |} {res} 3.6674318
+             {txt}sigma_e {c |} {res} .22232929
+                 {txt}rho {c |} {res} .99633836{txt}   (fraction of variance due to u_i)
+{hline 21}{c BT}{hline 64}
+
+{com}. 
+. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. * (5) Thinning first stage
+. eststo thin_fs: xtreg ma3_major_n_thin_srs ma3_state_thin $CONTROL ///
+>     i.year i.SPGR i.l3eco ///
+>     [aweight = area_total_private_s] ///
+>     if sample== 1, ///
+>     fe vce(cluster county_eco)
+{txt}note: 3.SPGR omitted because of collinearity
+note: 2.l3eco omitted because of collinearity
+note: 3.l3eco omitted because of collinearity
+note: 4.l3eco omitted because of collinearity
+note: 5.l3eco omitted because of collinearity
+note: 6.l3eco omitted because of collinearity
+note: 7.l3eco omitted because of collinearity
+note: 8.l3eco omitted because of collinearity
+note: 9.l3eco omitted because of collinearity
+note: 10.l3eco omitted because of collinearity
+note: 11.l3eco omitted because of collinearity
+note: 12.l3eco omitted because of collinearity
+note: 13.l3eco omitted because of collinearity
+note: 14.l3eco omitted because of collinearity
+note: 15.l3eco omitted because of collinearity
+note: 16.l3eco omitted because of collinearity
+note: 17.l3eco omitted because of collinearity
+note: 18.l3eco omitted because of collinearity
+note: 19.l3eco omitted because of collinearity
+note: 20.l3eco omitted because of collinearity
+note: 21.l3eco omitted because of collinearity
+note: 22.l3eco omitted because of collinearity
+note: 23.l3eco omitted because of collinearity
+note: 24.l3eco omitted because of collinearity
+note: 25.l3eco omitted because of collinearity
+note: 26.l3eco omitted because of collinearity
+note: 27.l3eco omitted because of collinearity
+note: 28.l3eco omitted because of collinearity
+note: 29.l3eco omitted because of collinearity
+note: 30.l3eco omitted because of collinearity
+note: 31.l3eco omitted because of collinearity
+note: 32.l3eco omitted because of collinearity
+
+Fixed-effects (within) regression               Number of obs      = {res}   761236
+{txt}Group variable: {res}plt_id                          {txt}Number of groups   = {res}    37057
+
+{txt}R-sq:  within  = {res}0.0201                         {txt}Obs per group: min = {res}        2
+{txt}       between = {res}0.0495                                        {txt}avg = {res}     20.5
+{txt}       overall = {res}0.0126                                        {txt}max = {res}       25
+
+                                                {txt}F({res}45{txt},{res}3968{txt})         = {res}    30.45
+{txt}corr(u_i, Xb)  = {res}-0.9914                        {txt}Prob > F           =    {res}0.0000
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:3,969} clusters in county_eco)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1}ma3_majo~n_srs{col 16}{c |}      Coef.{col 28}   Std. Err.{col 40}      t{col 48}   P>|t|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_state_thin {c |}{col 16}{res}{space 2} .7803995{col 28}{space 2} .0353222{col 39}{space 1}   22.09{col 48}{space 3}0.000{col 56}{space 4} .7111481{col 69}{space 3} .8496509
+{txt}{space 4}vdp_max_10 {c |}{col 16}{res}{space 2}  .000065{col 28}{space 2} .0000749{col 39}{space 1}    0.87{col 48}{space 3}0.385{col 56}{space 4}-.0000818{col 69}{space 3} .0002119
+{txt}{space 11}tpa {c |}{col 16}{res}{space 2}-.0036672{col 28}{space 2} .0003539{col 39}{space 1}  -10.36{col 48}{space 3}0.000{col 56}{space 4}-.0043609{col 69}{space 3}-.0029734
+{txt}{space 3}saw_cf_acre {c |}{col 16}{res}{space 2} -.004088{col 28}{space 2} .0014004{col 39}{space 1}   -2.92{col 48}{space 3}0.004{col 56}{space 4}-.0068335{col 69}{space 3}-.0013425
+{txt}{space 8}stdage {c |}{col 16}{res}{space 2} .0087128{col 28}{space 2} .0005407{col 39}{space 1}   16.11{col 48}{space 3}0.000{col 56}{space 4} .0076526{col 69}{space 3}  .009773
+{txt}{space 2}percent_arti {c |}{col 16}{res}{space 2} .0111557{col 28}{space 2} .0044119{col 39}{space 1}    2.53{col 48}{space 3}0.011{col 56}{space 4} .0025059{col 69}{space 3} .0198055
+{txt}{space 9}slope {c |}{col 16}{res}{space 2}-.0000756{col 28}{space 2} .0000727{col 39}{space 1}   -1.04{col 48}{space 3}0.299{col 56}{space 4}-.0002182{col 69}{space 3}  .000067
+{txt}{space 10}elev {c |}{col 16}{res}{space 2}-.0007126{col 28}{space 2} .0005992{col 39}{space 1}   -1.19{col 48}{space 3}0.234{col 56}{space 4}-.0018873{col 69}{space 3} .0004621
+{txt}{space 3}bio_grow_ac {c |}{col 16}{res}{space 2} .0057028{col 28}{space 2} .0009151{col 39}{space 1}    6.23{col 48}{space 3}0.000{col 56}{space 4} .0039087{col 69}{space 3} .0074969
+{txt}{space 8}estabs {c |}{col 16}{res}{space 2}-.0001742{col 28}{space 2} .0001934{col 39}{space 1}   -0.90{col 48}{space 3}0.368{col 56}{space 4}-.0005533{col 69}{space 3} .0002049
+{txt}{space 5}rddist_ft {c |}{col 16}{res}{space 2}-.0010067{col 28}{space 2}  .000998{col 39}{space 1}   -1.01{col 48}{space 3}0.313{col 56}{space 4}-.0029633{col 69}{space 3}   .00095
+{txt}{space 14} {c |}
+{space 6}siteclcd {c |}
+{space 12}2  {c |}{col 16}{res}{space 2} .0451994{col 28}{space 2} .0098448{col 39}{space 1}    4.59{col 48}{space 3}0.000{col 56}{space 4} .0258981{col 69}{space 3} .0645007
+{txt}{space 12}3  {c |}{col 16}{res}{space 2} .0273067{col 28}{space 2} .0067086{col 39}{space 1}    4.07{col 48}{space 3}0.000{col 56}{space 4}  .014154{col 69}{space 3} .0404594
+{txt}{space 12}4  {c |}{col 16}{res}{space 2} .0176317{col 28}{space 2} .0059445{col 39}{space 1}    2.97{col 48}{space 3}0.003{col 56}{space 4}  .005977{col 69}{space 3} .0292863
+{txt}{space 12}5  {c |}{col 16}{res}{space 2} .0095893{col 28}{space 2} .0058717{col 39}{space 1}    1.63{col 48}{space 3}0.103{col 56}{space 4}-.0019226{col 69}{space 3} .0211011
+{txt}{space 12}6  {c |}{col 16}{res}{space 2} .0061395{col 28}{space 2} .0060413{col 39}{space 1}    1.02{col 48}{space 3}0.310{col 56}{space 4}-.0057048{col 69}{space 3} .0179838
+{txt}{space 12}7  {c |}{col 16}{res}{space 2} .0056972{col 28}{space 2}  .006122{col 39}{space 1}    0.93{col 48}{space 3}0.352{col 56}{space 4}-.0063053{col 69}{space 3} .0176997
+{txt}{space 14} {c |}
+{space 10}year {c |}
+{space 9}2001  {c |}{col 16}{res}{space 2} .0010515{col 28}{space 2} .0006443{col 39}{space 1}    1.63{col 48}{space 3}0.103{col 56}{space 4}-.0002116{col 69}{space 3} .0023146
+{txt}{space 9}2002  {c |}{col 16}{res}{space 2} .0013366{col 28}{space 2} .0008158{col 39}{space 1}    1.64{col 48}{space 3}0.101{col 56}{space 4}-.0002628{col 69}{space 3} .0029359
+{txt}{space 9}2003  {c |}{col 16}{res}{space 2} .0017305{col 28}{space 2} .0009653{col 39}{space 1}    1.79{col 48}{space 3}0.073{col 56}{space 4} -.000162{col 69}{space 3}  .003623
+{txt}{space 9}2004  {c |}{col 16}{res}{space 2} .0018014{col 28}{space 2} .0011561{col 39}{space 1}    1.56{col 48}{space 3}0.119{col 56}{space 4}-.0004652{col 69}{space 3} .0040681
+{txt}{space 9}2005  {c |}{col 16}{res}{space 2} .0010358{col 28}{space 2} .0011414{col 39}{space 1}    0.91{col 48}{space 3}0.364{col 56}{space 4}-.0012021{col 69}{space 3} .0032736
+{txt}{space 9}2006  {c |}{col 16}{res}{space 2} .0010552{col 28}{space 2} .0011798{col 39}{space 1}    0.89{col 48}{space 3}0.371{col 56}{space 4}-.0012579{col 69}{space 3} .0033682
+{txt}{space 9}2007  {c |}{col 16}{res}{space 2} .0013157{col 28}{space 2} .0012693{col 39}{space 1}    1.04{col 48}{space 3}0.300{col 56}{space 4}-.0011729{col 69}{space 3} .0038042
+{txt}{space 9}2008  {c |}{col 16}{res}{space 2} .0008894{col 28}{space 2} .0012365{col 39}{space 1}    0.72{col 48}{space 3}0.472{col 56}{space 4}-.0015347{col 69}{space 3} .0033136
+{txt}{space 9}2009  {c |}{col 16}{res}{space 2} .0004261{col 28}{space 2} .0012183{col 39}{space 1}    0.35{col 48}{space 3}0.727{col 56}{space 4}-.0019625{col 69}{space 3} .0028148
+{txt}{space 9}2010  {c |}{col 16}{res}{space 2}-.0003334{col 28}{space 2} .0011852{col 39}{space 1}   -0.28{col 48}{space 3}0.779{col 56}{space 4}-.0026571{col 69}{space 3} .0019903
+{txt}{space 9}2011  {c |}{col 16}{res}{space 2}-.0009403{col 28}{space 2} .0012886{col 39}{space 1}   -0.73{col 48}{space 3}0.466{col 56}{space 4}-.0034666{col 69}{space 3} .0015861
+{txt}{space 9}2012  {c |}{col 16}{res}{space 2}-.0015068{col 28}{space 2} .0012178{col 39}{space 1}   -1.24{col 48}{space 3}0.216{col 56}{space 4}-.0038945{col 69}{space 3} .0008809
+{txt}{space 9}2013  {c |}{col 16}{res}{space 2}-.0008458{col 28}{space 2} .0011785{col 39}{space 1}   -0.72{col 48}{space 3}0.473{col 56}{space 4}-.0031564{col 69}{space 3} .0014648
+{txt}{space 9}2014  {c |}{col 16}{res}{space 2} -.001654{col 28}{space 2} .0011653{col 39}{space 1}   -1.42{col 48}{space 3}0.156{col 56}{space 4}-.0039386{col 69}{space 3} .0006306
+{txt}{space 9}2015  {c |}{col 16}{res}{space 2}-.0024961{col 28}{space 2} .0011831{col 39}{space 1}   -2.11{col 48}{space 3}0.035{col 56}{space 4}-.0048157{col 69}{space 3}-.0001765
+{txt}{space 9}2016  {c |}{col 16}{res}{space 2}-.0028501{col 28}{space 2} .0012332{col 39}{space 1}   -2.31{col 48}{space 3}0.021{col 56}{space 4}-.0052678{col 69}{space 3}-.0004324
+{txt}{space 9}2017  {c |}{col 16}{res}{space 2}-.0044974{col 28}{space 2} .0012692{col 39}{space 1}   -3.54{col 48}{space 3}0.000{col 56}{space 4}-.0069857{col 69}{space 3}-.0020091
+{txt}{space 9}2018  {c |}{col 16}{res}{space 2}-.0047597{col 28}{space 2} .0013163{col 39}{space 1}   -3.62{col 48}{space 3}0.000{col 56}{space 4}-.0073405{col 69}{space 3} -.002179
+{txt}{space 9}2019  {c |}{col 16}{res}{space 2}-.0056918{col 28}{space 2} .0013543{col 39}{space 1}   -4.20{col 48}{space 3}0.000{col 56}{space 4} -.008347{col 69}{space 3}-.0030367
+{txt}{space 9}2020  {c |}{col 16}{res}{space 2}-.0067825{col 28}{space 2} .0013272{col 39}{space 1}   -5.11{col 48}{space 3}0.000{col 56}{space 4}-.0093845{col 69}{space 3}-.0041805
+{txt}{space 9}2021  {c |}{col 16}{res}{space 2} -.007223{col 28}{space 2} .0013634{col 39}{space 1}   -5.30{col 48}{space 3}0.000{col 56}{space 4} -.009896{col 69}{space 3}-.0045501
+{txt}{space 9}2022  {c |}{col 16}{res}{space 2}-.0079917{col 28}{space 2} .0013637{col 39}{space 1}   -5.86{col 48}{space 3}0.000{col 56}{space 4}-.0106653{col 69}{space 3}-.0053181
+{txt}{space 9}2023  {c |}{col 16}{res}{space 2}-.0107032{col 28}{space 2} .0016062{col 39}{space 1}   -6.66{col 48}{space 3}0.000{col 56}{space 4}-.0138523{col 69}{space 3}-.0075541
+{txt}{space 9}2024  {c |}{col 16}{res}{space 2}-.0122445{col 28}{space 2} .0026802{col 39}{space 1}   -4.57{col 48}{space 3}0.000{col 56}{space 4}-.0174992{col 69}{space 3}-.0069898
+{txt}{space 14} {c |}
+{space 10}SPGR {c |}
+{space 12}1  {c |}{col 16}{res}{space 2} .0232289{col 28}{space 2} .0041134{col 39}{space 1}    5.65{col 48}{space 3}0.000{col 56}{space 4} .0151644{col 69}{space 3} .0312934
+{txt}{space 12}2  {c |}{col 16}{res}{space 2} .0049108{col 28}{space 2} .0049487{col 39}{space 1}    0.99{col 48}{space 3}0.321{col 56}{space 4}-.0047914{col 69}{space 3}  .014613
+{txt}{space 12}3  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 12}4  {c |}{col 16}{res}{space 2}-.0006809{col 28}{space 2} .0019963{col 39}{space 1}   -0.34{col 48}{space 3}0.733{col 56}{space 4}-.0045948{col 69}{space 3} .0032329
+{txt}{space 12}5  {c |}{col 16}{res}{space 2} .0021626{col 28}{space 2} .0017493{col 39}{space 1}    1.24{col 48}{space 3}0.216{col 56}{space 4}-.0012671{col 69}{space 3} .0055922
+{txt}{space 14} {c |}
+{space 9}l3eco {c |}
+{space 7}15.4.1  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.3.1  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.3.2  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.3.3  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.3.4  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.3.5  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.3.6  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.3.7  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.3.8  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.4.1  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.4.2  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.4.3  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.4.4  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.4.5  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.4.6  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.4.7  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.4.8  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.4.9  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.5.1  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.5.2  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}8.5.3  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.2.4  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.4.1  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.4.2  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.4.3  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.4.4  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.4.5  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.4.6  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.4.7  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.5.1  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 8}9.6.1  {c |}{col 16}{res}{space 2}        0{col 28}{txt}  (omitted)
+{space 14} {c |}
+{space 9}_cons {c |}{col 16}{res}{space 2} .6138107{col 28}{space 2}  .547026{col 39}{space 1}    1.12{col 48}{space 3}0.262{col 56}{space 4}-.4586677{col 69}{space 3} 1.686289
+{txt}{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+       sigma_u {c |} {res} .59139866
+       {txt}sigma_e {c |} {res} .13229929
+           {txt}rho {c |} {res}  .9523408{txt}   (fraction of variance due to u_i)
+{hline 15}{c BT}{hline 64}
+
+{com}. 
+. 
+. test ma3_state_thin
+
+{p 0 7}{space 1}{text:( 1)}{space 1} {res}ma3_state_thin = 0{p_end}
+
+{txt}       F(  1,  3968) ={res}  488.13
+{txt}{col 13}Prob > F ={res}    0.0000
+{txt}
+{com}. 
+. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. 
+. 
+. 
+. *****************************************************
+. * Joint IV: harvest and thinning together
+. *****************************************************
+. 
+. * (7) Joint IV
+. eststo joint_iv: ivreghdfe mtbs_count_10 ///
+>     $CONTROL ///
+>     (ma3_major_n_clearcut_srs ma3_major_n_thin_srs = ma3_state_thin ma3_state_clear) ///
+>     [aweight = area_total_private_s] if year >= 2000, ///
+>     absorb(plt_id year SPGR l3eco) cluster(county_eco)
+{res}{txt}(dropped 14 {browse "http://scorreia.com/research/singletons.pdf":singleton observations})
+{res}{txt}(sum of wgt is     4.9919e+09)
+{res}{txt}({browse "http://scorreia.com/research/hdfe.pdf":MWFE estimator} converged in 11 iterations)
+{res}
+{txt}IV (2SLS) estimation
+{hline 20}
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on county_eco
+
+Number of clusters (county_eco) = {col 33}{res}  3969{txt}{col 55}Number of obs = {res}  761236
+{txt}{col 55}F( 18,  3968) = {res}   19.01
+{txt}{col 55}Prob > F      = {res}  0.0000
+{txt}Total (centered) SS     = {res} 36182.23503{txt}{col 55}Centered R2   = {res} -0.0854
+{txt}Total (uncentered) SS   = {res} 36182.23503{txt}{col 55}Uncentered R2 = {res} -0.0854
+{txt}Residual SS             = {res} 39270.48474{txt}{col 55}Root MSE      = {res}   .2271
+
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}           mtbs_count_10{col 26}{c |}      Coef.{col 38}   Std. Err.{col 50}      t{col 58}   P>|t|{col 66}     [95% Con{col 79}f. Interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_clearcut_srs {c |}{col 26}{res}{space 2}-.3882722{col 38}{space 2} .0823772{col 49}{space 1}   -4.71{col 58}{space 3}0.000{col 66}{space 4}-.5497779{col 79}{space 3}-.2267665
+{txt}{space 4}ma3_major_n_thin_srs {c |}{col 26}{res}{space 2}-.1663141{col 38}{space 2} .0471062{col 49}{space 1}   -3.53{col 58}{space 3}0.000{col 66}{space 4}-.2586687{col 79}{space 3}-.0739594
+{txt}{space 14}vdp_max_10 {c |}{col 26}{res}{space 2} .0117504{col 38}{space 2} .0006804{col 49}{space 1}   17.27{col 58}{space 3}0.000{col 66}{space 4} .0104163{col 79}{space 3} .0130844
+{txt}{space 21}tpa {c |}{col 26}{res}{space 2}-.0083302{col 38}{space 2} .0017448{col 49}{space 1}   -4.77{col 58}{space 3}0.000{col 66}{space 4}-.0117509{col 79}{space 3}-.0049094
+{txt}{space 13}saw_cf_acre {c |}{col 26}{res}{space 2}-.0046247{col 38}{space 2}  .001329{col 49}{space 1}   -3.48{col 58}{space 3}0.001{col 66}{space 4}-.0072302{col 79}{space 3}-.0020191
+{txt}{space 18}stdage {c |}{col 26}{res}{space 2}-.0030603{col 38}{space 2} .0011326{col 49}{space 1}   -2.70{col 58}{space 3}0.007{col 66}{space 4}-.0052808{col 79}{space 3}-.0008399
+{txt}{space 12}percent_arti {c |}{col 26}{res}{space 2} -.038587{col 38}{space 2} .0118101{col 49}{space 1}   -3.27{col 58}{space 3}0.001{col 66}{space 4}-.0617414{col 79}{space 3}-.0154326
+{txt}{space 19}slope {c |}{col 26}{res}{space 2} .0000749{col 38}{space 2}   .00012{col 49}{space 1}    0.62{col 58}{space 3}0.533{col 66}{space 4}-.0001604{col 79}{space 3} .0003102
+{txt}{space 20}elev {c |}{col 26}{res}{space 2}-.0014235{col 38}{space 2} .0063895{col 49}{space 1}   -0.22{col 58}{space 3}0.824{col 66}{space 4}-.0139506{col 79}{space 3} .0111035
+{txt}{space 13}bio_grow_ac {c |}{col 26}{res}{space 2}-.0005002{col 38}{space 2} .0005244{col 49}{space 1}   -0.95{col 58}{space 3}0.340{col 66}{space 4}-.0015283{col 79}{space 3} .0005278
+{txt}{space 18}estabs {c |}{col 26}{res}{space 2} .0006048{col 38}{space 2} .0003892{col 49}{space 1}    1.55{col 58}{space 3}0.120{col 66}{space 4}-.0001584{col 79}{space 3} .0013679
+{txt}{space 15}rddist_ft {c |}{col 26}{res}{space 2} .0005949{col 38}{space 2} .0018423{col 49}{space 1}    0.32{col 58}{space 3}0.747{col 66}{space 4} -.003017{col 79}{space 3} .0042068
+{txt}{space 24} {c |}
+{space 16}siteclcd {c |}
+{space 22}1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (empty)
+{space 22}2  {c |}{col 26}{res}{space 2} .0084378{col 38}{space 2} .0105714{col 49}{space 1}    0.80{col 58}{space 3}0.425{col 66}{space 4}-.0122882{col 79}{space 3} .0291637
+{txt}{space 22}3  {c |}{col 26}{res}{space 2} .0025428{col 38}{space 2} .0100496{col 49}{space 1}    0.25{col 58}{space 3}0.800{col 66}{space 4}  -.01716{col 79}{space 3} .0222456
+{txt}{space 22}4  {c |}{col 26}{res}{space 2}-.0032305{col 38}{space 2} .0098711{col 49}{space 1}   -0.33{col 58}{space 3}0.743{col 66}{space 4}-.0225833{col 79}{space 3} .0161224
+{txt}{space 22}5  {c |}{col 26}{res}{space 2} -.006219{col 38}{space 2} .0097284{col 49}{space 1}   -0.64{col 58}{space 3}0.523{col 66}{space 4}-.0252921{col 79}{space 3} .0128541
+{txt}{space 22}6  {c |}{col 26}{res}{space 2}-.0125673{col 38}{space 2} .0099331{col 49}{space 1}   -1.27{col 58}{space 3}0.206{col 66}{space 4}-.0320417{col 79}{space 3} .0069071
+{txt}{space 22}7  {c |}{col 26}{res}{space 2} -.003201{col 38}{space 2} .0130832{col 49}{space 1}   -0.24{col 58}{space 3}0.807{col 66}{space 4}-.0288515{col 79}{space 3} .0224495
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{help ivreg2##idtest:Underidentification test} (Kleibergen-Paap rk LM statistic):{res}{col 71} 151.302
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}{hline 78}
+{help ivreg2##widtest:Weak identification test} (Cragg-Donald Wald F statistic):{res}{col 71} 822.235
+{txt}                         (Kleibergen-Paap rk Wald F statistic):{res}{col 71} 107.136
+{txt}Stock-Yogo weak ID test critical values:{res}{txt}{col 42}10% maximal IV size{res}{col 73}  7.03
+{txt}{col 42}15% maximal IV size{res}{col 73}  4.58
+{txt}{col 42}20% maximal IV size{res}{col 73}  3.95
+{txt}{col 42}25% maximal IV size{res}{col 73}  3.63
+{txt}Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+{hline 78}
+{help ivreg2##overidtests:Hansen J statistic} (overidentification test of all instruments):{res}{col 71}   0.000
+{txt}{col 50}(equation exactly identified)
+{hline 78}
+Instrumented:{col 23}ma3_major_n_clearcut_srs ma3_major_n_thin_srs
+Included instruments:{col 23}vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev
+{col 23}bio_grow_ac estabs rddist_ft 2.siteclcd 3.siteclcd
+{col 23}4.siteclcd 5.siteclcd 6.siteclcd 7.siteclcd
+Excluded instruments:{col 23}ma3_state_thin ma3_state_clear
+{help ivreg2##partial:Partialled-out}:{col 23}_cons
+{col 23}nb: total SS, model F and R2s are after partialling-out;
+{col 23}    any {help ivreg2##s_small:small-sample adjustments} include partialled-out
+{col 23}    variables in regressor count K
+{hline 78}
+{res}
+{txt}Absorbed degrees of freedom:
+{res}{col 1}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 14}{hline 1}{c TRC}
+{col 1}{text} Absorbed FE{col 14}{c |} Categories{col 27} - Redundant{col 39}  = Num. Coefs{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 14}{hline 1}{c RT}
+{col 1}{text}      plt_id{col 14}{c |}{space 1}    37057{col 27}{space 1}    37057{col 39}{result}{space 1}        0{col 53}{text}*{col 54}{c |}
+{res}{col 1}{text}        year{col 14}{c |}{space 1}       25{col 27}{space 1}        1{col 39}{result}{space 1}       24{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}        SPGR{col 14}{c |}{space 1}        6{col 27}{space 1}        1{col 39}{result}{space 1}        5{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}       l3eco{col 14}{c |}{space 1}       32{col 27}{space 1}        1{col 39}{result}{space 1}       31{col 53}{text}?{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 14}{hline 1}{c BRC}
+? = number of redundant parameters may be higher
+* = FE nested within cluster; treated as redundant for DoF computation
+{res}{txt}
+{com}. 
+. capture estadd scalar firstF = e(cdf)
+{txt}
+{com}. capture estadd scalar secF   = e(widstat)
+{txt}
+{com}. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. *****************************************************
+. * Thinning versus waiting / no treatment
+. *****************************************************
+. 
+. capture drop ma3_wait
+{txt}
+{com}. gen ma3_wait = 1
+{txt}
+{com}. replace ma3_wait = 0 if ma3_major_n_clearcut_srs == 1 | ma3_major_n_thin_srs == 1
+{txt}(54,883 real changes made)
+
+{com}. 
+. * (8) Thinning and wait IV
+. eststo thin_wait_iv: ivreghdfe mtbs_count_10 ///
+>     $CONTROL ///
+>     (ma3_major_n_thin_srs ma3_wait =  ma3_state_thin ma3_state_clear) ///
+>     [aweight = area_total_private_s] if year >= 2000, ///
+>     absorb(plt_id year SPGR l3eco) cluster(county_eco)
+{res}{txt}(dropped 14 {browse "http://scorreia.com/research/singletons.pdf":singleton observations})
+{res}{txt}(sum of wgt is     4.9919e+09)
+{res}{txt}({browse "http://scorreia.com/research/hdfe.pdf":MWFE estimator} converged in 11 iterations)
+{res}
+{txt}IV (2SLS) estimation
+{hline 20}
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on county_eco
+
+Number of clusters (county_eco) = {col 33}{res}  3969{txt}{col 55}Number of obs = {res}  761236
+{txt}{col 55}F( 18,  3968) = {res}   19.01
+{txt}{col 55}Prob > F      = {res}  0.0000
+{txt}Total (centered) SS     = {res} 36182.23503{txt}{col 55}Centered R2   = {res} -0.0844
+{txt}Total (uncentered) SS   = {res} 36182.23503{txt}{col 55}Uncentered R2 = {res} -0.0844
+{txt}Residual SS             = {res} 39235.91098{txt}{col 55}Root MSE      = {res}    .227
+
+{txt}{hline 21}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 22}{c |}{col 34}    Robust
+{col 1}       mtbs_count_10{col 22}{c |}      Coef.{col 34}   Std. Err.{col 46}      t{col 54}   P>|t|{col 62}     [95% Con{col 75}f. Interval]
+{hline 21}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_thin_srs {c |}{col 22}{res}{space 2} .2166416{col 34}{space 2} .0977655{col 45}{space 1}    2.22{col 54}{space 3}0.027{col 62}{space 4} .0249663{col 75}{space 3} .4083169
+{txt}{space 12}ma3_wait {c |}{col 22}{res}{space 2} .3870808{col 34}{space 2} .0821708{col 45}{space 1}    4.71{col 54}{space 3}0.000{col 62}{space 4} .2259798{col 75}{space 3} .5481818
+{txt}{space 10}vdp_max_10 {c |}{col 22}{res}{space 2} .0117527{col 34}{space 2} .0006804{col 45}{space 1}   17.27{col 54}{space 3}0.000{col 62}{space 4} .0104187{col 75}{space 3} .0130867
+{txt}{space 17}tpa {c |}{col 22}{res}{space 2}-.0083001{col 34}{space 2} .0017389{col 45}{space 1}   -4.77{col 54}{space 3}0.000{col 62}{space 4}-.0117094{col 75}{space 3}-.0048908
+{txt}{space 9}saw_cf_acre {c |}{col 22}{res}{space 2}-.0046921{col 34}{space 2} .0013344{col 45}{space 1}   -3.52{col 54}{space 3}0.000{col 62}{space 4}-.0073083{col 75}{space 3} -.002076
+{txt}{space 14}stdage {c |}{col 22}{res}{space 2}-.0030623{col 34}{space 2}  .001133{col 45}{space 1}   -2.70{col 54}{space 3}0.007{col 62}{space 4}-.0052837{col 75}{space 3} -.000841
+{txt}{space 8}percent_arti {c |}{col 22}{res}{space 2}-.0381305{col 34}{space 2}  .011725{col 45}{space 1}   -3.25{col 54}{space 3}0.001{col 62}{space 4}-.0611182{col 75}{space 3}-.0151429
+{txt}{space 15}slope {c |}{col 22}{res}{space 2}  .000074{col 34}{space 2} .0001198{col 45}{space 1}    0.62{col 54}{space 3}0.537{col 62}{space 4} -.000161{col 75}{space 3} .0003089
+{txt}{space 16}elev {c |}{col 22}{res}{space 2}-.0014003{col 34}{space 2} .0063861{col 45}{space 1}   -0.22{col 54}{space 3}0.826{col 62}{space 4}-.0139207{col 75}{space 3}   .01112
+{txt}{space 9}bio_grow_ac {c |}{col 22}{res}{space 2}-.0004783{col 34}{space 2} .0005245{col 45}{space 1}   -0.91{col 54}{space 3}0.362{col 62}{space 4}-.0015066{col 75}{space 3} .0005501
+{txt}{space 14}estabs {c |}{col 22}{res}{space 2} .0006004{col 34}{space 2}   .00039{col 45}{space 1}    1.54{col 54}{space 3}0.124{col 62}{space 4}-.0001642{col 75}{space 3}  .001365
+{txt}{space 11}rddist_ft {c |}{col 22}{res}{space 2} .0006053{col 34}{space 2} .0018427{col 45}{space 1}    0.33{col 54}{space 3}0.743{col 62}{space 4}-.0030075{col 75}{space 3} .0042181
+{txt}{space 20} {c |}
+{space 12}siteclcd {c |}
+{space 18}1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (empty)
+{space 18}2  {c |}{col 22}{res}{space 2} .0082491{col 34}{space 2} .0105704{col 45}{space 1}    0.78{col 54}{space 3}0.435{col 62}{space 4}-.0124749{col 75}{space 3}  .028973
+{txt}{space 18}3  {c |}{col 22}{res}{space 2} .0026205{col 34}{space 2} .0100321{col 45}{space 1}    0.26{col 54}{space 3}0.794{col 62}{space 4}-.0170482{col 75}{space 3} .0222891
+{txt}{space 18}4  {c |}{col 22}{res}{space 2}-.0031964{col 34}{space 2} .0098605{col 45}{space 1}   -0.32{col 54}{space 3}0.746{col 62}{space 4}-.0225284{col 75}{space 3} .0161357
+{txt}{space 18}5  {c |}{col 22}{res}{space 2}-.0062299{col 34}{space 2} .0097183{col 45}{space 1}   -0.64{col 54}{space 3}0.522{col 62}{space 4}-.0252833{col 75}{space 3} .0128234
+{txt}{space 18}6  {c |}{col 22}{res}{space 2}-.0125307{col 34}{space 2} .0099227{col 45}{space 1}   -1.26{col 54}{space 3}0.207{col 62}{space 4}-.0319848{col 75}{space 3} .0069234
+{txt}{space 18}7  {c |}{col 22}{res}{space 2} -.003196{col 34}{space 2} .0130753{col 45}{space 1}   -0.24{col 54}{space 3}0.807{col 62}{space 4}-.0288309{col 75}{space 3} .0224388
+{txt}{hline 21}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{help ivreg2##idtest:Underidentification test} (Kleibergen-Paap rk LM statistic):{res}{col 71} 152.396
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}{hline 78}
+{help ivreg2##widtest:Weak identification test} (Cragg-Donald Wald F statistic):{res}{col 71} 832.035
+{txt}                         (Kleibergen-Paap rk Wald F statistic):{res}{col 71} 108.030
+{txt}Stock-Yogo weak ID test critical values:{res}{txt}{col 42}10% maximal IV size{res}{col 73}  7.03
+{txt}{col 42}15% maximal IV size{res}{col 73}  4.58
+{txt}{col 42}20% maximal IV size{res}{col 73}  3.95
+{txt}{col 42}25% maximal IV size{res}{col 73}  3.63
+{txt}Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+{hline 78}
+{help ivreg2##overidtests:Hansen J statistic} (overidentification test of all instruments):{res}{col 71}   0.000
+{txt}{col 50}(equation exactly identified)
+{hline 78}
+Instrumented:{col 23}ma3_major_n_thin_srs ma3_wait
+Included instruments:{col 23}vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev
+{col 23}bio_grow_ac estabs rddist_ft 2.siteclcd 3.siteclcd
+{col 23}4.siteclcd 5.siteclcd 6.siteclcd 7.siteclcd
+Excluded instruments:{col 23}ma3_state_thin ma3_state_clear
+{help ivreg2##partial:Partialled-out}:{col 23}_cons
+{col 23}nb: total SS, model F and R2s are after partialling-out;
+{col 23}    any {help ivreg2##s_small:small-sample adjustments} include partialled-out
+{col 23}    variables in regressor count K
+{hline 78}
+{res}
+{txt}Absorbed degrees of freedom:
+{res}{col 1}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 14}{hline 1}{c TRC}
+{col 1}{text} Absorbed FE{col 14}{c |} Categories{col 27} - Redundant{col 39}  = Num. Coefs{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 14}{hline 1}{c RT}
+{col 1}{text}      plt_id{col 14}{c |}{space 1}    37057{col 27}{space 1}    37057{col 39}{result}{space 1}        0{col 53}{text}*{col 54}{c |}
+{res}{col 1}{text}        year{col 14}{c |}{space 1}       25{col 27}{space 1}        1{col 39}{result}{space 1}       24{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}        SPGR{col 14}{c |}{space 1}        6{col 27}{space 1}        1{col 39}{result}{space 1}        5{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}       l3eco{col 14}{c |}{space 1}       32{col 27}{space 1}        1{col 39}{result}{space 1}       31{col 53}{text}?{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 14}{hline 1}{c BRC}
+? = number of redundant parameters may be higher
+* = FE nested within cluster; treated as redundant for DoF computation
+{res}{txt}
+{com}. 
+. capture estadd scalar firstF = e(cdf)
+{txt}
+{com}. capture estadd scalar secF   = e(widstat)
+{txt}
+{com}. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. *****************************************************
+. * Export LaTeX table
+. *****************************************************
+. 
+. esttab using "wildfire_iv_difference_3yr.csv", se ar2 label ///
+>     noconstant stats(firstF secF N) ///
+>     star(* .1 ** .05 *** .01) replace
+{res}{txt}(output written to {browse  `"wildfire_iv_difference_3yr.csv"'})
+
+{com}. 
+. 
+. esttab cc_fe cc_fs cc_iv thin_fe thin_fs thin_iv joint_iv thin_wait_iv ///
+>     using "Table_Ap1_4yr.tex", replace ///
+>     fragment booktabs se label ///
+>     noconstant nomtitles nonumber ///
+>     b(%9.4f) se(%9.4f) ///
+>     star(* .1 ** .05 *** .01) ///
+>     prehead("\begin{c -(}tabular{c )-}{c -(}lcccccccc{c )-}" ///
+>             "\toprule" ///
+>             "& \multicolumn{c -(}3{c )-}{c -(}c{c )-}{c -(}Harvest{c )-} & \multicolumn{c -(}3{c )-}{c -(}c{c )-}{c -(}Thinning{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Joint IV{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Thinning vs. Wait{c )-} \\" ///
+>             "\cmidrule(lr){c -(}2-4{c )-}\cmidrule(lr){c -(}5-7{c )-}\cmidrule(lr){c -(}8-8{c )-}\cmidrule(lr){c -(}9-9{c )-}") ///
+>     posthead("& (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) \\" ///
+>                          "& \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Harvest event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Thinning event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} \\" ///
+>              "& FE & First stage & IV & FE & First stage & IV & IV & IV \\" ///
+>              "\midrule") ///
+>     keep(ma3_major_n_clearcut_srs ma3_major_n_thin_srs ma3_wait ///
+>          ma3_state_clear ma3_state_thin ///
+>          vdp_max_10 tpa saw_cf_acre stdage slope elev bio_grow_ac estabs) ///
+>     order(ma3_major_n_clearcut_srs ma3_major_n_thin_srs ma3_wait ///
+>           ma3_state_clear ma3_state_thin ///
+>           vdp_max_10 tpa saw_cf_acre stdage slope elev bio_grow_ac estabs) ///
+>     coeflabels( ///
+>         ma3_major_n_clearcut_srs "Harvest" ///
+>         ma3_major_n_thin_srs "Thinning" ///
+>         ma3_wait "No treatment / wait" ///
+>         ma3_state_clear "Harvest shift-share instrument" ///
+>         ma3_state_thin "Thinning shift-share instrument" ///
+>         vdp_max_10 "Maximum VPD" ///
+>         tpa "Trees per acre" ///
+>         saw_cf_acre "Sawtimber volume per acre" ///
+>         stdage "Stand age" ///
+>         bio_grow_ac "Bio growth rate" ///
+>         slope "Slope" ///
+>         elev "Elevation" ///
+>                 estabs "Forestry establishments" ///            
+>     ) ///
+>     stats(secF N PlotFE YearFE ForestGroupFE EcoFE, ///
+>         labels("Kleibergen-Paap Wald F statistic" ///
+>                "Observations" ///
+>                "Plot FE" ///
+>                "Year FE" ///
+>                "Species group FE" ///
+>                "Ecoregion FE") ///
+>         fmt(%9.2f %9.0fc %s %s %s %s)) ///
+>     postfoot("\bottomrule" ///
+>              "\end{c -(}tabular{c )-}")
+{res}{txt}(output written to {browse  `"Table_Ap1_4yr.tex"'})
+
+{com}. 
+. 
+. esttab cc_fe cc_iv thin_fe thin_iv joint_iv ///
+>     using "Table2_4yr.tex", replace ///
+>     fragment booktabs se label ///
+>     noconstant nomtitles nonumber ///
+>     b(%9.4f) se(%9.4f) ///
+>     star(* .1 ** .05 *** .01) ///
+>     prehead("\begin{c -(}tabular{c )-}{c -(}lccccc{c )-}" ///
+>             "\toprule" ///
+>             "& \multicolumn{c -(}2{c )-}{c -(}c{c )-}{c -(}Harvest{c )-} & \multicolumn{c -(}2{c )-}{c -(}c{c )-}{c -(}Thinning{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Joint IV{c )-} \\" ///
+>             "\cmidrule(lr){c -(}2-3{c )-}\cmidrule(lr){c -(}4-5{c )-}\cmidrule(lr){c -(}6-6{c )-}") ///
+>     posthead("& (1) & (2) & (3) & (4) & (5) \\" ///
+>                          "& \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} \\" ///
+>              "& FE & IV & FE & IV & IV \\" ///
+>              "\midrule") ///
+>     keep(ma3_major_n_clearcut_srs ma3_major_n_thin_srs) ///
+>     order(ma3_major_n_clearcut_srs ma3_major_n_thin_srs) ///
+>     coeflabels( ///
+>         ma3_major_n_clearcut_srs "Harvest" ///
+>         ma3_major_n_thin_srs "Thinning" ///
+>         ma3_state_clear "Harvest shift-share" ///
+>         ma3_state_thin "Thinning shift-share" ///
+>     ) ///
+>     stats(secF N PlotFE YearFE ForestGroupFE EcoFE, ///
+>         labels("Kleibergen-Paap Wald F statistic" ///
+>                "Observations" ///
+>                "Plot FE" ///
+>                "Year FE" ///
+>                "Species group FE" ///
+>                "Ecoregion FE") ///
+>         fmt(%9.2f %9.0fc %s %s %s %s)) ///
+>     postfoot("\bottomrule" ///
+>              "\end{c -(}tabular{c )-}")
+{res}{txt}(output written to {browse  `"Table2_4yr.tex"'})
+
+{com}. 
+. restore
+{txt}
+{com}. 
+. 
+. ********************************************************************************
+. * IV dropping FL and OK
+. ********************************************************************************
+. preserve
+{txt}
+{com}. eststo clear
+{txt}
+{com}. 
+. drop if south_state != 1
+{txt}(0 observations deleted)
+
+{com}. xtset plt_id year
+{res}{txt}{col 8}panel variable:  {res}plt_id (unbalanced)
+{txt}{col 9}time variable:  {res}{col 25}year, 1987 to 2024, but with gaps
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. 
+. * Generate lag and MA3 treatment variables
+. foreach v in major_n_clearcut_srs major_n_thin_srs {c -(}
+{txt}  2{com}. 
+.     capture drop L1_`v' L2_`v' L3_`v' L4_`v' ma3_`v'
+{txt}  3{com}. 
+.     gen L1_`v' = L1.`v'
+{txt}  4{com}.     gen L2_`v' = L2.`v'
+{txt}  5{com}.     gen L3_`v' = L3.`v'
+{txt}  6{com}.         gen L4_`v' = L4.`v'
+{txt}  7{com}.         
+. 
+.     egen ma3_`v' = rowmax(L1_`v' L2_`v' L3_`v' L4_`v')
+{txt}  8{com}. {c )-}
+{txt}(37,222 missing values generated)
+(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(37,222 missing values generated)
+(37,222 missing values generated)
+(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(37,222 missing values generated)
+
+{com}. 
+. 
+. foreach v in state_clear state_thin {c -(}
+{txt}  2{com}. 
+.     capture drop L1_`v' L2_`v' L3_`v' L4_`v' ma3_`v'
+{txt}  3{com}. 
+.     gen L1_`v' = L1.`v'
+{txt}  4{com}.     gen L2_`v' = L2.`v'
+{txt}  5{com}.     gen L3_`v' = L3.`v'
+{txt}  6{com}.         gen L4_`v' =L4.`v'
+{txt}  7{com}. 
+. //     egen ma3_iv_`v' = rowmax(L1_`v' L2_`v' L3_`v' L4_`v')
+.         gen ma3_`v' = L1_`v'+ L2_`v'+ L3_`v'+ L4_`v'
+{txt}  8{com}. {c )-}
+{txt}(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(185,952 missing values generated)
+(185,952 missing values generated)
+(74,423 missing values generated)
+(111,613 missing values generated)
+(148,792 missing values generated)
+(185,952 missing values generated)
+(185,952 missing values generated)
+
+{com}. 
+. 
+. *****************************************************
+. * Harvest models
+. *****************************************************
+. * (1) Harvest IV
+. eststo cc_iv: ivreghdfe mtbs_count_10 ///
+>     $CONTROL ///
+>     (ma3_major_n_clearcut_srs = ma3_state_clear) ///
+>     [aweight = area_total_private_s] if year >= 2000, ///
+>     absorb(plt_id year SPGR l3eco) cluster(county_eco) endog(ma3_major_n_clearcut_srs)
+{res}{txt}(dropped 14 {browse "http://scorreia.com/research/singletons.pdf":singleton observations})
+{res}{txt}(sum of wgt is     4.9919e+09)
+{res}{txt}({browse "http://scorreia.com/research/hdfe.pdf":MWFE estimator} converged in 11 iterations)
+{res}
+{txt}IV (2SLS) estimation
+{hline 20}
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on county_eco
+
+Number of clusters (county_eco) = {col 33}{res}  3969{txt}{col 55}Number of obs = {res}  761236
+{txt}{col 55}F( 17,  3968) = {res}   20.28
+{txt}{col 55}Prob > F      = {res}  0.0000
+{txt}Total (centered) SS     = {res} 36182.23503{txt}{col 55}Centered R2   = {res} -0.1080
+{txt}Total (uncentered) SS   = {res} 36182.23503{txt}{col 55}Uncentered R2 = {res} -0.1080
+{txt}Residual SS             = {res}  40091.2365{txt}{col 55}Root MSE      = {res}   .2295
+
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}           mtbs_count_10{col 26}{c |}      Coef.{col 38}   Std. Err.{col 50}      t{col 58}   P>|t|{col 66}     [95% Con{col 79}f. Interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_clearcut_srs {c |}{col 26}{res}{space 2}-.4453298{col 38}{space 2} .0829745{col 49}{space 1}   -5.37{col 58}{space 3}0.000{col 66}{space 4}-.6080065{col 79}{space 3}-.2826532
+{txt}{space 14}vdp_max_10 {c |}{col 26}{res}{space 2} .0118317{col 38}{space 2} .0006848{col 49}{space 1}   17.28{col 58}{space 3}0.000{col 66}{space 4} .0104891{col 79}{space 3} .0131744
+{txt}{space 21}tpa {c |}{col 26}{res}{space 2}-.0089406{col 38}{space 2} .0017738{col 49}{space 1}   -5.04{col 58}{space 3}0.000{col 66}{space 4}-.0124183{col 79}{space 3}-.0054628
+{txt}{space 13}saw_cf_acre {c |}{col 26}{res}{space 2}-.0044298{col 38}{space 2} .0013698{col 49}{space 1}   -3.23{col 58}{space 3}0.001{col 66}{space 4}-.0071154{col 79}{space 3}-.0017443
+{txt}{space 18}stdage {c |}{col 26}{res}{space 2}-.0050867{col 38}{space 2}  .001021{col 49}{space 1}   -4.98{col 58}{space 3}0.000{col 66}{space 4}-.0070884{col 79}{space 3} -.003085
+{txt}{space 12}percent_arti {c |}{col 26}{res}{space 2}-.0530252{col 38}{space 2}  .011593{col 49}{space 1}   -4.57{col 58}{space 3}0.000{col 66}{space 4} -.075754{col 79}{space 3}-.0302963
+{txt}{space 19}slope {c |}{col 26}{res}{space 2} .0001145{col 38}{space 2} .0001253{col 49}{space 1}    0.91{col 58}{space 3}0.361{col 66}{space 4}-.0001312{col 79}{space 3} .0003602
+{txt}{space 20}elev {c |}{col 26}{res}{space 2}-.0021276{col 38}{space 2} .0064833{col 49}{space 1}   -0.33{col 58}{space 3}0.743{col 66}{space 4}-.0148385{col 79}{space 3} .0105833
+{txt}{space 13}bio_grow_ac {c |}{col 26}{res}{space 2}-.0016838{col 38}{space 2} .0003826{col 49}{space 1}   -4.40{col 58}{space 3}0.000{col 66}{space 4}-.0024339{col 79}{space 3}-.0009337
+{txt}{space 18}estabs {c |}{col 26}{res}{space 2} .0006949{col 38}{space 2} .0003856{col 49}{space 1}    1.80{col 58}{space 3}0.072{col 66}{space 4}-.0000611{col 79}{space 3} .0014509
+{txt}{space 15}rddist_ft {c |}{col 26}{res}{space 2} .0008801{col 38}{space 2} .0018711{col 49}{space 1}    0.47{col 58}{space 3}0.638{col 66}{space 4}-.0027882{col 79}{space 3} .0045485
+{txt}{space 24} {c |}
+{space 16}siteclcd {c |}
+{space 22}1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (empty)
+{space 22}2  {c |}{col 26}{res}{space 2}-.0006073{col 38}{space 2} .0107689{col 49}{space 1}   -0.06{col 58}{space 3}0.955{col 66}{space 4}-.0217204{col 79}{space 3} .0205057
+{txt}{space 22}3  {c |}{col 26}{res}{space 2}-.0036738{col 38}{space 2} .0104487{col 49}{space 1}   -0.35{col 58}{space 3}0.725{col 66}{space 4}-.0241592{col 79}{space 3} .0168116
+{txt}{space 22}4  {c |}{col 26}{res}{space 2} -.008238{col 38}{space 2} .0103054{col 49}{space 1}   -0.80{col 58}{space 3}0.424{col 66}{space 4}-.0284423{col 79}{space 3} .0119664
+{txt}{space 22}5  {c |}{col 26}{res}{space 2} -.009331{col 38}{space 2} .0101908{col 49}{space 1}   -0.92{col 58}{space 3}0.360{col 66}{space 4}-.0293108{col 79}{space 3} .0106487
+{txt}{space 22}6  {c |}{col 26}{res}{space 2}-.0152157{col 38}{space 2} .0104167{col 49}{space 1}   -1.46{col 58}{space 3}0.144{col 66}{space 4}-.0356383{col 79}{space 3} .0052068
+{txt}{space 22}7  {c |}{col 26}{res}{space 2}-.0053844{col 38}{space 2} .0134602{col 49}{space 1}   -0.40{col 58}{space 3}0.689{col 66}{space 4}-.0317739{col 79}{space 3} .0210052
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{help ivreg2##idtest:Underidentification test} (Kleibergen-Paap rk LM statistic):{res}{col 71} 159.277
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}{hline 78}
+{help ivreg2##widtest:Weak identification test} (Cragg-Donald Wald F statistic):{res}{col 71}1621.750
+{txt}                         (Kleibergen-Paap rk Wald F statistic):{res}{col 71} 214.637
+{txt}Stock-Yogo weak ID test critical values:{res}{txt}{col 42}10% maximal IV size{res}{col 73} 16.38
+{txt}{col 42}15% maximal IV size{res}{col 73}  8.96
+{txt}{col 42}20% maximal IV size{res}{col 73}  6.66
+{txt}{col 42}25% maximal IV size{res}{col 73}  5.53
+{txt}Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+{hline 78}
+{help ivreg2##overidtests:Hansen J statistic} (overidentification test of all instruments):{res}{col 71}   0.000
+{txt}{col 50}(equation exactly identified)
+-endog- option:
+{help ivreg2##endogtest:Endogeneity test} of endogenous regressors: {res}{col 71}  30.449
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}Regressors tested:  {col 23}ma3_major_n_clearcut_srs
+{hline 78}
+Instrumented:{col 23}ma3_major_n_clearcut_srs
+Included instruments:{col 23}vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev
+{col 23}bio_grow_ac estabs rddist_ft 2.siteclcd 3.siteclcd
+{col 23}4.siteclcd 5.siteclcd 6.siteclcd 7.siteclcd
+Excluded instruments:{col 23}ma3_state_clear
+{help ivreg2##partial:Partialled-out}:{col 23}_cons
+{col 23}nb: total SS, model F and R2s are after partialling-out;
+{col 23}    any {help ivreg2##s_small:small-sample adjustments} include partialled-out
+{col 23}    variables in regressor count K
+{hline 78}
+{res}
+{txt}Absorbed degrees of freedom:
+{res}{col 1}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 14}{hline 1}{c TRC}
+{col 1}{text} Absorbed FE{col 14}{c |} Categories{col 27} - Redundant{col 39}  = Num. Coefs{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 14}{hline 1}{c RT}
+{col 1}{text}      plt_id{col 14}{c |}{space 1}    37057{col 27}{space 1}    37057{col 39}{result}{space 1}        0{col 53}{text}*{col 54}{c |}
+{res}{col 1}{text}        year{col 14}{c |}{space 1}       25{col 27}{space 1}        1{col 39}{result}{space 1}       24{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}        SPGR{col 14}{c |}{space 1}        6{col 27}{space 1}        1{col 39}{result}{space 1}        5{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}       l3eco{col 14}{c |}{space 1}       32{col 27}{space 1}        1{col 39}{result}{space 1}       31{col 53}{text}?{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 14}{hline 1}{c BRC}
+? = number of redundant parameters may be higher
+* = FE nested within cluster; treated as redundant for DoF computation
+{res}{txt}
+{com}. 
+. capture estadd scalar firstF = e(cdf)
+{txt}
+{com}. capture estadd scalar secF   = e(widstat)
+{txt}
+{com}. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. * (2) Harvest IV
+. eststo cc_no: ivreghdfe mtbs_count_10 ///
+>     $CONTROL ///
+>     (ma3_major_n_clearcut_srs = ma3_state_clear) ///
+>     [aweight = area_total_private_s] if year >= 2000 & !inlist(state, 48), ///
+>     absorb(plt_id year SPGR l3eco) cluster(county_eco) endog(ma3_major_n_clearcut_srs)
+{res}{txt}(dropped 11 {browse "http://scorreia.com/research/singletons.pdf":singleton observations})
+{res}{txt}(sum of wgt is     3.0625e+09)
+{res}{txt}({browse "http://scorreia.com/research/hdfe.pdf":MWFE estimator} converged in 11 iterations)
+{res}
+{txt}IV (2SLS) estimation
+{hline 20}
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on county_eco
+
+Number of clusters (county_eco) = {col 33}{res}  2845{txt}{col 55}Number of obs = {res}  577179
+{txt}{col 55}F( 17,  2844) = {res}   13.33
+{txt}{col 55}Prob > F      = {res}  0.0000
+{txt}Total (centered) SS     = {res} 25725.05471{txt}{col 55}Centered R2   = {res} -0.2025
+{txt}Total (uncentered) SS   = {res} 25725.05471{txt}{col 55}Uncentered R2 = {res} -0.2025
+{txt}Residual SS             = {res} 30934.02174{txt}{col 55}Root MSE      = {res}   .2315
+
+{txt}{hline 25}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 26}{c |}{col 38}    Robust
+{col 1}           mtbs_count_10{col 26}{c |}      Coef.{col 38}   Std. Err.{col 50}      t{col 58}   P>|t|{col 66}     [95% Con{col 79}f. Interval]
+{hline 25}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_clearcut_srs {c |}{col 26}{res}{space 2}-.4656768{col 38}{space 2} .0949329{col 49}{space 1}   -4.91{col 58}{space 3}0.000{col 66}{space 4}-.6518211{col 79}{space 3}-.2795326
+{txt}{space 14}vdp_max_10 {c |}{col 26}{res}{space 2} .0157162{col 38}{space 2} .0011347{col 49}{space 1}   13.85{col 58}{space 3}0.000{col 66}{space 4} .0134912{col 79}{space 3} .0179412
+{txt}{space 21}tpa {c |}{col 26}{res}{space 2}-.0104729{col 38}{space 2} .0021962{col 49}{space 1}   -4.77{col 58}{space 3}0.000{col 66}{space 4}-.0147793{col 79}{space 3}-.0061665
+{txt}{space 13}saw_cf_acre {c |}{col 26}{res}{space 2} .0015299{col 38}{space 2} .0012107{col 49}{space 1}    1.26{col 58}{space 3}0.206{col 66}{space 4} -.000844{col 79}{space 3} .0039039
+{txt}{space 18}stdage {c |}{col 26}{res}{space 2}-.0085198{col 38}{space 2} .0015101{col 49}{space 1}   -5.64{col 58}{space 3}0.000{col 66}{space 4}-.0114808{col 79}{space 3}-.0055588
+{txt}{space 12}percent_arti {c |}{col 26}{res}{space 2}-.0576843{col 38}{space 2} .0133455{col 49}{space 1}   -4.32{col 58}{space 3}0.000{col 66}{space 4}-.0838522{col 79}{space 3}-.0315164
+{txt}{space 19}slope {c |}{col 26}{res}{space 2} .0002122{col 38}{space 2}  .000134{col 49}{space 1}    1.58{col 58}{space 3}0.113{col 66}{space 4}-.0000505{col 79}{space 3} .0004748
+{txt}{space 20}elev {c |}{col 26}{res}{space 2}-.0031313{col 38}{space 2}  .006547{col 49}{space 1}   -0.48{col 58}{space 3}0.632{col 66}{space 4}-.0159686{col 79}{space 3}  .009706
+{txt}{space 13}bio_grow_ac {c |}{col 26}{res}{space 2}-.0011747{col 38}{space 2} .0003886{col 49}{space 1}   -3.02{col 58}{space 3}0.003{col 66}{space 4}-.0019366{col 79}{space 3}-.0004128
+{txt}{space 18}estabs {c |}{col 26}{res}{space 2} .0001432{col 38}{space 2} .0004023{col 49}{space 1}    0.36{col 58}{space 3}0.722{col 66}{space 4}-.0006456{col 79}{space 3}  .000932
+{txt}{space 15}rddist_ft {c |}{col 26}{res}{space 2}  .005791{col 38}{space 2} .0022484{col 49}{space 1}    2.58{col 58}{space 3}0.010{col 66}{space 4} .0013823{col 79}{space 3} .0101997
+{txt}{space 24} {c |}
+{space 16}siteclcd {c |}
+{space 22}1  {c |}{col 26}{res}{space 2}        0{col 38}{txt}  (empty)
+{space 22}2  {c |}{col 26}{res}{space 2} .0016768{col 38}{space 2} .0109828{col 49}{space 1}    0.15{col 58}{space 3}0.879{col 66}{space 4}-.0198583{col 79}{space 3} .0232119
+{txt}{space 22}3  {c |}{col 26}{res}{space 2} .0005451{col 38}{space 2} .0105698{col 49}{space 1}    0.05{col 58}{space 3}0.959{col 66}{space 4}-.0201801{col 79}{space 3} .0212703
+{txt}{space 22}4  {c |}{col 26}{res}{space 2}-.0047786{col 38}{space 2} .0104627{col 49}{space 1}   -0.46{col 58}{space 3}0.648{col 66}{space 4}-.0252938{col 79}{space 3} .0157366
+{txt}{space 22}5  {c |}{col 26}{res}{space 2}-.0052195{col 38}{space 2} .0103086{col 49}{space 1}   -0.51{col 58}{space 3}0.613{col 66}{space 4}-.0254325{col 79}{space 3} .0149936
+{txt}{space 22}6  {c |}{col 26}{res}{space 2}-.0084833{col 38}{space 2} .0105664{col 49}{space 1}   -0.80{col 58}{space 3}0.422{col 66}{space 4}-.0292018{col 79}{space 3} .0122353
+{txt}{space 22}7  {c |}{col 26}{res}{space 2}  -.01591{col 38}{space 2} .0181132{col 49}{space 1}   -0.88{col 58}{space 3}0.380{col 66}{space 4}-.0514263{col 79}{space 3} .0196064
+{txt}{hline 25}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{help ivreg2##idtest:Underidentification test} (Kleibergen-Paap rk LM statistic):{res}{col 71} 135.790
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}{hline 78}
+{help ivreg2##widtest:Weak identification test} (Cragg-Donald Wald F statistic):{res}{col 71}1218.909
+{txt}                         (Kleibergen-Paap rk Wald F statistic):{res}{col 71} 184.983
+{txt}Stock-Yogo weak ID test critical values:{res}{txt}{col 42}10% maximal IV size{res}{col 73} 16.38
+{txt}{col 42}15% maximal IV size{res}{col 73}  8.96
+{txt}{col 42}20% maximal IV size{res}{col 73}  6.66
+{txt}{col 42}25% maximal IV size{res}{col 73}  5.53
+{txt}Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+{hline 78}
+{help ivreg2##overidtests:Hansen J statistic} (overidentification test of all instruments):{res}{col 71}   0.000
+{txt}{col 50}(equation exactly identified)
+-endog- option:
+{help ivreg2##endogtest:Endogeneity test} of endogenous regressors: {res}{col 71}  24.822
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}Regressors tested:  {col 23}ma3_major_n_clearcut_srs
+{hline 78}
+Instrumented:{col 23}ma3_major_n_clearcut_srs
+Included instruments:{col 23}vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev
+{col 23}bio_grow_ac estabs rddist_ft 2.siteclcd 3.siteclcd
+{col 23}4.siteclcd 5.siteclcd 6.siteclcd 7.siteclcd
+Excluded instruments:{col 23}ma3_state_clear
+{help ivreg2##partial:Partialled-out}:{col 23}_cons
+{col 23}nb: total SS, model F and R2s are after partialling-out;
+{col 23}    any {help ivreg2##s_small:small-sample adjustments} include partialled-out
+{col 23}    variables in regressor count K
+{hline 78}
+{res}
+{txt}Absorbed degrees of freedom:
+{res}{col 1}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 14}{hline 1}{c TRC}
+{col 1}{text} Absorbed FE{col 14}{c |} Categories{col 27} - Redundant{col 39}  = Num. Coefs{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 14}{hline 1}{c RT}
+{col 1}{text}      plt_id{col 14}{c |}{space 1}    27194{col 27}{space 1}    27194{col 39}{result}{space 1}        0{col 53}{text}*{col 54}{c |}
+{res}{col 1}{text}        year{col 14}{c |}{space 1}       25{col 27}{space 1}        1{col 39}{result}{space 1}       24{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}        SPGR{col 14}{c |}{space 1}        6{col 27}{space 1}        1{col 39}{result}{space 1}        5{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}       l3eco{col 14}{c |}{space 1}       27{col 27}{space 1}        1{col 39}{result}{space 1}       26{col 53}{text}?{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 14}{hline 1}{c BRC}
+? = number of redundant parameters may be higher
+* = FE nested within cluster; treated as redundant for DoF computation
+{res}{txt}
+{com}. 
+. capture estadd scalar firstF = e(cdf)
+{txt}
+{com}. capture estadd scalar secF   = e(widstat)
+{txt}
+{com}. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. *****************************************************
+. * Thinning models
+. *****************************************************
+. * (3) Thinning IV
+. eststo thin_iv: ivreghdfe mtbs_count_10 ///
+>     $CONTROL ///
+>     (ma3_major_n_thin_srs = ma3_state_thin) ///
+>     [aweight = area_total_private_s] if year >= 2000, ///
+>     absorb(plt_id year SPGR l3eco) cluster(county_eco) endog(ma3_major_n_thin_srs)
+{res}{txt}(dropped 14 {browse "http://scorreia.com/research/singletons.pdf":singleton observations})
+{res}{txt}(sum of wgt is     4.9919e+09)
+{res}{txt}({browse "http://scorreia.com/research/hdfe.pdf":MWFE estimator} converged in 11 iterations)
+{res}
+{txt}IV (2SLS) estimation
+{hline 20}
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on county_eco
+
+Number of clusters (county_eco) = {col 33}{res}  3969{txt}{col 55}Number of obs = {res}  761236
+{txt}{col 55}F( 17,  3968) = {res}   19.62
+{txt}{col 55}Prob > F      = {res}  0.0000
+{txt}Total (centered) SS     = {res} 36182.23503{txt}{col 55}Centered R2   = {res} -0.0015
+{txt}Total (uncentered) SS   = {res} 36182.23503{txt}{col 55}Uncentered R2 = {res} -0.0015
+{txt}Residual SS             = {res} 36235.76454{txt}{col 55}Root MSE      = {res}   .2182
+
+{txt}{hline 21}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 22}{c |}{col 34}    Robust
+{col 1}       mtbs_count_10{col 22}{c |}      Coef.{col 34}   Std. Err.{col 46}      t{col 54}   P>|t|{col 62}     [95% Con{col 75}f. Interval]
+{hline 21}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_thin_srs {c |}{col 22}{res}{space 2}-.1872483{col 34}{space 2} .0434592{col 45}{space 1}   -4.31{col 54}{space 3}0.000{col 62}{space 4}-.2724528{col 75}{space 3}-.1020438
+{txt}{space 10}vdp_max_10 {c |}{col 22}{res}{space 2} .0117475{col 34}{space 2} .0006782{col 45}{space 1}   17.32{col 54}{space 3}0.000{col 62}{space 4} .0104178{col 75}{space 3} .0130771
+{txt}{space 17}tpa {c |}{col 22}{res}{space 2}-.0001885{col 34}{space 2} .0002959{col 45}{space 1}   -0.64{col 54}{space 3}0.524{col 62}{space 4}-.0007686{col 75}{space 3} .0003917
+{txt}{space 9}saw_cf_acre {c |}{col 22}{res}{space 2}-.0013377{col 34}{space 2} .0009529{col 45}{space 1}   -1.40{col 54}{space 3}0.160{col 62}{space 4}-.0032058{col 75}{space 3} .0005305
+{txt}{space 14}stdage {c |}{col 22}{res}{space 2} .0009968{col 34}{space 2} .0006435{col 45}{space 1}    1.55{col 54}{space 3}0.121{col 62}{space 4}-.0002649{col 75}{space 3} .0022585
+{txt}{space 8}percent_arti {c |}{col 22}{res}{space 2} .0129402{col 34}{space 2} .0034386{col 45}{space 1}    3.76{col 54}{space 3}0.000{col 62}{space 4} .0061986{col 75}{space 3} .0196819
+{txt}{space 15}slope {c |}{col 22}{res}{space 2}-.0000923{col 34}{space 2} .0000988{col 45}{space 1}   -0.93{col 54}{space 3}0.350{col 62}{space 4}-.0002859{col 75}{space 3} .0001014
+{txt}{space 16}elev {c |}{col 22}{res}{space 2} .0042667{col 34}{space 2} .0059529{col 45}{space 1}    0.72{col 54}{space 3}0.474{col 62}{space 4}-.0074042{col 75}{space 3} .0159377
+{txt}{space 9}bio_grow_ac {c |}{col 22}{res}{space 2} .0002442{col 34}{space 2} .0005399{col 45}{space 1}    0.45{col 54}{space 3}0.651{col 62}{space 4}-.0008142{col 75}{space 3} .0013026
+{txt}{space 14}estabs {c |}{col 22}{res}{space 2} .0006461{col 34}{space 2} .0003747{col 45}{space 1}    1.72{col 54}{space 3}0.085{col 62}{space 4}-.0000885{col 75}{space 3} .0013807
+{txt}{space 11}rddist_ft {c |}{col 22}{res}{space 2} -.000272{col 34}{space 2} .0017588{col 45}{space 1}   -0.15{col 54}{space 3}0.877{col 62}{space 4}-.0037203{col 75}{space 3} .0031763
+{txt}{space 20} {c |}
+{space 12}siteclcd {c |}
+{space 18}1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (empty)
+{space 18}2  {c |}{col 22}{res}{space 2} .0194888{col 34}{space 2} .0080454{col 45}{space 1}    2.42{col 54}{space 3}0.015{col 62}{space 4} .0037153{col 75}{space 3} .0352624
+{txt}{space 18}3  {c |}{col 22}{res}{space 2} .0128941{col 34}{space 2} .0073816{col 45}{space 1}    1.75{col 54}{space 3}0.081{col 62}{space 4}-.0015779{col 75}{space 3} .0273662
+{txt}{space 18}4  {c |}{col 22}{res}{space 2} .0099194{col 34}{space 2} .0071203{col 45}{space 1}    1.39{col 54}{space 3}0.164{col 62}{space 4}-.0040405{col 75}{space 3} .0238793
+{txt}{space 18}5  {c |}{col 22}{res}{space 2} .0061664{col 34}{space 2} .0070757{col 45}{space 1}    0.87{col 54}{space 3}0.384{col 62}{space 4}-.0077061{col 75}{space 3} .0200388
+{txt}{space 18}6  {c |}{col 22}{res}{space 2} .0003358{col 34}{space 2} .0071721{col 45}{space 1}    0.05{col 54}{space 3}0.963{col 62}{space 4}-.0137256{col 75}{space 3} .0143972
+{txt}{space 18}7  {c |}{col 22}{res}{space 2} .0078164{col 34}{space 2}  .011029{col 45}{space 1}    0.71{col 54}{space 3}0.479{col 62}{space 4}-.0138066{col 75}{space 3} .0294394
+{txt}{hline 21}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{help ivreg2##idtest:Underidentification test} (Kleibergen-Paap rk LM statistic):{res}{col 71} 216.487
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}{hline 78}
+{help ivreg2##widtest:Weak identification test} (Cragg-Donald Wald F statistic):{res}{col 71}6484.440
+{txt}                         (Kleibergen-Paap rk Wald F statistic):{res}{col 71} 488.113
+{txt}Stock-Yogo weak ID test critical values:{res}{txt}{col 42}10% maximal IV size{res}{col 73} 16.38
+{txt}{col 42}15% maximal IV size{res}{col 73}  8.96
+{txt}{col 42}20% maximal IV size{res}{col 73}  6.66
+{txt}{col 42}25% maximal IV size{res}{col 73}  5.53
+{txt}Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+{hline 78}
+{help ivreg2##overidtests:Hansen J statistic} (overidentification test of all instruments):{res}{col 71}   0.000
+{txt}{col 50}(equation exactly identified)
+-endog- option:
+{help ivreg2##endogtest:Endogeneity test} of endogenous regressors: {res}{col 71}  18.079
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}Regressors tested:  {col 23}ma3_major_n_thin_srs
+{hline 78}
+Instrumented:{col 23}ma3_major_n_thin_srs
+Included instruments:{col 23}vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev
+{col 23}bio_grow_ac estabs rddist_ft 2.siteclcd 3.siteclcd
+{col 23}4.siteclcd 5.siteclcd 6.siteclcd 7.siteclcd
+Excluded instruments:{col 23}ma3_state_thin
+{help ivreg2##partial:Partialled-out}:{col 23}_cons
+{col 23}nb: total SS, model F and R2s are after partialling-out;
+{col 23}    any {help ivreg2##s_small:small-sample adjustments} include partialled-out
+{col 23}    variables in regressor count K
+{hline 78}
+{res}
+{txt}Absorbed degrees of freedom:
+{res}{col 1}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 14}{hline 1}{c TRC}
+{col 1}{text} Absorbed FE{col 14}{c |} Categories{col 27} - Redundant{col 39}  = Num. Coefs{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 14}{hline 1}{c RT}
+{col 1}{text}      plt_id{col 14}{c |}{space 1}    37057{col 27}{space 1}    37057{col 39}{result}{space 1}        0{col 53}{text}*{col 54}{c |}
+{res}{col 1}{text}        year{col 14}{c |}{space 1}       25{col 27}{space 1}        1{col 39}{result}{space 1}       24{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}        SPGR{col 14}{c |}{space 1}        6{col 27}{space 1}        1{col 39}{result}{space 1}        5{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}       l3eco{col 14}{c |}{space 1}       32{col 27}{space 1}        1{col 39}{result}{space 1}       31{col 53}{text}?{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 14}{hline 1}{c BRC}
+? = number of redundant parameters may be higher
+* = FE nested within cluster; treated as redundant for DoF computation
+{res}{txt}
+{com}. 
+. capture estadd scalar firstF = e(cdf)
+{txt}
+{com}. capture estadd scalar secF   = e(widstat)
+{txt}
+{com}. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. * (3) Thinning IV
+. eststo thin_no: ivreghdfe mtbs_count_10 ///
+>     $CONTROL ///
+>     (ma3_major_n_thin_srs = ma3_state_thin) ///
+>     [aweight = area_total_private_s] if year >= 2000 &  !inlist(state, 48), ///
+>     absorb(plt_id year SPGR l3eco) cluster(county_eco) endog(ma3_major_n_thin_srs)
+{res}{txt}(dropped 11 {browse "http://scorreia.com/research/singletons.pdf":singleton observations})
+{res}{txt}(sum of wgt is     3.0625e+09)
+{res}{txt}({browse "http://scorreia.com/research/hdfe.pdf":MWFE estimator} converged in 11 iterations)
+{res}
+{txt}IV (2SLS) estimation
+{hline 20}
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity and clustering on county_eco
+
+Number of clusters (county_eco) = {col 33}{res}  2845{txt}{col 55}Number of obs = {res}  577179
+{txt}{col 55}F( 17,  2844) = {res}   14.78
+{txt}{col 55}Prob > F      = {res}  0.0000
+{txt}Total (centered) SS     = {res} 25725.05471{txt}{col 55}Centered R2   = {res}  0.0083
+{txt}Total (uncentered) SS   = {res} 25725.05471{txt}{col 55}Uncentered R2 = {res}  0.0083
+{txt}Residual SS             = {res} 25511.82327{txt}{col 55}Root MSE      = {res}   .2103
+
+{txt}{hline 21}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 22}{c |}{col 34}    Robust
+{col 1}       mtbs_count_10{col 22}{c |}      Coef.{col 34}   Std. Err.{col 46}      t{col 54}   P>|t|{col 62}     [95% Con{col 75}f. Interval]
+{hline 21}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+ma3_major_n_thin_srs {c |}{col 22}{res}{space 2} .0291803{col 34}{space 2} .0452295{col 45}{space 1}    0.65{col 54}{space 3}0.519{col 62}{space 4}-.0595056{col 75}{space 3} .1178663
+{txt}{space 10}vdp_max_10 {c |}{col 22}{res}{space 2} .0156843{col 34}{space 2} .0011183{col 45}{space 1}   14.02{col 54}{space 3}0.000{col 62}{space 4} .0134915{col 75}{space 3} .0178771
+{txt}{space 17}tpa {c |}{col 22}{res}{space 2} .0002781{col 34}{space 2} .0002886{col 45}{space 1}    0.96{col 54}{space 3}0.335{col 62}{space 4}-.0002878{col 75}{space 3} .0008439
+{txt}{space 9}saw_cf_acre {c |}{col 22}{res}{space 2} .0040757{col 34}{space 2} .0009238{col 45}{space 1}    4.41{col 54}{space 3}0.000{col 62}{space 4} .0022644{col 75}{space 3} .0058871
+{txt}{space 14}stdage {c |}{col 22}{res}{space 2}-.0022306{col 34}{space 2} .0007318{col 45}{space 1}   -3.05{col 54}{space 3}0.002{col 62}{space 4}-.0036655{col 75}{space 3}-.0007957
+{txt}{space 8}percent_arti {c |}{col 22}{res}{space 2} .0032803{col 34}{space 2} .0035671{col 45}{space 1}    0.92{col 54}{space 3}0.358{col 62}{space 4} -.003714{col 75}{space 3} .0102746
+{txt}{space 15}slope {c |}{col 22}{res}{space 2}-6.00e-06{col 34}{space 2} .0000966{col 45}{space 1}   -0.06{col 54}{space 3}0.951{col 62}{space 4}-.0001954{col 75}{space 3} .0001834
+{txt}{space 16}elev {c |}{col 22}{res}{space 2} .0036721{col 34}{space 2} .0058744{col 45}{space 1}    0.63{col 54}{space 3}0.532{col 62}{space 4}-.0078465{col 75}{space 3} .0151906
+{txt}{space 9}bio_grow_ac {c |}{col 22}{res}{space 2}-.0008128{col 34}{space 2} .0004578{col 45}{space 1}   -1.78{col 54}{space 3}0.076{col 62}{space 4}-.0017104{col 75}{space 3} .0000848
+{txt}{space 14}estabs {c |}{col 22}{res}{space 2} .0001505{col 34}{space 2} .0003839{col 45}{space 1}    0.39{col 54}{space 3}0.695{col 62}{space 4}-.0006022{col 75}{space 3} .0009032
+{txt}{space 11}rddist_ft {c |}{col 22}{res}{space 2} .0039623{col 34}{space 2} .0019633{col 45}{space 1}    2.02{col 54}{space 3}0.044{col 62}{space 4} .0001127{col 75}{space 3} .0078118
+{txt}{space 20} {c |}
+{space 12}siteclcd {c |}
+{space 18}1  {c |}{col 22}{res}{space 2}        0{col 34}{txt}  (empty)
+{space 18}2  {c |}{col 22}{res}{space 2} .0127885{col 34}{space 2} .0077349{col 45}{space 1}    1.65{col 54}{space 3}0.098{col 62}{space 4} -.002378{col 75}{space 3} .0279551
+{txt}{space 18}3  {c |}{col 22}{res}{space 2} .0106483{col 34}{space 2} .0070687{col 45}{space 1}    1.51{col 54}{space 3}0.132{col 62}{space 4}-.0032119{col 75}{space 3} .0245086
+{txt}{space 18}4  {c |}{col 22}{res}{space 2} .0105854{col 34}{space 2} .0067724{col 45}{space 1}    1.56{col 54}{space 3}0.118{col 62}{space 4}-.0026939{col 75}{space 3} .0238646
+{txt}{space 18}5  {c |}{col 22}{res}{space 2}  .009494{col 34}{space 2} .0067026{col 45}{space 1}    1.42{col 54}{space 3}0.157{col 62}{space 4}-.0036486{col 75}{space 3} .0226365
+{txt}{space 18}6  {c |}{col 22}{res}{space 2} .0069054{col 34}{space 2} .0067961{col 45}{space 1}    1.02{col 54}{space 3}0.310{col 62}{space 4}-.0064204{col 75}{space 3} .0202313
+{txt}{space 18}7  {c |}{col 22}{res}{space 2} -.002794{col 34}{space 2} .0150874{col 45}{space 1}   -0.19{col 54}{space 3}0.853{col 62}{space 4}-.0323774{col 75}{space 3} .0267894
+{txt}{hline 21}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{help ivreg2##idtest:Underidentification test} (Kleibergen-Paap rk LM statistic):{res}{col 71} 203.038
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.0000
+{txt}{hline 78}
+{help ivreg2##widtest:Weak identification test} (Cragg-Donald Wald F statistic):{res}{col 71}4578.948
+{txt}                         (Kleibergen-Paap rk Wald F statistic):{res}{col 71} 444.282
+{txt}Stock-Yogo weak ID test critical values:{res}{txt}{col 42}10% maximal IV size{res}{col 73} 16.38
+{txt}{col 42}15% maximal IV size{res}{col 73}  8.96
+{txt}{col 42}20% maximal IV size{res}{col 73}  6.66
+{txt}{col 42}25% maximal IV size{res}{col 73}  5.53
+{txt}Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+{hline 78}
+{help ivreg2##overidtests:Hansen J statistic} (overidentification test of all instruments):{res}{col 71}   0.000
+{txt}{col 50}(equation exactly identified)
+-endog- option:
+{help ivreg2##endogtest:Endogeneity test} of endogenous regressors: {res}{col 71}   0.395
+{txt}{col 52}Chi-sq({res}1{txt}) P-val =  {res}{col 73}0.5296
+{txt}Regressors tested:  {col 23}ma3_major_n_thin_srs
+{hline 78}
+Instrumented:{col 23}ma3_major_n_thin_srs
+Included instruments:{col 23}vdp_max_10 tpa saw_cf_acre stdage percent_arti slope elev
+{col 23}bio_grow_ac estabs rddist_ft 2.siteclcd 3.siteclcd
+{col 23}4.siteclcd 5.siteclcd 6.siteclcd 7.siteclcd
+Excluded instruments:{col 23}ma3_state_thin
+{help ivreg2##partial:Partialled-out}:{col 23}_cons
+{col 23}nb: total SS, model F and R2s are after partialling-out;
+{col 23}    any {help ivreg2##s_small:small-sample adjustments} include partialled-out
+{col 23}    variables in regressor count K
+{hline 78}
+{res}
+{txt}Absorbed degrees of freedom:
+{res}{col 1}{text}{hline 13}{c TT}{hline 12}{hline 12}{hline 14}{hline 1}{c TRC}
+{col 1}{text} Absorbed FE{col 14}{c |} Categories{col 27} - Redundant{col 39}  = Num. Coefs{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c +}{hline 12}{hline 12}{hline 14}{hline 1}{c RT}
+{col 1}{text}      plt_id{col 14}{c |}{space 1}    27194{col 27}{space 1}    27194{col 39}{result}{space 1}        0{col 53}{text}*{col 54}{c |}
+{res}{col 1}{text}        year{col 14}{c |}{space 1}       25{col 27}{space 1}        1{col 39}{result}{space 1}       24{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}        SPGR{col 14}{c |}{space 1}        6{col 27}{space 1}        1{col 39}{result}{space 1}        5{col 53}{text} {col 54}{c |}
+{res}{col 1}{text}       l3eco{col 14}{c |}{space 1}       27{col 27}{space 1}        1{col 39}{result}{space 1}       26{col 53}{text}?{col 54}{c |}
+{res}{col 1}{text}{hline 13}{c BT}{hline 12}{hline 12}{hline 14}{hline 1}{c BRC}
+? = number of redundant parameters may be higher
+* = FE nested within cluster; treated as redundant for DoF computation
+{res}{txt}
+{com}. 
+.         
+. capture estadd scalar firstF = e(cdf)
+{txt}
+{com}. capture estadd scalar secF   = e(widstat)
+{txt}
+{com}. estadd local PlotFE "\checkmark"
+
+{txt}added macro:
+             e(PlotFE) : "{res:\checkmark}"
+
+{com}. estadd local YearFE "\checkmark"
+
+{txt}added macro:
+             e(YearFE) : "{res:\checkmark}"
+
+{com}. estadd local ForestGroupFE "\checkmark"
+
+{txt}added macro:
+      e(ForestGroupFE) : "{res:\checkmark}"
+
+{com}. estadd local EcoFE "\checkmark"
+
+{txt}added macro:
+              e(EcoFE) : "{res:\checkmark}"
+
+{com}. 
+. 
+. 
+. *****************************************************
+. * Export LaTeX table
+. *****************************************************
+. esttab cc_iv cc_no thin_iv thin_no ///
+>     using "Table_A2_noTX.tex", replace ///
+>     fragment booktabs se label ///
+>     noconstant nomtitles nonumber ///
+>     b(%9.4f) se(%9.4f) ///
+>     star(* .1 ** .05 *** .01) ///
+>     prehead("\begin{c -(}tabular{c )-}{c -(}lcccc{c )-}" ///
+>             "\toprule" ///
+>             "& \multicolumn{c -(}2{c )-}{c -(}c{c )-}{c -(}Harvest{c )-} & \multicolumn{c -(}2{c )-}{c -(}c{c )-}{c -(}Thinning{c )-} \\" ///
+>             "\cmidrule(lr){c -(}2-3{c )-}\cmidrule(lr){c -(}4-5{c )-}") ///
+>     posthead("& (1) & (2) & (3) & (4)  \\" ///
+>         "& \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} & \multicolumn{c -(}1{c )-}{c -(}c{c )-}{c -(}Wildfire event{c )-} \\" ///
+>              "\midrule") ///
+>     keep(ma3_major_n_clearcut_srs ma3_major_n_thin_srs) ///
+>     order(ma3_major_n_clearcut_srs ma3_major_n_thin_srs) ///
+>     coeflabels( ///
+>         ma3_major_n_clearcut_srs "Harvest" ///
+>         ma3_major_n_thin_srs "Thinning" ///
+>     ) ///
+>     stats(secF N PlotFE YearFE ForestGroupFE EcoFE, ///
+>         labels("Kleibergen-Paap Wald F statistic" ///
+>                "Observations" ///
+>                "Plot FE" ///
+>                "Year FE" ///
+>                "Species group FE" ///
+>                "Ecoregion FE") ///
+>         fmt(%9.2f %9.0fc %s %s %s %s)) ///
+>     postfoot("\bottomrule" ///
+>              "\end{c -(}tabular{c )-}")
+{res}{txt}(note: file Table_A2_noTX.tex not found)
+(output written to {browse  `"Table_A2_noTX.tex"'})
+
+{com}. 
+. 
+. restore
+{txt}
+{com}. 
+. 
+{txt}end of do-file
+
+{com}. exit, clear

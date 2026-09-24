@@ -1,0 +1,15 @@
+                &\multicolumn{6}{c}{Harvest}                                                                                      &\multicolumn{6}{c}{Thinning}                                                                                     \\\cmidrule(lr){2-7}\cmidrule(lr){8-13}
+                &\multicolumn{1}{c}{Log wildfire area}&\multicolumn{1}{c}{Log average treatment}&\multicolumn{1}{c}{Log wildfire area}&\multicolumn{1}{c}{Log wildfire area}&\multicolumn{1}{c}{Log wildfire area}&\multicolumn{1}{c}{Log wildfire area}&\multicolumn{1}{c}{Log wildfire area}&\multicolumn{1}{c}{Log average treatment}&\multicolumn{1}{c}{Log wildfire area}&\multicolumn{1}{c}{Log wildfire area}&\multicolumn{1}{c}{Log wildfire area}&\multicolumn{1}{c}{Log wildfire area}\\
+& (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) & (9) & (10) & (11) & (12) \\
+& FE & First stage & IV: 4-year & IV: 3-year & IV: 5-year & IV no COVID & FE & First stage & IV: 4-year & IV: 3-year & IV: 5-year & IV no COVID \\
+\midrule
+Log average treatment&  -0.0036         &                  &  -0.4622\sym{***}&  -0.2916\sym{***}&  -0.7207\sym{***}&  -0.5702\sym{***}&  -0.0093         &                  &  -0.2107\sym{***}&  -0.2147\sym{***}&  -0.1734\sym{**} &  -0.2692\sym{***}\\
+                & (0.0042)         &                  & (0.1138)         & (0.0797)         & (0.1696)         & (0.1214)         & (0.0063)         &                  & (0.0485)         & (0.0427)         & (0.0708)         & (0.0515)         \\
+Shift-share instrument&                  &   0.0001\sym{***}&                  &                  &                  &                  &                  &   0.0003\sym{***}&                  &                  &                  &                  \\
+                &                  & (0.0000)         &                  &                  &                  &                  &                  & (0.0000)         &                  &                  &                  &                  \\
+\midrule
+Kleibergen-Paap Wald F statistic&        .         &        .         &    59.61         &    57.78         &    42.83         &    60.47         &        .         &        .         &   137.53         &   141.86         &    88.92         &   132.73         \\
+Observations    &    30312         &    30312         &    30312         &    30312         &    29049         &    25260         &    30312         &    30312         &    30312         &    30312         &    29049         &    25260         \\
+County FE       &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         \\
+Year FE         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         &$\checkmark$         \\
+\midrule

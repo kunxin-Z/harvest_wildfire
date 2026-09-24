@@ -1,0 +1,228 @@
+\documentclass{article}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{float}
+\usepackage[margin=1in]{geometry}
+
+% For esttab significance stars like \sym{***}
+\newcommand{\sym}[1]{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+\begin{document}
+
+
+\begin{table}[!htbp]
+\centering
+\caption*{Table 1. Summary Statistics for Plot-Level Analysis}
+\begin{tabular}{llllll}
+    \midrule
+\input{C:/Users/zhuku/OneDrive - Auburn University/python_project/wildfire_milling/STATA/fia_old/v11/table_1.tex}
+\end{tabular}
+\begin{minipage}{\textwidth}
+\footnotesize
+\textit{Notes:} Summary statistics are reported for a plot-year panel covering  37071 plots observed from 2000 to 2024, summing up to 761,250 observations. 
+Stand age is capped at 200 years in the FIA data; 5\% of plots have an average stand age greater than 82 years, and 1\% have an average stand age greater than 101 years.
+Bio growth rate is the annual aboveground biomass growth rate of a stem (short tons/ year). 
+Site productivity captures the inherent ability of forest land to support timber growth, defined by potential 
+wood production (ft$^3$/acre/year) under fully stocked conditions.
+\end{minipage}
+\end{table}
+
+
+\begin{table}[!htbp]
+\centering
+\caption*{Table 2. Summary Statistics for County-Level Analysis}
+\resizebox{\textwidth}{!}{\begin{tabular}{lllll}
+    \midrule
+\input{table_A1.tex}
+\end{tabular}}
+\begin{minipage}{\textwidth}
+\footnotesize
+\textit{Notes:} Summary statistics are reported for a balanced county-year panel covering 1,263 counties observed annually from 2000 to 2023.
+ Bio growth rate is the annual aboveground biomass growth rate of a stem (short tons/ year). 
+Site productivity captures the inherent ability of forest land to support timber growth, defined by potential 
+wood production (ft$^3$/acre/year) under fully stocked conditions. 73 counties excluded because of unrealistic trees per acre information.
+\end{minipage}
+\end{table}
+
+
+
+
+
+\begin{table}[!htbp]
+\centering
+\caption*{Table 3.  Direct mitigation benefits from fuel reduction treatment on wildfire risk}
+\resizebox{\textwidth}{!}{\begin{tabular}{llllll}
+\input{C:/Users/zhuku/OneDrive - Auburn University/python_project/wildfire_milling/STATA/fia_old/v11/Table2_4yr.tex}
+\end{tabular}}
+\begin{minipage}{\textwidth}
+\footnotesize
+*** $p<0.01$, ** $p<0.05$, * $p<0.1$.\\
+\textit{Notes:} The differentce between harvest and thinning is statistically significant with p-value=0.034.
+14 singleton observations are dropped in the IV models because they do not provide within-group variation after absorbing the fixed effects.
+\end{minipage}
+\end{table}
+
+
+
+
+
+\begin{table}[!htbp]
+\centering
+\caption*{Table 4. Combined mitigation benefits from fuel reduction treatment on wildfire risk at county level}
+
+\resizebox{\textwidth}{!}{%
+\resizebox{\textwidth}{!}{\begin{tabular}{l*{5}{c}}\midrule
+\input{table_1.tex}
+\end{tabular}%
+}}
+
+\vspace{0.5em}
+
+\begin{minipage}{\textwidth}
+\footnotesize
+*** $p<0.01$, ** $p<0.05$, * $p<0.1$.\\
+\textit{Notes:} The differentce between harvest and thinning is not statistically significant with p-value= 0.600. 
+
+%  ( 1)  logavg_harvest - logavg_thin = 0
+
+
+
+% ------------------------------------------------------------------------------
+% logmtbs_acre |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+% -------------+----------------------------------------------------------------
+%          (1) |  -.0853609   .1617271    -0.53   0.598    -.4026446    .2319228
+% ------------------------------------------------------------------------------
+
+
+
+
+
+\end{minipage}
+\end{table}
+
+
+
+\begin{table}[!htbp]
+\centering
+\caption*{Table A1. Direct effects of fuel reduction treatment on wildfire risk}
+\resizebox{\textwidth}{!}{\begin{tabular}{lllll}
+\input{C:/Users/zhuku/OneDrive - Auburn University/python_project/wildfire_milling/STATA/fia_old/v11/Table_Ap1_4yr.tex}
+\end{tabular}}
+\begin{minipage}{\textwidth}
+\footnotesize
+*** $p<0.01$, ** $p<0.05$, * $p<0.1$.\\
+\textit{Notes:} 14 singleton observations are dropped in all models because they do not provide within-group variation after absorbing the fixed effects.
+\end{minipage}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption*{Table A2. Robustness tests with alternative treatment windows}
+\resizebox{\textwidth}{!}{\begin{tabular}{lllll}
+\input{C:/Users/zhuku/OneDrive - Auburn University/python_project/wildfire_milling/STATA/fia_old/v11/Table_A1_plot_window_345.tex}
+\end{tabular}}
+\begin{minipage}{\textwidth}
+\footnotesize
+*** $p<0.01$, ** $p<0.05$, * $p<0.1$.\\
+\textit{Notes:} The treatment variables are defined using alternative lag windows over the previous three, four, and five years. 
+The 4-year-window models, reported in columns (2), (5), and (8), include 761,236 observations; compared with the 3-year-window models, 
+13,059 observations are dropped because the required longer lagged treatment information is unavailable. The 5-year-window models, reported 
+in columns (3), (6), and (9), include 746,245 observations; compared with the 3-year-window models, 28,050 observations are dropped for the
+ same reason. Across specifications, the estimated coefficients are larger in absolute magnitude for the shorter treatment windows for both 
+ harvest and thinning. This pattern indicates that the wildfire-mitigation effects of forest treatments are strongest in the years immediately 
+ following treatment and gradually diminish as the time since treatment increases.
+ Such attenuation is consistent with the gradual reaccumulation of vegetation and combustible fuels following harvest or thinning, 
+ which can reduce the effectiveness of earlier treatments in mitigating subsequent wildfire risk.
+\end{minipage}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption*{Table A3. Robustness tests with alternative IV}
+\resizebox{\textwidth}{!}{
+\input{C:/Users/zhuku/OneDrive - Auburn University/python_project/wildfire_milling/STATA/fia_old/v11/table_ma4_alt_iv.tex}
+}
+\begin{minipage}{\textwidth}
+\footnotesize
+*** $p<0.01$, ** $p<0.05$, * $p<0.1$.\\
+\textit{Notes:} Columns (1)–(3) report IV estimates for harvest using delocalized shift-share instruments constructed at three levels of geographic aggregation: state, state-ecoregion, and county-ecoregion, respectively. Columns (4)–(6) report the corresponding estimates for thinning using the same set of instruments.
+\end{minipage}
+\end{table}
+
+
+
+\begin{table}[!htbp]
+\centering
+\caption*{Table A4. Plot-level robustness tests without Texas and Oklahoma}
+\resizebox{\textwidth}{!}{\begin{tabular}{llll}
+\input{C:/Users/zhuku/OneDrive - Auburn University/python_project/wildfire_milling/STATA/fia_old/v11/Table_A2_noFLOK.tex}
+\end{tabular}}
+\begin{minipage}{\textwidth}
+\footnotesize
+*** $p<0.01$, ** $p<0.05$, * $p<0.1$.\\
+\textit{Notes:} Columns (1) and (3) use the full estimation sample. 
+Columns (2) and (4) exclude Texas and Oklahoma, where artificially 
+regenerated forests are limited, to reduce concerns that the shift-share 
+instruments may rely on extrapolation beyond areas with adequate variation 
+in artificial regeneration.
+\end{minipage}
+\end{table}
+ 
+
+
+
+\begin{table}[!htbp]
+\centering
+\caption*{Table A5. Robustness tests for alternative wildfire indicators}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l*{4}{c}}
+\\\midrule
+\input{table_A4_panelA.tex}
+\input{table_A4_panelB.tex}
+\end{tabular}%
+}
+\begin{minipage}{\textwidth}
+\footnotesize
+*** $p<0.01$, ** $p<0.05$, * $p<0.1$.\\
+\textit{Notes:} Percent wildfire is defined as the share of forest 
+   area burned by wildfire in that county-year. Because these measures normalize by county forest area, they reduce the influence of
+    county size and show that the main results, especially the harvest treatment, are not solely driven by larger counties. 
+\end{minipage}
+\end{table}
+
+
+
+
+
+\clearpage
+\begin{landscape}
+\begin{table}[!htbp]
+\centering
+\caption*{Table A6. Robustness of the Effects of Harvest and Thinning on County-Level Wildfire Burned Area}
+\label{tab:A3}
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l*{12}{c}}
+\\\midrule
+\input{table_A3.tex}
+\end{tabular}%
+}
+
+\vspace{0.5em}
+
+\begin{minipage}{\textwidth}
+\footnotesize
+*** $p<0.01$, ** $p<0.05$, * $p<0.1$.\\
+\textit{Notes:} Columns (1)--(6) report estimates for harvest, and columns (7)--(12) report estimates for thinning. Columns (4) and (10) use a three-year treatment window,
+ which reduces the sample by one year. Columns (5) and (11) use a five-year treatment window. Columns (6) and (12) exclude observations from year 2020, which reduces the
+  sample by three years.
+\end{minipage}
+
+\end{table}
+\end{landscape}
+\clearpage
+
+\end{document}

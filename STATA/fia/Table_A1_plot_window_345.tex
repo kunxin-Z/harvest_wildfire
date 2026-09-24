@@ -1,0 +1,33 @@
+\begin{tabular}{lccccccccc}
+\toprule
+& \multicolumn{3}{c}{Harvest} & \multicolumn{3}{c}{Thinning} & \multicolumn{3}{c}{Joint IV} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+& (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) & (9) \\
+& Wildfire event & Wildfire event & Wildfire event & Wildfire event & Wildfire event & Wildfire event & Wildfire event & Wildfire event & Wildfire event \\
+\midrule
+Harvest (3-year)&  -0.4859\sym{***}&                  &                  &                  &                  &                  &  -0.4018\sym{***}&                  &                  \\
+                & (0.1022)         &                  &                  &                  &                  &                  & (0.1072)         &                  &                  \\
+\addlinespace
+Harvest (4-year)&                  &  -0.4453\sym{***}&                  &                  &                  &                  &                  &  -0.3883\sym{***}&                  \\
+                &                  & (0.0830)         &                  &                  &                  &                  &                  & (0.0824)         &                  \\
+\addlinespace
+Harvest (5-year)&                  &                  &  -0.4327\sym{***}&                  &                  &                  &                  &                  &  -0.3980\sym{***}\\
+                &                  &                  & (0.0751)         &                  &                  &                  &                  &                  & (0.0713)         \\
+\addlinespace
+Thinning (3-year)&                  &                  &                  &  -0.3295\sym{***}&                  &                  &  -0.2610\sym{***}&                  &                  \\
+                &                  &                  &                  & (0.0603)         &                  &                  & (0.0667)         &                  &                  \\
+\addlinespace
+Thinning (4-year)&                  &                  &                  &                  &  -0.1872\sym{***}&                  &                  &  -0.1663\sym{***}&                  \\
+                &                  &                  &                  &                  & (0.0435)         &                  &                  & (0.0471)         &                  \\
+\addlinespace
+Thinning (5-year)&                  &                  &                  &                  &                  &  -0.0793\sym{**} &                  &                  &  -0.0891\sym{**} \\
+                &                  &                  &                  &                  &                  & (0.0338)         &                  &                  & (0.0377)         \\
+\midrule
+Kleibergen-Paap Wald F statistic&   217.04         &   214.64         &   191.47         &   418.96         &   488.11         &   557.45         &    93.84         &   107.14         &   105.77         \\
+Observations    &  774,295         &  761,236         &  746,245         &  774,295         &  761,236         &  746,245         &  774,295         &  761,236         &  746,245         \\
+Plot FE         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         \\
+Year FE         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         \\
+Species group FE&\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         \\
+Ecoregion FE    &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,25 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                &\multicolumn{3}{c}{Harvest}                             &\multicolumn{3}{c}{Thinning}                            \\\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+                &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                &\multicolumn{1}{c}{State IV}&\multicolumn{1}{c}{State-Eco IV}&\multicolumn{1}{c}{County IV}&\multicolumn{1}{c}{State IV}&\multicolumn{1}{c}{State-Eco IV}&\multicolumn{1}{c}{County IV}\\
+\midrule
+Harvest         &  -0.4453\sym{***}&  -0.2790\sym{***}&  -0.1950\sym{***}&                  &                  &                  \\
+                & (0.0830)         & (0.0685)         & (0.0750)         &                  &                  &                  \\
+\addlinespace
+Thinning        &                  &                  &                  &  -0.1872\sym{***}&  -0.1831\sym{***}&  -0.1065\sym{**} \\
+                &                  &                  &                  & (0.0435)         & (0.0437)         & (0.0530)         \\
+\midrule
+Kleibergen-Paap Wald F statistic&   214.64         &   262.55         &   155.54         &   488.11         &   415.47         &   165.12         \\
+Observations    &  761,236         &  761,236         &  761,236         &  761,236         &  761,236         &  761,236         \\
+Plot FE         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         \\
+Year FE         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         \\
+Species group FE&\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         \\
+Ecoregion FE    &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         &\checkmark         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+}

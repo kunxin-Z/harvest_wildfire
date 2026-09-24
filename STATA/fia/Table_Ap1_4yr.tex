@@ -1,0 +1,55 @@
+\begin{tabular}{lcccccccc}
+\toprule
+& \multicolumn{3}{c}{Harvest} & \multicolumn{3}{c}{Thinning} & \multicolumn{1}{c}{Joint IV} & \multicolumn{1}{c}{Thinning vs. Wait} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-8}\cmidrule(lr){9-9}
+& (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) \\
+& \multicolumn{1}{c}{Wildfire event} & \multicolumn{1}{c}{Harvest event} & \multicolumn{1}{c}{Wildfire event} & \multicolumn{1}{c}{Wildfire event} & \multicolumn{1}{c}{Thinning event} & \multicolumn{1}{c}{Wildfire event} & \multicolumn{1}{c}{Wildfire event} & \multicolumn{1}{c}{Wildfire event} \\
+& FE & First stage & IV & FE & First stage & IV & IV & IV \\
+\midrule
+Harvest             &     -0.0000         &                     &     -0.4453\sym{***}&                     &                     &                     &     -0.3883\sym{***}&                     \\
+                    &    (0.0014)         &                     &    (0.0830)         &                     &                     &                     &    (0.0824)         &                     \\
+\addlinespace
+Thinning            &                     &                     &                     &     -0.0014         &                     &     -0.1872\sym{***}&     -0.1663\sym{***}&      0.2166\sym{**} \\
+                    &                     &                     &                     &    (0.0018)         &                     &    (0.0435)         &    (0.0471)         &    (0.0978)         \\
+\addlinespace
+No treatment / wait &                     &                     &                     &                     &                     &                     &                     &      0.3871\sym{***}\\
+                    &                     &                     &                     &                     &                     &                     &                     &    (0.0822)         \\
+\addlinespace
+Harvest shift-share instrument&                     &      0.6116\sym{***}&                     &                     &                     &                     &                     &                     \\
+                    &                     &    (0.0417)         &                     &                     &                     &                     &                     &                     \\
+\addlinespace
+Thinning shift-share instrument&                     &                     &                     &                     &      0.7804\sym{***}&                     &                     &                     \\
+                    &                     &                     &                     &                     &    (0.0353)         &                     &                     &                     \\
+\addlinespace
+Maximum VPD         &      0.0118\sym{***}&      0.0001         &      0.0118\sym{***}&      0.0118\sym{***}&      0.0001         &      0.0117\sym{***}&      0.0118\sym{***}&      0.0118\sym{***}\\
+                    &    (0.0007)         &    (0.0001)         &    (0.0007)         &    (0.0007)         &    (0.0001)         &    (0.0007)         &    (0.0007)         &    (0.0007)         \\
+\addlinespace
+Trees per acre      &      0.0005\sym{**} &     -0.0210\sym{***}&     -0.0089\sym{***}&      0.0005\sym{**} &     -0.0037\sym{***}&     -0.0002         &     -0.0083\sym{***}&     -0.0083\sym{***}\\
+                    &    (0.0002)         &    (0.0006)         &    (0.0018)         &    (0.0002)         &    (0.0004)         &    (0.0003)         &    (0.0017)         &    (0.0017)         \\
+\addlinespace
+Sawtimber volume per acre&     -0.0006         &     -0.0092\sym{***}&     -0.0044\sym{***}&     -0.0006         &     -0.0041\sym{***}&     -0.0013         &     -0.0046\sym{***}&     -0.0047\sym{***}\\
+                    &    (0.0009)         &    (0.0016)         &    (0.0014)         &    (0.0009)         &    (0.0014)         &    (0.0010)         &    (0.0013)         &    (0.0013)         \\
+\addlinespace
+Stand age           &     -0.0006         &     -0.0099\sym{***}&     -0.0051\sym{***}&     -0.0006         &      0.0087\sym{***}&      0.0010         &     -0.0031\sym{***}&     -0.0031\sym{***}\\
+                    &    (0.0005)         &    (0.0008)         &    (0.0010)         &    (0.0005)         &    (0.0005)         &    (0.0006)         &    (0.0011)         &    (0.0011)         \\
+\addlinespace
+Slope               &     -0.0001         &      0.0005\sym{***}&      0.0001         &     -0.0001         &     -0.0001         &     -0.0001         &      0.0001         &      0.0001         \\
+                    &    (0.0001)         &    (0.0001)         &    (0.0001)         &    (0.0001)         &    (0.0001)         &    (0.0001)         &    (0.0001)         &    (0.0001)         \\
+\addlinespace
+Elevation           &      0.0044         &     -0.0148\sym{**} &     -0.0021         &      0.0044         &     -0.0007         &      0.0043         &     -0.0014         &     -0.0014         \\
+                    &    (0.0059)         &    (0.0060)         &    (0.0065)         &    (0.0059)         &    (0.0006)         &    (0.0060)         &    (0.0064)         &    (0.0064)         \\
+\addlinespace
+Bio growth rate     &     -0.0010\sym{***}&     -0.0012\sym{***}&     -0.0017\sym{***}&     -0.0010\sym{***}&      0.0057\sym{***}&      0.0002         &     -0.0005         &     -0.0005         \\
+                    &    (0.0004)         &    (0.0004)         &    (0.0004)         &    (0.0004)         &    (0.0009)         &    (0.0005)         &    (0.0005)         &    (0.0005)         \\
+\addlinespace
+Forestry establishments&      0.0008\sym{**} &     -0.0001         &      0.0007\sym{*}  &      0.0008\sym{**} &     -0.0002         &      0.0006\sym{*}  &      0.0006         &      0.0006         \\
+                    &    (0.0004)         &    (0.0002)         &    (0.0004)         &    (0.0004)         &    (0.0002)         &    (0.0004)         &    (0.0004)         &    (0.0004)         \\
+\midrule
+Kleibergen-Paap Wald F statistic&                     &                     &      214.64         &                     &                     &      488.11         &      107.14         &      108.03         \\
+Observations        &     761,236         &     761,236         &     761,236         &     761,236         &     761,236         &     761,236         &     761,236         &     761,236         \\
+Plot FE             &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Year FE             &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Species group FE    &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+Ecoregion FE        &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         &  \checkmark         \\
+\bottomrule
+\end{tabular}
