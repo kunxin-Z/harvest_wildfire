@@ -1,0 +1,2 @@
+fia_family_owner_v5.csv filter=lfs diff=lfs merge=lfs -text
+panel_county_milling_fire.csv filter=lfs diff=lfs merge=lfs -text
